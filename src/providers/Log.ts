@@ -10,6 +10,8 @@ export class Log {
 
 	constructor() {
 		this.baseDir = path.join(__dirname, '../../.logs/');
+		fs.mkdirSync(`${this.baseDir}/api/`, { recursive: true });
+		fs.mkdirSync(`${this.baseDir}/template/`, { recursive: true });
 	}
 
 	// Adds INFO prefix string to the log string
