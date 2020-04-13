@@ -1,0 +1,152 @@
+team:
+  get:
+    description: List all teams
+    operationId: listTeams
+    parameters:
+      - in: query
+        name: users
+        schema:
+          type: boolean
+        description: Whether to populate or not users
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              required:
+                - response
+              properties:
+                response:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Team"
+  post:
+    description: create a team
+    operationId: createTeam
+    requestBody:
+      description: Team data
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Team"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              required:
+                - response
+              properties:
+                response:
+                  $ref: "#/components/schemas/Team"
+
+team-id:
+  get:
+    description: get a team
+    operationId: getTeam
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: "definitions.yaml#/ObjectID"
+        description: The team ID
+      - in: query
+        name: users
+        schema:
+          type: boolean
+        description: Whether to populate or not users
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              required:
+                - response
+              properties:
+                response:
+                  $ref: "#/components/schemas/Team"
+  patch:
+    description: patches a team
+    operationId: patchTeam
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: 'definitions.yaml#/ObjectID'
+        description: The team ID
+    requestBody:
+      description: Team data
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            minProperties: 1
+            properties:
+              $ref: '#/components/schemas/Team/properties'
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              required:
+                - response
+              properties:
+                response:
+                  $ref: '#/components/schemas/Team'
+  delete:
+    description: delete a team
+    operationId: deleteTeam
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: 'definitions.yaml#/ObjectID'
+        description: The team ID
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              required:
+                - response
+              properties:
+                response:
+                  type: object
+                  required:
+                    - deleted
+                  properties:
+                    deleted:
+                      type: number
+
+components:
+  schemas:
+    Team:
+      type: object
+      additionalProperties: false
+      required:
+        - name
+        - country
+      properties:
+        _id:
+          $ref: "definitions.yaml#/ObjectID"
+        name:
+          type: string
+        country:
+          type: string
+        users:
+          type: array
+          items:
+            oneOf:
+              - $ref: "definitions.yaml#/ObjectID"
+              - $ref: "user.yaml#/components/schemas/User"

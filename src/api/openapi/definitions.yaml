@@ -1,0 +1,44 @@
+ApiError:
+  required:
+    - request
+    - error
+    - status
+    - time
+  additionalProperties: false
+  properties:
+    request:
+      type: object
+    error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+    status:
+      type: number
+    time:
+      type: number
+
+ObjectID:
+  oneOf:
+    - $ref: '#/ObjectIDString'
+    - $ref: '#/ObjectIDObject'
+
+ObjectIDString:
+  type: string
+  minLength: 24
+  maxLength: 24
+
+ObjectIDObject:
+  type: object
+  required:
+    - _bsontype
+    - id
+  properties:
+    _bsontype:
+      type: string
+    id:
+      type: object

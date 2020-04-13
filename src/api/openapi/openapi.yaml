@@ -1,0 +1,20 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Base NodeJS API
+  description: A sample API
+  termsOfService: http://swagger.io/terms/
+servers:
+  - url: http://localhost:4040/api
+  - url: http://someprod.com/api
+paths:
+  /:
+    $ref: 'home.yaml#/home'
+  /user:
+    $ref: 'user.yaml#/user'
+  /user/{id}:
+    $ref: 'user.yaml#/user-id'
+  /team:
+    $ref: 'team.yaml#/team'
+  /team/{id}:
+    $ref: 'team.yaml#/team-id'
