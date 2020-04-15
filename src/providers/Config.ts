@@ -21,9 +21,7 @@ class Config {
 		const apiPath = process.env.API_PATH || '/api/';
 
 		// MongoDB config
-		const mongoHost = process.env.MONGO_HOST || 'localhost';
-		const mongoPort = process.env.MONGO_PORT || 27017;
-		const mongoDB = process.env.MONGO_DB || 'db';
+		const mongoUri = process.env.MONGO_URI;
 
 		const appSecret = process.env.APP_SECRET || 'This is your responsibility!';
 		const maxUploadLimit = process.env.APP_MAX_UPLOAD_LIMIT || '50mb';
@@ -51,9 +49,7 @@ class Config {
 			logDays,
 			maxUploadLimit,
 			maxParameterLimit,
-			mongoHost,
-			mongoPort,
-			mongoDB,
+			mongoUri,
 			port,
 			redisDB,
 			redisHttpPort,
