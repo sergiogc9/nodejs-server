@@ -8,7 +8,7 @@ class ErrorHandler {
 		/**
 	 	* Show server error in case of errors
 		 */
-		const serverErrorHandler: ErrorRequestHandler = (err, req, res) => {
+		const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 			Log.error(err.stack);
 			// OpenApi error
 			if (err.errors && err.status === 500) return Api.errorResponse(req, res, err.status, { code: SERVER_ERROR, message: err.message });
@@ -26,8 +26,8 @@ class ErrorHandler {
 			return Api.errorResponse(req, res, 404, { code: 'NOT_FOUND' });
 		};
 
-		_express.use(serverErrorHandler);
 		_express.use('*', notFoundErrorHandler);
+		_express.use(serverErrorHandler);
 	};
 }
 

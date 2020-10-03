@@ -28,8 +28,8 @@ class ErrorHandler {
 			});
 		};
 
-		_express.use(serverErrorHandler);
 		_express.use('*', notFoundErrorHandler);
+		_express.use(serverErrorHandler);
 	};
 }
 
