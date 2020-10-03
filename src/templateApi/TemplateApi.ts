@@ -5,7 +5,6 @@ import Http from '@src/templateApi/middleware/Http';
 import Views from '@src/templateApi/middleware/Views';
 import Statics from '@src/templateApi/middleware/Statics';
 import ErrorHandler from '@src/templateApi/middleware/ErrorHandler';
-import Config from '@src/providers/Config';
 import Router from './routes/Router';
 
 class TemplateApi {
@@ -15,10 +14,6 @@ class TemplateApi {
 	constructor() {
 		this._express = express();
 	}
-
-	private mountDotEnv = () => {
-		this._express.locals.app = Config.getValues();
-	};
 
 	// Mounts all the defined middleware
 	private mountMiddlewares = () => {
@@ -42,7 +37,6 @@ class TemplateApi {
 
 	// Perform final setup
 	public init = () => {
-		this.mountDotEnv();
 		this.mountMiddlewares();
 		this.mountRoutes();
 		this.finalSetup();

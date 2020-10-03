@@ -6,7 +6,6 @@ import CORS from '@src/api/middleware/CORS';
 import Http from '@src/api/middleware/Http';
 import OpenApi from '@src/api/middleware/OpenApi';
 import ErrorHandler from '@src/api/middleware/ErrorHandler';
-import Config from '@src/providers/Config';
 import Router from './routes/Router';
 
 type ApiError = {
@@ -37,10 +36,6 @@ class Api {
 		this._express = express();
 	}
 
-	private mountDotEnv = () => {
-		this._express.locals.app = Config.getValues();
-	};
-
 	// Mounts all the defined middleware
 	private mountMiddlewares = async () => {
 		Time.mount(this._express);
@@ -62,7 +57,6 @@ class Api {
 
 	// Perform final setup
 	public init = async () => {
-		this.mountDotEnv();
 		await this.mountMiddlewares();
 		this.mountRoutes();
 		this.finalSetup();

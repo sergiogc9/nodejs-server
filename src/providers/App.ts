@@ -1,6 +1,3 @@
-import path from 'path';
-import dotenv from 'dotenv';
-
 import Log from '@src/providers/Log';
 import Express from './Express';
 import { Database } from './Database';
@@ -13,13 +10,6 @@ class App {
 		// Queue.dispatch('checkout', {foo: 'bar', fizz: 'buzz'}, function (data) {
 		// 	console.log('>> here is the data', data);
 		// });
-	};
-
-	// Loads your dotenv file
-	public loadConfiguration = () => {
-		Log.info('Configuration :: Booting @ Master...');
-
-		dotenv.config({ path: path.join(__dirname, '../../.env') });
 	};
 
 	// Loads your Server

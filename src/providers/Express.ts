@@ -19,10 +19,6 @@ class Express {
 		this.express = express();
 	}
 
-	private mountDotEnv = () => {
-		this.express.locals.app = Config.getValues();
-	};
-
 	/**
 	 * Mounts all the defined middlewares
 	 */
@@ -62,7 +58,6 @@ class Express {
 	public init = async () => {
 		const { port } = Config.getValues();
 
-		this.mountDotEnv();
 		this.mountMiddlewares();
 		await this.mountServices();
 

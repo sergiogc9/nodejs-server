@@ -5,9 +5,6 @@ const masterFn = async () => {
 	//  Clear the console before the app runs
 	App.clearConsole();
 
-	//  Load Configuration
-	App.loadConfiguration();
-
 	//  Loads the Queue Monitor iff enabled
 	// App.loadQueue();
 };

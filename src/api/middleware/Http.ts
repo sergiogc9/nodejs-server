@@ -9,7 +9,7 @@ import expressValidator from 'express-validator'; // TODO! remove from package.j
 
 import Log from '@src/api/middleware/Log';
 import Config from '@src/providers/Config';
-import Passport from '@src/providers/Passport';
+// import Passport from '@src/providers/Passport';
 
 // const MongoStore = connect(session);
 
