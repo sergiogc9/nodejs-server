@@ -6,8 +6,10 @@
   "dependencies": {
     "@types/express-jwt": "0.0.42",
     "@types/helmet": "0.0.45",
+    "@types/js-yaml": "3.12.5",
     "@types/lodash": "4.14.149",
     "@types/memory-cache": "0.2.1",
+    "@types/swagger-ui-express": "4.1.2",
     "body-parser": "1.19.0",
     "compression": "1.7.4",
     "connect-mongo": "3.2.0",
@@ -21,13 +23,16 @@
     "express-session": "1.17.0",
     "express-validator": "6.4.0",
     "helmet": "3.22.0",
+    "js-yaml": "3.14.0",
+    "json-refs": "3.0.15",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.15",
     "memory-cache": "0.2.0",
     "moment": "2.24.0",
     "mongoose": "5.10.7",
     "node-ts": "5.0.5",
-    "passport": "0.4.1"
+    "passport": "0.4.1",
+    "swagger-ui-express": "4.1.4"
   },
   "devDependencies": {
     "@types/compression": "1.7.0",
