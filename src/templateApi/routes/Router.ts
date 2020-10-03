@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import HomeController from '@src/templateApi/controllers/Home';
-import Cache from '@src/providers/Cache';
+import HomeController from 'templateApi/controllers/Home';
+import Cache from 'providers/Cache';
 
 const router = Router();
 const { cache } = Cache;

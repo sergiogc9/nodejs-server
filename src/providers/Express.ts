@@ -3,9 +3,9 @@ import path from 'path';
 import proxy from 'express-http-proxy';
 import isEmpty from 'lodash/isEmpty';
 
-import Log from '@src/providers/Log';
-import Api from '@src/api/Api';
-import TemplateApi from '@src/templateApi/TemplateApi';
+import Log from 'providers/Log';
+import Api from 'api/Api';
+import TemplateApi from 'templateApi/TemplateApi';
 import Config from './Config';
 
 class Express {

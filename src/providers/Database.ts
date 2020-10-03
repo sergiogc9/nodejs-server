@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import Log from '@src/providers/Log';
+import Log from 'providers/Log';
 import Config from './Config';
 
 export class Database {

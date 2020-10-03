@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 
-import Api, { NOT_FOUND_ERROR } from '@src/api/Api';
-import { TeamModel, TeamSchemaAttributes } from '@src/models/Team';
+import Api, { NOT_FOUND_ERROR } from 'api/Api';
+import { TeamModel, TeamSchemaAttributes } from 'models/Team';
 
 class TeamController {
 	public static list: RequestHandler = async (req, res) => {

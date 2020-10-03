@@ -1,7 +1,7 @@
 import cors from 'cors';
 import { Application } from 'express';
 
-import Log from '@src/api/middleware/Log';
+import Log from 'api/middleware/Log';
 
 class CORS {
 	static mount(_express: Application): Application {

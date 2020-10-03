@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Model, model } from 'mongoose';
-import { BaseModel, BaseDocument, BaseModelConstructor, createBaseModelSchema } from '@src/providers/Model';
+import { BaseModel, BaseDocument, BaseModelConstructor, createBaseModelSchema } from 'providers/Model';
 
 const userSchemaAttributes = {
 	email: { type: String, required: true, unique: true },

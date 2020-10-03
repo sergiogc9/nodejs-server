@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import HomeController from '@src/api/controllers/Home';
-import UserController from '@src/api/controllers/User';
-import TeamController from '@src/api/controllers/Team';
-import expressAsyncHandler from '@src/lib/expressAsyncHandler';
+import HomeController from 'api/controllers/Home';
+import UserController from 'api/controllers/User';
+import TeamController from 'api/controllers/Team';
+import expressAsyncHandler from 'lib/expressAsyncHandler';
 
 const router = Router();
 

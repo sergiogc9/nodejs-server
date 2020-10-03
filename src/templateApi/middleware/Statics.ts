@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 
-import Log from '@src/templateApi/middleware/Log';
+import Log from 'templateApi/middleware/Log';
 
 class Statics {
 	public static mount(_express: express.Application): express.Application {

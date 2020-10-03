@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-import Api from '@src/api/Api';
+import Api from 'api/Api';
 
 class HomeController {
 	public static index: RequestHandler = (req, res) => {

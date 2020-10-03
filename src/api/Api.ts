@@ -1,11 +1,11 @@
 import express from 'express';
 import isArray from 'lodash/isArray';
 
-import Time from '@src/api/middleware/Time';
-import CORS from '@src/api/middleware/CORS';
-import Http from '@src/api/middleware/Http';
-import OpenApi from '@src/api/middleware/OpenApi';
-import ErrorHandler from '@src/api/middleware/ErrorHandler';
+import Time from 'api/middleware/Time';
+import CORS from 'api/middleware/CORS';
+import Http from 'api/middleware/Http';
+import OpenApi from 'api/middleware/OpenApi';
+import ErrorHandler from 'api/middleware/ErrorHandler';
 import Router from './routes/Router';
 
 type ApiError = {

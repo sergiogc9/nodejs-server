@@ -1,7 +1,7 @@
 import { Application } from 'express';
 import { OpenApiValidator } from 'express-openapi-validator';
 
-import Log from '@src/api/middleware/Log';
+import Log from 'api/middleware/Log';
 
 class OpenApi {
 	static async mount(_express: Application): Promise<Application> {

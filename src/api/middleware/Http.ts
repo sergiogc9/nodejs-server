@@ -7,9 +7,9 @@ import bodyParser from 'body-parser';
 import session from 'express-session'; // TODO! remove from package.json if not used
 import expressValidator from 'express-validator'; // TODO! remove from package.json if not used
 
-import Log from '@src/api/middleware/Log';
-import Config from '@src/providers/Config';
-// import Passport from '@src/providers/Passport';
+import Log from 'api/middleware/Log';
+import Config from 'providers/Config';
+// import Passport from 'providers/Passport';
 
 // const MongoStore = connect(session);
 

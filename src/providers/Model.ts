@@ -1,4 +1,4 @@
-import mongoose from '@src/providers/Database';
+import mongoose from 'providers/Database';
 
 export type BaseModelConstructor<Model, ModelSchemaAttributes extends Partial<keyof Model>> = new (obj: Pick<Model, ModelSchemaAttributes>) => Model;
 export type BaseModel<K> = K & mongoose.Document;

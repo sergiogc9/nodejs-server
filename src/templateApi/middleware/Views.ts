@@ -1,7 +1,7 @@
 import path from 'path';
 import { Application } from 'express';
 
-import Log from '@src/templateApi/middleware/Log';
+import Log from 'templateApi/middleware/Log';
 
 class Views {
 	public static mount(_express: Application): Application {

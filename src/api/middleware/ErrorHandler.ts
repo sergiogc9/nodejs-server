@@ -1,7 +1,7 @@
 import { Application, ErrorRequestHandler, RequestHandler } from 'express';
 
-import Log from '@src/api/middleware/Log';
-import Api, { OPENAPI_VALIDATION_ERROR, SERVER_ERROR } from '@src/api/Api';
+import Log from 'api/middleware/Log';
+import Api, { OPENAPI_VALIDATION_ERROR, SERVER_ERROR } from 'api/Api';
 
 class ErrorHandler {
 	static mount = (_express: Application) => {

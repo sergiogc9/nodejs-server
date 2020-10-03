@@ -1,4 +1,4 @@
-import Log from '@src/providers/Log';
+import Log from 'providers/Log';
 import Express from './Express';
 import { Database } from './Database';
 

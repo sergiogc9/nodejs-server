@@ -1,10 +1,10 @@
 import express from 'express';
 
-import CORS from '@src/templateApi/middleware/CORS';
-import Http from '@src/templateApi/middleware/Http';
-import Views from '@src/templateApi/middleware/Views';
-import Statics from '@src/templateApi/middleware/Statics';
-import ErrorHandler from '@src/templateApi/middleware/ErrorHandler';
+import CORS from 'templateApi/middleware/CORS';
+import Http from 'templateApi/middleware/Http';
+import Views from 'templateApi/middleware/Views';
+import Statics from 'templateApi/middleware/Statics';
+import ErrorHandler from 'templateApi/middleware/ErrorHandler';
 import Router from './routes/Router';
 
 class TemplateApi {

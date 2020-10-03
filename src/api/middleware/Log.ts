@@ -1,4 +1,4 @@
-import { Log } from '@src/providers/Log';
+import { Log } from 'providers/Log';
 
 class ApiLog extends Log {
 	constructor() {

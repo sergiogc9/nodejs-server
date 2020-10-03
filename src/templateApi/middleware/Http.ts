@@ -4,8 +4,8 @@ import { Application } from 'express';
 import compress from 'compression';
 import bodyParser from 'body-parser';
 
-import Log from '@src/templateApi/middleware/Log';
-import Config from '@src/providers/Config';
+import Log from 'templateApi/middleware/Log';
+import Config from 'providers/Config';
 
 // const MongoStore = connect(session);
 

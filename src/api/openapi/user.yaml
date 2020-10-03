@@ -1,139 +1,139 @@
 user:
-  get:
-    description: List all users
-    operationId: listUsers
-    responses:
-      '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              required:
-                - response
-              properties:
-                response:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/User'
-  post:
-    description: create an user
-    operationId: createUser
-    requestBody:
-      description: User data
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
-    responses:
-      '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              required:
-                - response
-              properties:
-                response:
-                  $ref: '#/components/schemas/User'
+    get:
+        description: List all users
+        operationId: listUsers
+        responses:
+            "200":
+                description: OK
+                content:
+                    application/json:
+                        schema:
+                            required:
+                                - response
+                            properties:
+                                response:
+                                    type: array
+                                    items:
+                                        $ref: "#/components/schemas/User"
+    post:
+        description: create an user
+        operationId: createUser
+        requestBody:
+            description: User data
+            required: true
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/User"
+        responses:
+            "200":
+                description: OK
+                content:
+                    application/json:
+                        schema:
+                            required:
+                                - response
+                            properties:
+                                response:
+                                    $ref: "#/components/schemas/User"
 
 user-id:
-  get:
-    description: get an user
-    operationId: getUser
-    parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          $ref: 'definitions.yaml#/ObjectID'
-        description: The user ID
-    responses:
-      '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              required:
-                - response
-              properties:
-                response:
-                  $ref: '#/components/schemas/User'
-  patch:
-    description: patches an user
-    operationId: patchUser
-    parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          $ref: 'definitions.yaml#/ObjectID'
-        description: The user ID
-    requestBody:
-      description: User data
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            minProperties: 1
-            properties:
-              $ref: '#/components/schemas/User/properties'
-    responses:
-      '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              required:
-                - response
-              properties:
-                response:
-                  $ref: '#/components/schemas/User'
-  delete:
-    description: delete an user
-    operationId: deleteUser
-    parameters:
-      - in: path
-        name: id
-        required: true
-        schema:
-          $ref: 'definitions.yaml#/ObjectID'
-        description: The user ID
-    responses:
-      '200':
-        description: OK
-        content:
-          application/json:
-            schema:
-              required:
-                - response
-              properties:
-                response:
-                  type: object
-                  required:
-                    - deleted
-                  properties:
-                    deleted:
-                      type: number
+    get:
+        description: get an user
+        operationId: getUser
+        parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                  $ref: "definitions.yaml#/ObjectID"
+              description: The user ID
+        responses:
+            "200":
+                description: OK
+                content:
+                    application/json:
+                        schema:
+                            required:
+                                - response
+                            properties:
+                                response:
+                                    $ref: "#/components/schemas/User"
+    patch:
+        description: patches an user
+        operationId: patchUser
+        parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                  $ref: "definitions.yaml#/ObjectID"
+              description: The user ID
+        requestBody:
+            description: User data
+            required: true
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        additionalProperties: false
+                        minProperties: 1
+                        properties:
+                            $ref: "#/components/schemas/User/properties"
+        responses:
+            "200":
+                description: OK
+                content:
+                    application/json:
+                        schema:
+                            required:
+                                - response
+                            properties:
+                                response:
+                                    $ref: "#/components/schemas/User"
+    delete:
+        description: delete an user
+        operationId: deleteUser
+        parameters:
+            - in: path
+              name: id
+              required: true
+              schema:
+                  $ref: "definitions.yaml#/ObjectID"
+              description: The user ID
+        responses:
+            "200":
+                description: OK
+                content:
+                    application/json:
+                        schema:
+                            required:
+                                - response
+                            properties:
+                                response:
+                                    type: object
+                                    required:
+                                        - deleted
+                                    properties:
+                                        deleted:
+                                            type: number
 
 components:
-  schemas:
-    User:
-      type: object
-      additionalProperties: false
-      required:
-        - email
-        - firstName
-        - lastName
-      properties:
-        _id:
-          $ref: 'definitions.yaml#/ObjectID'
-        email:
-          type: string
-          format: email
-        firstName:
-          type: string
-        lastName:
-          type: string
+    schemas:
+        User:
+            type: object
+            additionalProperties: false
+            required:
+                - email
+                - firstName
+                - lastName
+            properties:
+                _id:
+                    $ref: "definitions.yaml#/ObjectID"
+                email:
+                    type: string
+                    format: email
+                firstName:
+                    type: string
+                lastName:
+                    type: string

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 
-import Api, { NOT_FOUND_ERROR } from '@src/api/Api';
-import { UserModel, UserSchemaAttributes } from '@src/models/User';
+import Api, { NOT_FOUND_ERROR } from 'api/Api';
+import { UserModel, UserSchemaAttributes } from 'models/User';
 
 class UserController {
 	public static list: RequestHandler = async (req, res) => {

@@ -1,4 +1,4 @@
-import Cluster from '@src/providers/Cluster';
+import Cluster from 'providers/Cluster';
 import App from './providers/App';
 
 const masterFn = async () => {

@@ -1,6 +1,6 @@
 import { Application, ErrorRequestHandler, RequestHandler } from 'express';
 
-import Log from '@src/templateApi/middleware/Log';
+import Log from 'templateApi/middleware/Log';
 
 class ErrorHandler {
 	static mount = (_express: Application) => {
