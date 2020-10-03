@@ -20,12 +20,15 @@ export default class Config {
 			apiPath: '/api/',
 
 			// MongoDB config
-			mongoUri: 'mongodb://sergio:Foxcaxaza11@192.168.3.10:27017/fox-home-test?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false',
+			mongoUri: 'mongodb://sergio:pass@192.168.3.10:27017/fox-home-test?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false',
 
 			// Express config
 			appSecret: 'This is your responsibility!',
 			maxUploadLimit: '50mb',
 			maxParameterLimit: 1000,
+			reverseProxyPaths: [{
+				from: '/netdata', to: '192.168.3.10:19999'
+			}],
 
 			jwtExpiresIn: 3,
 

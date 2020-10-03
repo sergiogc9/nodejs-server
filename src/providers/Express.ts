@@ -1,5 +1,7 @@
 import express from 'express';
 import path from 'path';
+import proxy from 'express-http-proxy';
+import isEmpty from 'lodash/isEmpty';
 
 import Log from '@src/providers/Log';
 import Api from '@src/api/Api';
@@ -29,6 +31,13 @@ class Express {
 	 */
 	private mountServices = async () => {
 		const config = Config.getValues();
+		if (!isEmpty(config.reverseProxyPaths)) {
+			Log.info('Routes :: Mounting Reverse Proxy');
+			const proxyPaths = config.reverseProxyPaths;
+			proxyPaths.forEach(proxyPath => {
+				this.express.use(proxyPath.from, proxy(proxyPath.to));
+			});
+		}
 		if (config.enableApi) {
 			Log.info('Routes :: Mounting API Routes...');
 			const api = new Api();
