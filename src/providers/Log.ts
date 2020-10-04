@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
-import moment from 'moment';
 import cluster from 'cluster';
+import {DateTime} from 'luxon';
 
 export class Log {
 	public baseDir: string;
@@ -42,8 +42,8 @@ export class Log {
 	 * append the log kind & string into the file.
 	 */
 	private __addLog(_kind: string, _string: string): void {
-		const fileDateString = moment().format('YYYY-MM-DD');
-		const timeString = moment().format('DD/MM/YYYY HH:mm');
+		const fileDateString = DateTime.local().toFormat('yyyy-MM-dd');
+		const timeString = DateTime.local().toFormat('dd/MM/yyyy HH:mm');
 
 		const fileName = `${fileDateString}.log`;
 		const workerIdPrefix = cluster.isMaster ? '[MASTER]' : `[${cluster.worker.process.pid}]`;
