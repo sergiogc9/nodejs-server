@@ -14,6 +14,7 @@
     "compression": "1.7.4",
     "connect-mongo": "3.2.0",
     "cors": "2.8.5",
+    "dotenv": "8.2.0",
     "ejs": "3.0.2",
     "eslint": "6.8.0",
     "express": "4.17.1",
@@ -57,7 +58,8 @@
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "ts-node-dev --transpileOnly -r tsconfig-paths/register src/index.ts",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "env": "node env"
   },
   "engines": {
     "node": "14.8.x",

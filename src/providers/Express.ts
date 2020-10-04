@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import Log from 'providers/Log';
 import Api from 'api/Api';
 import TemplateApi from 'templateApi/TemplateApi';
-import Config from './Config';
+import config from 'config';
 
 class Express {
 	/**
@@ -30,7 +30,6 @@ class Express {
 	 * Mounts all services
 	 */
 	private mountServices = async () => {
-		const config = Config.getValues();
 		if (!isEmpty(config.reverseProxyPaths)) {
 			Log.info('Routes :: Mounting Reverse Proxy');
 			const proxyPaths = config.reverseProxyPaths;
@@ -65,7 +64,7 @@ class Express {
 	 * Starts the express server
 	 */
 	public init = async () => {
-		const { port } = Config.getValues();
+		const { port } = config;
 
 		this.mountMiddlewares();
 		await this.mountServices();

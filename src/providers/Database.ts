@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 import Log from 'providers/Log';
-import Config from './Config';
+import config from 'Config';
 
 export class Database {
 	// Initialize your database pool
 	public static init = async () => {
-		const { mongoUri } = Config.getValues();
+		const { mongoUri } = config;
 		const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 		mongoose.set('useCreateIndex', true);

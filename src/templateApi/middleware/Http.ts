@@ -5,7 +5,7 @@ import compress from 'compression';
 import bodyParser from 'body-parser';
 
 import Log from 'templateApi/middleware/Log';
-import Config from 'providers/Config';
+import config from 'config';
 
 // const MongoStore = connect(session);
 
@@ -15,12 +15,12 @@ class Http {
 
 		// Enables the request body parser
 		_express.use(bodyParser.json({
-			limit: Config.getValues().maxUploadLimit
+			limit: config.maxUploadLimit
 		}));
 
 		_express.use(bodyParser.urlencoded({
-			limit: Config.getValues().maxUploadLimit,
-			parameterLimit: Config.getValues().maxParameterLimit,
+			limit: config.maxUploadLimit,
+			parameterLimit: config.maxParameterLimit,
 			extended: false
 		}));
 
@@ -39,7 +39,7 @@ class Http {
 		// const options = {
 		// 	resave: true,
 		// 	saveUninitialized: true,
-		// 	secret: Config.getValues().appSecret,
+		// 	secret: config.appSecret,
 		// 	cookie: {
 		// 		maxAge: 1209600000 // two weeks (in ms)
 		// 	},
