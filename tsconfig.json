@@ -7,12 +7,12 @@
 		"noImplicitAny": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true,
-		"baseUrl": ".",
+		"baseUrl": "./src",
 		"paths": {
 			"*": [
-				"src/*"
+				"./*"
 			]
-		},
+		}
 	},
 	"include": [
 		"src/**/*.ts"
