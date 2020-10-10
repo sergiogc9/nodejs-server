@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import cluster from 'cluster';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
 export class Log {
 	public baseDir: string;
@@ -10,8 +10,8 @@ export class Log {
 
 	constructor() {
 		this.baseDir = path.join(__dirname, '../../.logs/');
-		fs.mkdirSync(`${this.baseDir}/api/`, { recursive: true });
-		fs.mkdirSync(`${this.baseDir}/template/`, { recursive: true });
+		if (!fs.existsSync(`${this.baseDir}/api/`)) fs.mkdirSync(`${this.baseDir}/api/`, { recursive: true });
+		if (!fs.existsSync(`${this.baseDir}/template/`)) fs.mkdirSync(`${this.baseDir}/template/`, { recursive: true });
 	}
 
 	// Adds INFO prefix string to the log string
