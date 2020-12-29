@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import Log from 'providers/Log';
-import config from 'Config';
+import config from 'config';
 
 export class Database {
 	// Initialize your database pool

@@ -2,25 +2,9 @@
 	"compilerOptions": {
 		"target": "es6",
 		"module": "CommonJS",
-		"outDir": "dist/",
 		"sourceMap": true,
 		"noImplicitAny": true,
 		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"baseUrl": "./src",
-		"paths": {
-			"*": [
-				"./*"
-			]
-		}
-	},
-	"include": [
-		"src/**/*.ts"
-	],
-	"watch": [
-		"src/**/*.yaml"
-	],
-	"exclude": [
-		"node_modules"
-	]
+		"esModuleInterop": true
+	}
 }
