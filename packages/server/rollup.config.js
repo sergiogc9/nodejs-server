@@ -1,6 +1,7 @@
 // rollup.config.js
 import typescript from '@rollup/plugin-typescript';
 import alias from '@rollup/plugin-alias';
+import copy from 'rollup-plugin-copy'
 import dts from "rollup-plugin-dts";
 import path from 'path';
 
@@ -9,14 +10,21 @@ const config = [
 		input: 'src/index.ts',
 		output: {
 			dir: 'dist',
-			format: 'es',
+			format: 'cjs',
 			sourcemap: 'true'
 		},
-		plugins: [typescript()]
+		plugins: [
+			typescript(),
+			copy({
+				targets: [
+					{ src: 'src/ssrApi/views', dest: 'dist' }
+				]
+			})
+		]
 	},
 	{
 		input: 'src/index.ts',
-		output: [{ file: "dist/index.d.ts", format: "es" }],
+		output: [{ file: "dist/index.d.ts", format: "cjs" }],
 		plugins: [
 			dts(),
 			alias({
