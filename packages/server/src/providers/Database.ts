@@ -20,7 +20,7 @@ export class Database {
 				Log.error('Failed to connect to the Mongo server!!');
 				Log.error(error.stack);
 			}
-		} else Log.info('Not connected to Mongo server because no config was provided.')
+		} else Log.info('Not connected to Mongo server because no config was provided.');
 	};
 }
 

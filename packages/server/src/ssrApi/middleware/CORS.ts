@@ -18,7 +18,6 @@ class CORS {
 			_express.use(cors(options));
 		} else _express.use(cors());
 
-
 		return _express;
 	}
 }

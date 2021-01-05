@@ -73,10 +73,8 @@ class Express {
 		await this.mountServices();
 
 		// Start the server on the specified port
-		this.express.listen(port, () => {
-			// eslint-disable-next-line no-console
-			return console.log('\x1b[33m%s\x1b[0m', `Server :: Running @ 'http://localhost:${port}'`);
-		});
+		// eslint-disable-next-line no-console
+		this.express.listen(port, () => console.log('\x1b[33m%s\x1b[0m', `Server :: Running @ 'http://localhost:${port}'`));
 	};
 }
 

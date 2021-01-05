@@ -1,28 +1,28 @@
-import { Router } from "express";
+import { Router } from 'express';
 
 export type StaticServerConfig = {
 	staticWebFolder: string; // Directory where static web files are in the server
 	staticWebPath?: string; // Server endpoint path where static web will be served. Default: '/'
-}
+};
 
 export type ApiServerConfig = {
 	apiPath?: string; // Server endpoint where api will be served. Default: '/api/'
 	apiCors?: string[]; // CORS urls to use in API. Each origin can be a String or a RegExp. If not provided, no CORS is enabled.
 	openApiPath?: string; // Path where the openapi root yaml file is located. Is not passed, swagger based docs will not appear and parameters validation won't work
 	apiRoutes: Array<{ path: string, router?: Router }>; // Routes to serve in api. Each path should have a valid Router instance.
-}
+};
 
 export type SSRApiServerConfig = {
 	ssrApiPath?: string; // Server endpoint path where ssr based server will be served. Default: '/ssr/'
 	ssrApiCors?: string[]; // CORS urls to use in SSR API. Each origin can be a String or a RegExp. If not provided, no CORS is enabled.
-	ssrPublicPath?: string; // The path where public content for SSR API rendering is located. The assets will be served behind the /public path after ssrApiPath. If not set not public assets will be served.
+	ssrPublicPath?: string; // The path where public content for SSR is located. The assets will be served behind the /public path after ssrApiPath. If not set not public assets will be served.
 	ssrViewsPath: string; // The path where views are located. If a page is not found, an error page located at `pages/error.ejs` will be shown. If page is not provided, a default one is shown.
 	ssrApiRoutes: Array<{ path: string, router?: Router }>; // Routes to serve in ssr api. Each path should have a valid Router instance.
-}
+};
 
 export type ProxyServerConfig = {
 	reverseProxyPaths: Array<{ from: string, to: string }>;
-}
+};
 
 export type PublicConfig = StaticServerConfig & ApiServerConfig & SSRApiServerConfig & ProxyServerConfig & {
 	enableStaticWeb: boolean; // Enable or disable static web server. Default: false
@@ -37,7 +37,7 @@ export type PublicConfig = StaticServerConfig & ApiServerConfig & SSRApiServerCo
 export type PrivateConfig = {
 	maxUploadLimit: string;
 	maxParameterLimit: number;
-}
+};
 
 export type ServerConfig = PublicConfig & PrivateConfig;
 
@@ -68,14 +68,14 @@ class Config {
 
 		// Private config
 		maxUploadLimit: '50mb',
-		maxParameterLimit: 1000,
-	}
+		maxParameterLimit: 1000
+	};
 
 	public get = () => this.__config;
 
 	public init = (config: Partial<ServerConfig>) => {
 		this.__config = { ...this.__config, ...config };
-	}
+	};
 }
 
 export default new Config();

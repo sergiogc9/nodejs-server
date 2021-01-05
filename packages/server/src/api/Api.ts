@@ -54,9 +54,8 @@ class Api {
 		const { apiRoutes } = Config.get();
 		apiRoutes.forEach(({ path, router }) => {
 			this._express.use(path, router);
-		})
+		});
 	};
-
 
 	// Perform final setup
 	public init = async () => {

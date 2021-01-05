@@ -38,7 +38,7 @@ class OpenApi {
 					$refParser: {
 						mode: 'dereference'
 					}
-				}),
+				})
 			);
 		}
 

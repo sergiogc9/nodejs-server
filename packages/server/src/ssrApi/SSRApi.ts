@@ -34,9 +34,8 @@ class SSRApi {
 		const { ssrApiRoutes } = Config.get();
 		ssrApiRoutes.forEach(({ path, router }) => {
 			this._express.use(path, router);
-		})
+		});
 	};
-
 
 	// Perform final setup
 	public init = () => {

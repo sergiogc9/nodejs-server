@@ -22,8 +22,18 @@
 			}
 		],
 		"@typescript-eslint/indent": 0,
+		"@typescript-eslint/comma-dangle": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/lines-between-class-members": [
+			"error",
+			{
+				"exceptAfterSingleLine": true
+			}
+		],
+		"max-classes-per-file": "off",
 		"no-tabs": 0,
 		"import/no-extraneous-dependencies": "off",
+		"import/prefer-default-export": "off",
 		"class-methods-use-this": "off",
 		"no-underscore-dangle": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",

@@ -1,6 +1,6 @@
 import App from 'src/providers/App';
-import Cluster from "src/providers/Cluster";
-import Config, { ApiServerConfig, ProxyServerConfig, ServerConfig, StaticServerConfig, SSRApiServerConfig } from "src/providers/Config";
+import Cluster from 'src/providers/Cluster';
+import Config, { ApiServerConfig, ProxyServerConfig, ServerConfig, StaticServerConfig, SSRApiServerConfig } from 'src/providers/Config';
 
 class Server {
 	constructor(config: Partial<ServerConfig>) {
@@ -10,7 +10,7 @@ class Server {
 	public start = async (startFn?: () => Promise<any>) => {
 		await this.__start();
 		if (startFn) await startFn();
-	}
+	};
 
 	public startCluster = async (masterFn?: () => Promise<any>, workerFn?: () => Promise<any>) => {
 		const finalMasterFn = async () => {
@@ -23,7 +23,7 @@ class Server {
 		};
 		const cluster = new Cluster();
 		await cluster.start(finalMasterFn, finalWorkerFn);
-	}
+	};
 
 	private __start = async () => {
 		//  Clear the console before the app runs
@@ -31,14 +31,14 @@ class Server {
 
 		await App.loadDatabase();
 		await App.loadServer();
-	}
+	};
 
 	private __masterFn = async () => {
 		//  Clear the console before the app runs
 		App.clearConsole();
 
 		await App.loadDatabase();
-	}
+	};
 
 	private __workerFn = async () => {
 		// Run the Database pool
@@ -46,7 +46,7 @@ class Server {
 
 		//  Run the Server on Clusters
 		await App.loadServer();
-	}
+	};
 }
 
 export class StaticServer extends Server {
