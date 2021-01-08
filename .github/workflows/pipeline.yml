@@ -46,3 +46,5 @@ jobs:
       - name: Publish
         if: contains(github.ref, 'master')
         run: yarn run publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
