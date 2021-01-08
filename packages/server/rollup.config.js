@@ -1,8 +1,8 @@
 // rollup.config.js
 import typescript from '@rollup/plugin-typescript';
 import alias from '@rollup/plugin-alias';
-import copy from 'rollup-plugin-copy'
-import dts from "rollup-plugin-dts";
+import copy from 'rollup-plugin-copy';
+import dts from 'rollup-plugin-dts';
 import path from 'path';
 
 const config = [
@@ -24,14 +24,14 @@ const config = [
 	},
 	{
 		input: 'src/index.ts',
-		output: [{ file: "dist/index.d.ts", format: "cjs" }],
+		output: [{ file: 'dist/index.d.ts', format: 'cjs' }],
 		plugins: [
 			dts(),
 			alias({
 				entries: [
 					{ find: /^src\/(.+)/, replacement: path.resolve(__dirname, './src/$1') }
 				]
-			})],
+			})]
 	}
 ];
 
