@@ -47,6 +47,6 @@ jobs:
         run: yarn bootstrap
       - name: Publish
         if: contains(github.ref, 'master')
-        run: yarn run publish
+        run: yarn run publish --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
