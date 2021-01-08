@@ -16,7 +16,7 @@
     "unlink:all": "lerna exec --parallel --bail=false yarn unlink",
     "prepare": "lerna run prepare",
     "bootstrap": "lerna bootstrap",
-    "version:change": "lerna version",
+    "version:change": "lerna version --no-push",
     "publish": "lerna publish from-git"
   },
   "devDependencies": {
