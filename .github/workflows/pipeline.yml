@@ -44,4 +44,5 @@ jobs:
       - name: Build
         run: yarn bootstrap
       - name: Publish
-        run: echo "Not implemented"
+        if: contains(github.ref, 'master')
+        run: yarn run publish
