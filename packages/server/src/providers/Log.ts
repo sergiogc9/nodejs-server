@@ -66,14 +66,14 @@ export class Log {
 					if (!_err2) {
 						fs.close(_fileDescriptor, (_err3: any) => {
 							if (!_err3) return true;
-							return console.log('\x1b[31m%s\x1b[0m', 'Error closing log file that was being appended');
+							return console.log('\x1b[31m%s\x1b[0m', 'Error closing log file that was being appended.');
 						});
 					} else {
-						return console.log('\x1b[31m%s\x1b[0m', 'Error appending to the log file');
+						return console.log('\x1b[31m%s\x1b[0m', 'Error appending to the log file.');
 					}
 				});
 			} else {
-				return console.log('\x1b[31m%s\x1b[0m', 'Error couldn\'t open the log file for appending');
+				return console.log('\x1b[31m%s\x1b[0m', 'Error couldn\'t open the log file for appending.');
 			}
 		});
 		/* eslint-enable consistent-return */
