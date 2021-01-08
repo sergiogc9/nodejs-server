@@ -10,6 +10,7 @@
   "scripts": {
     "start": "ts-node --files --transpile-only examples/index.ts",
     "dev": "lerna run watch --parallel & ts-node-dev --poll --transpile-only examples/index.ts",
+    "lint": "eslint packages/",
     "link:all": "lerna exec --parallel yarn link",
     "unlink:all": "lerna exec --parallel --bail=false yarn unlink",
     "prepare": "lerna run prepare",
