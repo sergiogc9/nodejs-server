@@ -6,9 +6,9 @@ name: Github Pipeline
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,23 +31,45 @@ jobs:
       - uses: actions/checkout@v2
       - name: Fetch tags
         run: git fetch --tags
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://npm.pkg.github.com'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            **/node_modules
+          key: ${{ runner.os }}-yarn-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-modules-
+            ${{ runner.os }}-
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --ignore-scripts --frozen-lockfile
       - name: Check lint
         run: yarn lint
       - name: Build
         run: yarn bootstrap
-      - name: Publish
+      - name: Publish to Github
         if: contains(github.ref, 'master')
-        run: yarn run publish --yes
+        run: |
+          cat /home/runner/work/_temp/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up node for NPM
+        uses: actions/setup-node@v2
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          scope: "@sergiogc9"
+      - name: Publish to NPM
+        if: contains(github.ref, 'master')
+        run: |
+          cat /home/runner/work/_temp/.npmrc
+          yarn run publish --yes --no-verify-access --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

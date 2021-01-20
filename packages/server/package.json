@@ -8,6 +8,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "rollup -c ./rollup.config.js",
     "watch": "rollup -w -c ./rollup.config.js"
