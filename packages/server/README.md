@@ -10,9 +10,8 @@ It is an easy to setup nodejs based server which allows to start different kind 
 - Working as a single entry point in a server using Reverse Proxy.
 - Executing extra nodeJs code in cluster by using the NodeJS cluster API.
 
-### Installation
+### Getting started
 
-// TODO!
 To start using the server, install the package from npm, which comes with all needed types defined:
 
 `yarn add -S @sergiogc9/nodejs-server` or `npm install --save @sergiogc9/nodejs-server`.
@@ -184,6 +183,4 @@ More information and documentation about each library can be found on its corres
 
 ### Configuration options
 
-// TODO REMOVE Library from here!
-// Common options
-// Separate specific options by server type!
+// Not yet available...
