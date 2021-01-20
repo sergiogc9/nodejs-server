@@ -57,8 +57,7 @@ jobs:
         run: yarn bootstrap
       - name: Publish to Github
         if: contains(github.ref, 'master')
-        run: |
-          cat /home/runner/work/_temp/.npmrc
+        run: yarn run publish --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up node for NPM
@@ -68,8 +67,6 @@ jobs:
           scope: "@sergiogc9"
       - name: Publish to NPM
         if: contains(github.ref, 'master')
-        run: |
-          cat /home/runner/work/_temp/.npmrc
-          yarn run publish --yes --no-verify-access --ignore-scripts
+        run: yarn run publish --yes --no-verify-access --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

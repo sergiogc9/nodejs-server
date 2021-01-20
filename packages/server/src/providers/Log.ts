@@ -73,7 +73,7 @@ export class Log {
 					}
 				});
 			} else {
-				return console.log('\x1b[31m%s\x1b[0m', 'Error could not open the log file for appending.');
+				return console.log('\x1b[31m%s\x1b[0m', 'Error couldn\'t open the log file for appending.');
 			}
 		});
 		/* eslint-enable consistent-return */
