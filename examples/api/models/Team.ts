@@ -1,21 +1,19 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { Model, model, Schema } from 'mongoose';
-import { BaseModel, BaseDocument, BaseModelConstructor, createBaseModelSchema } from '@sergiogc9/nodejs-server';
-import { User } from './User';
+import { Schema } from 'mongoose';
+import { BaseDocument, createModel, Document } from '@sergiogc9/nodejs-server';
+import { UserDocument } from './User';
 
-const teamSchemaAttributes = {
+const teamSchemaDefinition = {
 	name: { type: String, required: true },
 	country: { type: String, required: true },
 	users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 };
 
-const teamSchema = createBaseModelSchema(teamSchemaAttributes);
-
-class TeamDocument extends BaseDocument {
+class TeamBaseDocument extends BaseDocument {
 
 	public name: string;
 	public country: string;
-	public users: User[];
+	public users: UserDocument[] | string[];
 
 	__preSave() {
 		super.__preSave();
@@ -26,13 +24,10 @@ class TeamDocument extends BaseDocument {
 	}
 }
 
-teamSchema.loadClass(TeamDocument);
+type TeamDocument = Document<TeamBaseDocument>;
+type TeamAttributes = Pick<TeamDocument, keyof typeof teamSchemaDefinition>;
 
-export type TeamSchemaAttributes = Pick<TeamDocument, keyof typeof teamSchemaAttributes>;
+const Team = createModel<TeamBaseDocument, TeamAttributes>('Team', TeamBaseDocument, teamSchemaDefinition);
 
-type TeamModelSchema = Model<Team> & {
-	new: (user: TeamSchemaAttributes) => Team;
-} & BaseModelConstructor<Team, keyof TeamSchemaAttributes>;
-
-export type Team = BaseModel<TeamDocument>;
-export const TeamModel = model<Team, TeamModelSchema>('Team', teamSchema);
+export { Team, TeamAttributes, TeamDocument };
+export default Team;

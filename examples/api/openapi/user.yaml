@@ -37,6 +37,29 @@ user:
                                 response:
                                     $ref: "#/components/schemas/User"
 
+user-find:
+    get:
+        description: Find a user by its full name
+        operationId: findUserByFullName
+        parameters:
+            - in: query
+              name: name
+              required: true
+              schema:
+                  type: string
+              description: The full name
+        responses:
+            "200":
+                description: OK
+                content:
+                    application/json:
+                        schema:
+                            required:
+                                - response
+                            properties:
+                                response:
+                                    $ref: "#/components/schemas/User"
+
 user-id:
     get:
         description: get an user

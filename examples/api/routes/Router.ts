@@ -20,6 +20,7 @@ router.delete('/team/:id', expressAsyncHandler(TeamController.delete));
 // TEAM ROUTES
 router.get('/user', expressAsyncHandler(UserController.list));
 router.post('/user', expressAsyncHandler(UserController.create));
+router.get('/user/find', expressAsyncHandler(UserController.findByFullName));
 router.get('/user/:id', expressAsyncHandler(UserController.get));
 router.patch('/user/:id', expressAsyncHandler(UserController.patch));
 router.delete('/user/:id', expressAsyncHandler(UserController.delete));

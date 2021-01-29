@@ -12,6 +12,8 @@ paths:
         $ref: "home.yaml#/home"
     /user:
         $ref: "user.yaml#/user"
+    /user/find:
+        $ref: "user.yaml#/user-find"
     /user/{id}:
         $ref: "user.yaml#/user-id"
     /team:
