@@ -3,6 +3,7 @@
   "version": "0.0.1-alpha.4",
   "description": "NodeJS Typescript Server",
   "author": "Sergio Gómez Cosgaya (sergiogcosgaya@gmail.com)",
+  "repository": "git://github.com/sergiogc9/nodejs-server.git",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

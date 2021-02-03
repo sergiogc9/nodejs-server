@@ -3,7 +3,7 @@
 ![](https://badgen.net/npm/v/@sergiogc9/nodejs-server?icon=npm&label)
 ![](https://github.com/sergiogc9/nodejs-server/workflows/Github%20Pipeline/badge.svg?branch=master)
 
-A bases NodeJS server using Typescript. This server is used by myself in other personal projects.
+A NodeJS server using Typescript. This server is used by myself in other personal projects.
 
 It is an easy to setup nodejs based server which allows to start different kind of services that can be run isolated or together in a unique server instance:
 

@@ -3,7 +3,7 @@
 ![](https://badgen.net/npm/v/@sergiogc9/nodejs-server?icon=npm&label)
 ![](https://github.com/sergiogc9/nodejs-server/workflows/Github%20Pipeline/badge.svg?branch=master)
 
-A bases NodeJS server and libs using Typescript. This project is used by myself in other personal projects. It is separated in two main packages:
+A NodeJS server and libs using Typescript. This project is used by myself in other personal projects. It is separated in two main packages:
 
 ### [Server](https://github.com/sergiogc9/nodejs-server/tree/master/packages/server)
 
