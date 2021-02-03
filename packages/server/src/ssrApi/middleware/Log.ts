@@ -1,10 +1,3 @@
-import { Log } from 'src/providers/Log';
+import { Log } from '@sergiogc9/nodejs-utils';
 
-class SSRApiLog extends Log {
-	constructor() {
-		super();
-		this.type = 'ssr';
-	}
-}
-
-export default new SSRApiLog();
+export default Log.initNewLog('api');

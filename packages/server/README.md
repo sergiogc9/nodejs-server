@@ -1,5 +1,8 @@
 # NodeJS Server
 
+![](https://badgen.net/npm/v/@sergiogc9/nodejs-server?icon=npm&label)
+![](https://github.com/sergiogc9/nodejs-server/workflows/Github%20Pipeline/badge.svg?branch=master)
+
 A bases NodeJS server using Typescript. This server is used by myself in other personal projects.
 
 It is an easy to setup nodejs based server which allows to start different kind of services that can be run isolated or together in a unique server instance:
@@ -173,14 +176,56 @@ const server = new ReverseProxyServer({
 server.start();
 ```
 
-
-### Library
-
-A set of libraries, tools, providers, middlewares, etc. This library is used by the Server but they can be imported and used in other projects.
-
-More information and documentation about each library can be found on its corresponding Readme.
-
-
 ### Configuration options
 
-// Not yet available...
+##### Common options
+
+| Option        | Description                       | Type | Default   |
+| - | - | - | - |
+| `port`        | The port to used by the server.    | number | 4000      |
+| `mongoUri`    | The mongo uri used to connect to the database. <br> If not provied, no connection is done. | string | |
+
+
+##### Static server options
+
+| Option        | Description                       | Type | Default   |       |
+| - | - | - | - | - |
+| `staticWebFolder`     | Directory where static web files are located.   | string |       | `required` |
+| `staticWebPath`       | The base endpoint path where the static content is served.    | string  |  `/` |
+
+##### API server options
+
+| Option        | Description                      | Type  | Default   |       |
+| - | - | - | - | - |
+| `apiPath`     | The base endpoint path where the API is served.   | string |  `/api/`    | |
+| `apiCors`       | Valid CORS used in the API. Each origin can be a string or a RegExp. <br> If not provided, CORS is not enabled.     | string[] | | |
+| `openApiPath`  | Directory where the openapi files are located. <br> If not provided, swagger based docs is not served and the openapi automatic validation is not enabled. | string | | |
+| `apiRoutes` | The routes to be served in the API. Each path should have a valid express `Router` instance. | { path: string, router: Router }[] | | `required` |
+
+
+##### Server side server options
+
+| Option        | Description                      | Type  | Default   |       |
+| - | - | - | - | - |
+| `ssrApiPath`     | The base endpoint path where the API is served.   | string |  `/ssr/`    | |
+| `ssrApiCors`       | Valid CORS used in the API. Each origin can be a string or a RegExp. <br> If not provided, CORS is not enabled.     | string[] | | |
+| `ssrPublicPath`  |  The path where public content for SSR is located. The assets will be served behind the /public path after `ssrApiPath`. If not set not public assets will be served. | string | | |
+| `ssrApiRoutes` | The routes to be served in the API. Each path should have a valid express `Router` instance. | { path: string, router: Router }[] | | `required` |
+
+
+##### Reverse proxy server options
+
+| Option        | Description                      | Type  | Default   |       |
+| - | - | - | - | - |
+| `reverseProxyPaths`     | An array with all the reverse proxies data.   | { from: string, to: string }[] | | `required` |
+
+##### Full server options
+
+This options tells the full Server which specific server features should be enabled.
+
+| Option        | Description                      | Type  | Default  |
+| - | - | - | - |
+| `enableStaticWeb`     | Enable or disable static web server.   | boolean | `false` |
+| `enableApi`     | Enable or disable the API.   | boolean | `false` |
+| `enableSSRApi`     | Enable or disable the SSR based API.   | boolean | `false` |
+| `enableReverseProxy`     | Enable or disable the reverse proxy server.   | boolean | `false` |

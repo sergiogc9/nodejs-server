@@ -1,10 +1,3 @@
-import { Log } from 'src/providers/Log';
+import { Log } from '@sergiogc9/nodejs-utils';
 
-class ApiLog extends Log {
-	constructor() {
-		super();
-		this.type = 'api';
-	}
-}
-
-export default new ApiLog();
+export default Log.initNewLog('api');

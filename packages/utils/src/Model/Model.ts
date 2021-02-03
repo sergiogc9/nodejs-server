@@ -1,4 +1,4 @@
-import mongoose from 'src/providers/Database';
+import mongoose from 'mongoose';
 
 type DocAttributes = Record<string, unknown>;
 type Document<T extends BaseDocument> = T & mongoose.Document;

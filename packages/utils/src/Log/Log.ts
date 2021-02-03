@@ -5,27 +5,32 @@ import cluster from 'cluster';
 import { DateTime } from 'luxon';
 
 export class Log {
-	public baseDir: string;
-	public type: 'api' | 'ssr';
+	private __baseDir: string;
+	private __prefix: string;
 
-	constructor() {
-		this.baseDir = path.join(process.cwd(), '.logs/');
-		if (!fs.existsSync(`${this.baseDir}/api/`)) fs.mkdirSync(`${this.baseDir}/api/`, { recursive: true });
-		if (!fs.existsSync(`${this.baseDir}/ssr/`)) fs.mkdirSync(`${this.baseDir}/ssr/`, { recursive: true });
+	constructor(prefix?: string) {
+		if (prefix) this.__prefix = prefix;
+		this.__baseDir = path.join(process.cwd(), '.logs/');
+		if (!fs.existsSync(`${this.__baseDir}/api/`)) fs.mkdirSync(`${this.__baseDir}/api/`, { recursive: true });
+		if (!fs.existsSync(`${this.__baseDir}/ssr/`)) fs.mkdirSync(`${this.__baseDir}/ssr/`, { recursive: true });
+	}
+
+	public initNewLog(prefix: string) {
+		return new Log(prefix);
 	}
 
 	// Adds INFO prefix string to the log string
-	public info(_string: string): void {
+	public info(_string: string) {
 		this.__addLog('INFO', _string);
 	}
 
 	// Adds WARN prefix string to the log string
-	public warn(_string: string): void {
+	public warn(_string: string) {
 		this.__addLog('WARN', _string);
 	}
 
 	// Adds ERROR prefix string to the log string
-	public error(_string: string): void {
+	public error(_string: string) {
 		// Line break and show the first line
 		console.log('\x1b[31m%s\x1b[0m', `[ERROR] :: ${_string.split(/r?\n/)[0]}`);
 
@@ -33,7 +38,7 @@ export class Log {
 	}
 
 	// Adds the custom prefix string to the log string
-	public custom(_filename: string, _string: string): void {
+	public custom(_filename: string, _string: string) {
 		this.__addLog(_filename, _string);
 	}
 
@@ -41,20 +46,20 @@ export class Log {
 	 * Creates the file if does not exist, and
 	 * append the log kind & string into the file.
 	 */
-	private __addLog(_kind: string, _string: string): void {
+	private __addLog(_kind: string, _string: string) {
 		const fileDateString = DateTime.local().toFormat('yyyy-MM-dd');
 		const timeString = DateTime.local().toFormat('dd/MM/yyyy HH:mm');
 
 		const fileName = `${fileDateString}.log`;
 		const workerIdPrefix = cluster.isMaster ? '[MASTER]' : `[${cluster.worker.process.pid}]`;
-		const linePrefix = `[${timeString}] ${workerIdPrefix} [${this.type ? this.type.toUpperCase() : 'SERVER'}]`;
+		const linePrefix = `[${timeString}] ${workerIdPrefix} [${this.__prefix ? this.__prefix.toUpperCase() : 'SERVER'}]`;
 
 		const text = `${linePrefix} [${_kind.toUpperCase()}] ${_string}\n`;
 
 		// Write in global log file
-		this.__writeLog(`${this.baseDir}${fileName}`, text);
+		this.__writeLog(`${this.__baseDir}${fileName}`, text);
 		// Write in specific service file
-		if (this.type) this.__writeLog(`${this.baseDir}/${this.type}/${fileName}`, text);
+		if (this.__prefix) this.__writeLog(`${this.__baseDir}/${this.__prefix}/${fileName}`, text);
 	}
 
 	private __writeLog = (filePath: string, text: string) => {
@@ -84,7 +89,7 @@ export class Log {
 	 *
 	 * Note: 'X' is defined in .env file
 	 */
-	public clean(): void {
+	public clean() {
 		// TIP: Use regex with file names or check if fs lets to remove files by unmodified date?
 	}
 }

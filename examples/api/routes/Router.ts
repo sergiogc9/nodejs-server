@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Cache, expressAsyncHandler } from '@sergiogc9/nodejs-server';
+import { Cache, expressAsyncHandler } from '@sergiogc9/nodejs-utils';
 
 import HomeController from '../controllers/Home';
 import TeamController from '../controllers/Team';

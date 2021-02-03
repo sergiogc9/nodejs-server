@@ -1,13 +1,12 @@
 import { RequestHandler } from 'express';
-
-import { Api } from '@sergiogc9/nodejs-server';
+import { successResponse } from '@sergiogc9/nodejs-utils';
 
 class HomeController {
 	public static index: RequestHandler = (req, res) => {
 		const response = {
 			message: 'NodeJS awesome server!'
 		};
-		Api.successResponse(req, res, response);
+		successResponse(req, res, response);
 	};
 }
 

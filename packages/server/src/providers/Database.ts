@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
+import { Log } from '@sergiogc9/nodejs-utils';
 
-import Log from 'src/providers/Log';
 import Config from 'src/providers/Config';
 
 export class Database {
