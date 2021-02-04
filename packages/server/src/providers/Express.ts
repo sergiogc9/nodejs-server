@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import proxy from 'express-http-proxy';
 import isEmpty from 'lodash/isEmpty';
-import { Log } from '@sergiogc9/nodejs-utils';
+import Log from '@sergiogc9/nodejs-utils/Log';
 
 import Api from 'src/api/Api';
 import SSRApi from 'src/ssrApi/SSRApi';

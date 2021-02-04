@@ -6,7 +6,7 @@
   "repository": "git://github.com/sergiogc9/nodejs-server.git",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],

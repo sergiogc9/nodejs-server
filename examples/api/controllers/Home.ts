@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { successResponse } from '@sergiogc9/nodejs-utils';
+import { successResponse } from '@sergiogc9/nodejs-utils/Api';
 
 class HomeController {
 	public static index: RequestHandler = (req, res) => {

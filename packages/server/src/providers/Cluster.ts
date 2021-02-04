@@ -1,6 +1,6 @@
 import os from 'os';
 import cluster from 'cluster';
-import { Log } from '@sergiogc9/nodejs-utils';
+import Log from '@sergiogc9/nodejs-utils/Log';
 
 class Cluster {
 	public start = async (onMasterFn: () => Promise<any>, onWorkerFn: () => Promise<any>) => {

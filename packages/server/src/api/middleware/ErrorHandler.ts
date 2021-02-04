@@ -1,5 +1,5 @@
 import { Application, ErrorRequestHandler, RequestHandler } from 'express';
-import { errorResponse, successResponse, OPENAPI_VALIDATION_ERROR, SERVER_ERROR } from '@sergiogc9/nodejs-utils';
+import { errorResponse, OPENAPI_VALIDATION_ERROR, SERVER_ERROR } from '@sergiogc9/nodejs-utils/Api';
 
 import Log from 'src/api/middleware/Log';
 

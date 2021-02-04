@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { errorResponse, successResponse, NOT_FOUND_ERROR } from '@sergiogc9/nodejs-utils';
+import { errorResponse, successResponse, NOT_FOUND_ERROR } from '@sergiogc9/nodejs-utils/Api';
 
 import { Team, TeamAttributes } from '../models/Team';
 

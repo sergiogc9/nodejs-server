@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { BaseDocument, createModel, Document } from '@sergiogc9/nodejs-utils';
+import { BaseDocument, createModel, Document } from '@sergiogc9/nodejs-utils/Model';
 
 const userSchemaDefinition = {
 	email: { type: String, required: true, unique: true },

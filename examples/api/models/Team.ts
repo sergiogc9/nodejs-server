@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Schema } from 'mongoose';
-import { BaseDocument, createModel, Document } from '@sergiogc9/nodejs-utils';
+import { BaseDocument, createModel, Document } from '@sergiogc9/nodejs-utils/Model';
 
 import { UserDocument } from './User';
 

@@ -1,4 +1,4 @@
-import { Log } from '@sergiogc9/nodejs-utils';
+import Log from '@sergiogc9/nodejs-utils/Log';
 
 import Express from 'src/providers/Express';
 import { Database } from 'src/providers/Database';

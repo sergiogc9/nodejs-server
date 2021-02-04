@@ -20,6 +20,12 @@ const output = [
 	}
 ];
 
+const typesOutput = [
+	{
+		dir: 'dist/types'
+	}
+];
+
 const config = [
 	{
 		input,
@@ -35,7 +41,7 @@ const config = [
 	},
 	{
 		input,
-		output,
+		output: typesOutput,
 		plugins: [
 			dts(),
 			alias({

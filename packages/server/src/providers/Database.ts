@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Log } from '@sergiogc9/nodejs-utils';
+import Log from '@sergiogc9/nodejs-utils/Log';
 
 import Config from 'src/providers/Config';
 
