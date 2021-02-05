@@ -1,6 +1,6 @@
 {
   "name": "@sergiogc9/nodejs-utils",
-  "version": "0.0.1-alpha.5",
+  "version": "0.0.1-alpha.6",
   "description": "NodeJS TypeScript utils",
   "author": "Sergio Gómez Cosgaya (sergiogcosgaya@gmail.com)",
   "repository": "git://github.com/sergiogc9/nodejs-server.git",
@@ -16,10 +16,18 @@
   },
   "typesVersions": {
     "*": {
-      "Api": ["dist/types/Api"],
-      "Cache": ["dist/types/Cache"],
-      "Log": ["dist/types/Log"],
-      "Model": ["dist/types/Model"]
+      "Api": [
+        "dist/types/Api"
+      ],
+      "Cache": [
+        "dist/types/Cache"
+      ],
+      "Log": [
+        "dist/types/Log"
+      ],
+      "Model": [
+        "dist/types/Model"
+      ]
     }
   },
   "files": [
