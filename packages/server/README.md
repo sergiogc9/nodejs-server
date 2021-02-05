@@ -13,6 +13,24 @@ It is an easy to setup nodejs based server which allows to start different kind 
 - Working as a single entry point in a server using Reverse Proxy.
 - Executing extra nodeJs code in cluster by using the NodeJS cluster API.
 
+### Table of Contents
+- [NodeJS Server](#nodejs-server)
+    - [Table of Contents](#table-of-contents)
+    - [Getting started](#getting-started)
+    - [Usage](#usage)
+      - [Full server](#full-server)
+      - [Static web server](#static-web-server)
+      - [API Server](#api-server)
+      - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
+      - [Reverse proxy server](#reverse-proxy-server)
+    - [Configuration options](#configuration-options)
+        - [Common options](#common-options)
+        - [Static server options](#static-server-options)
+        - [API server options](#api-server-options)
+        - [Server side server options](#server-side-server-options)
+        - [Reverse proxy server options](#reverse-proxy-server-options)
+        - [Full server options](#full-server-options)
+
 ### Getting started
 
 To start using the server, install the package from npm, which comes with all needed types defined:

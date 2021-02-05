@@ -17,12 +17,12 @@ class UserBaseDocument extends BaseDocument {
 		return '2222';
 	}
 
-	__preSave() {
-		super.__preSave();
+	_preSave() {
+		super._preSave();
 	}
 
-	__postSave(err: any) {
-		super.__postSave(err);
+	_postSave(err: any) {
+		super._postSave(err);
 	}
 
 	static findByFullName(name: string) {

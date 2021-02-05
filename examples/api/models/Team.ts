@@ -16,12 +16,12 @@ class TeamBaseDocument extends BaseDocument {
 	public country: string;
 	public users: UserDocument[] | string[];
 
-	__preSave() {
-		super.__preSave();
+	_preSave() {
+		super._preSave();
 	}
 
-	__postSave(err?: any) {
-		super.__postSave(err);
+	_postSave(err?: any) {
+		super._postSave(err);
 	}
 }
 

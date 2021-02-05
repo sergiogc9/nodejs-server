@@ -37,9 +37,9 @@ export class Log {
 		this.__addLog('ERROR', _string);
 	}
 
-	// Adds the custom prefix string to the log string
-	public custom(_filename: string, _string: string) {
-		this.__addLog(_filename, _string);
+	// Adds the custom type string to the log string
+	public custom(type: string, text: string) {
+		this.__addLog(type, text);
 	}
 
 	/**

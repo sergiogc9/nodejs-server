@@ -15,10 +15,10 @@ abstract class BaseDocument {
 	// Needed to be used in getValues as we can not extend from mongoose.Document
 	protected toObject: mongoose.Document['toObject'];
 
-	protected __preSave() { }
+	protected _preSave() { }
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	protected __postSave(err?: any) { }
+	protected _postSave(err?: any) { }
 
 	public getValues() {
 		return this.toObject({
@@ -32,9 +32,9 @@ abstract class BaseDocument {
 }
 
 const enableModelHooks = (schema: mongoose.Schema) => {
-	schema.pre('save', function (next) { (this as any).__preSave(); next(); });
-	schema.post('save', function (doc, next) { (this as any).__postSave(); next(); });
-	schema.post('save', function (error: any, doc: mongoose.Document, next: mongoose.HookNextFunction) { (this as any).__postSave(error); next(); });
+	schema.pre('save', function (next) { (this as any)._preSave(); next(); });
+	schema.post('save', function (doc, next) { (this as any)._postSave(); next(); });
+	schema.post('save', function (error: any, doc: mongoose.Document, next: mongoose.HookNextFunction) { (this as any)._postSave(error); next(); });
 };
 
 const createModelSchema = (schemaAttributes: mongoose.SchemaDefinition, schemaOptions?: mongoose.SchemaOptions) => {

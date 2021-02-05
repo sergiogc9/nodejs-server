@@ -6,7 +6,11 @@ type ApiError = {
 	message?: string;
 };
 
-const getRequestTime = (req: express.Request) => (new Date().getTime() - (req as any).startTime.getTime()) / 1000;
+const getRequestTime = (req: express.Request): number | undefined => {
+	const request = req as any;
+	if (!request.startTime || !request.startTime.getTime) return undefined;
+	return (new Date().getTime() - (req as any).startTime.getTime()) / 1000;
+};
 const getRequestData = (req: express.Request) => ({
 	method: req.method,
 	path: req.originalUrl.replace(/\?.*$/, ''),
