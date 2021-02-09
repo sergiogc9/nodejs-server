@@ -51,4 +51,6 @@ const createModel = <T extends BaseDocument, U extends DocAttributes, StaticMeth
 	return mongoose.model<Document<T>>(name, schema) as Model<T, U> & StaticMethods;
 };
 
-export { BaseDocument, createModel, Document };
+const { Schema } = mongoose;
+
+export { BaseDocument, createModel, Document, Schema };
