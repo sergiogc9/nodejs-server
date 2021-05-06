@@ -24,7 +24,7 @@ class Express {
 	/**
 	 * Mounts all the defined middlewares
 	 */
-	private mountMiddlewares = () => { };
+	private mountMiddlewares = () => {};
 
 	/**
 	 * Mounts all services

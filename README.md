@@ -23,33 +23,28 @@ import Server from '@sergiogc9/nodejs-server';
 
 import router from './api/routes/Router';
 
-const proxyPaths = [
-    { from: '/netdata', to: 'http://localhost:19999' }
-];
+const proxyPaths = [{ from: '/netdata', to: 'http://localhost:19999' }];
 
 const server = new Server({
-    // Static
-    enableStaticWeb: true,
-    staticWebFolder: path.join(__dirname, './static/public'),
+	// Static
+	enableStaticWeb: true,
+	staticWebFolder: path.join(__dirname, './static/public'),
 
-    // Api
+	// Api
 	enableApi: true,
 	apiPath: '/api/',
 	openApiPath: path.join(__dirname, './api/openapi/openapi.yaml'),
-	apiRoutes: [
-		{ path: '/', router }
-	],
+	apiRoutes: [{ path: '/', router }],
 
-    // Reverse proxy
-    enableReverseProxy: true,
-    reverseProxyPaths: proxyPaths
+	// Reverse proxy
+	enableReverseProxy: true,
+	reverseProxyPaths: proxyPaths
 });
 
 server.start();
 ```
 
 For further docs or examples, see the examples folder or the server package [Readme](https://github.com/sergiogc9/nodejs-server/tree/master/packages/server).
-
 
 ### [Utils](https://github.com/sergiogc9/nodejs-server/tree/master/packages/utils)
 

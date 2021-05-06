@@ -32,7 +32,8 @@ class TeamController {
 		const teamId = req.params.id;
 		const teamData: Partial<TeamAttributes> = req.body;
 		const team = await Team.findById(teamId);
-		if (!team) return errorResponse(req, res, 400, { code: NOT_FOUND_ERROR, message: `No team found with ID: ${teamId}` });
+		if (!team)
+			return errorResponse(req, res, 400, { code: NOT_FOUND_ERROR, message: `No team found with ID: ${teamId}` });
 		await team.set({ ...teamData, _id: teamId }).save();
 		return successResponse(req, res, team);
 	};

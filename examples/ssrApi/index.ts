@@ -8,9 +8,7 @@ export const runSSRApiServer = () => {
 		ssrApiPath: '/web',
 		ssrViewsPath: path.join(__dirname, './views'),
 		ssrPublicPath: path.join(__dirname, './public'),
-		ssrApiRoutes: [
-			{ path: '/', router }
-		]
+		ssrApiRoutes: [{ path: '/', router }]
 	});
 	server.start();
 };

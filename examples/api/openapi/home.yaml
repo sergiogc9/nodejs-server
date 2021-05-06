@@ -1,17 +1,17 @@
 home:
-    get:
-        description: Home endpoint
-        operationId: home
-        responses:
-            "200":
-                description: OK
-                content:
-                    application/json:
-                        schema:
-                            type: object
-            default:
-                description: General error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "definitions.yaml#/ApiError"
+  get:
+    description: Home endpoint
+    operationId: home
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+      default:
+        description: General error
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions.yaml#/ApiError'

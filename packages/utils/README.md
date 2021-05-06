@@ -8,14 +8,14 @@ This package provides a several set of tools, libraries or utilities that I use 
 ### Table of Contents
 
 - [NodeJS Utils](#nodejs-utils)
-    - [Table of Contents](#table-of-contents)
-    - [Getting started](#getting-started)
-    - [Available modules](#available-modules)
-      - [Model](#model)
-      - [API](#api)
-      - [Log](#log)
-      - [Cache](#cache)
-      - [Pushover](#pushover)
+  - [Table of Contents](#table-of-contents)
+  - [Getting started](#getting-started)
+  - [Available modules](#available-modules)
+    - [Model](#model)
+    - [API](#api)
+    - [Log](#log)
+    - [Cache](#cache)
+    - [Pushover](#pushover)
 
 ### Getting started
 
@@ -27,24 +27,23 @@ You can get everything importing the whole package or import only some available
 
 #### Model
 
-This module provides a typed base class to work with *mongoose* models and documents. You can define models and then their documents as class instances, with all the types working fine and methods, including static methods.
+This module provides a typed base class to work with _mongoose_ models and documents. You can define models and then their documents as class instances, with all the types working fine and methods, including static methods.
 
 With the Model module you can import:
 
 - `createModel(name, ModelClass, modelSchema)`:
 
-    Helper function to create a mongoose model using a name, a class extending *BaseDocument* defining the document and the model schema. It returns an instance of a Model.
+  Helper function to create a mongoose model using a name, a class extending _BaseDocument_ defining the document and the model schema. It returns an instance of a Model.
 
 - `BaseDocument`;
 
-    An abstract class to extend from when creating model document classes. It has a `getValues()` method which returns the database object properties.
+  An abstract class to extend from when creating model document classes. It has a `getValues()` method which returns the database object properties.
 
-    A pre-save and a post-save hook can be added implementing the protected methods `_preSave()` and `_postSave()`.
+  A pre-save and a post-save hook can be added implementing the protected methods `_preSave()` and `_postSave()`.
 
 - `Document<T extends BaseDocument>`:
 
-    A generic type to add *mongoose Document* methods into *BaseDocument* class.
-
+  A generic type to add _mongoose Document_ methods into _BaseDocument_ class.
 
 Example usage defining a Team model with a relation with another model User:
 
@@ -61,16 +60,15 @@ const teamSchemaDefinition = {
 };
 
 class TeamBaseDocument extends BaseDocument {
-
 	public name: string;
 	public country: string;
 	public users: UserDocument[] | string[];
 
 	getNumberOfUsers() {
 		return this.users.length;
-    }
+	}
 
-    static getAllCountries() {
+	static getAllCountries() {
 		return ['cat', 'es', 'us'];
 	}
 }
@@ -78,10 +76,14 @@ class TeamBaseDocument extends BaseDocument {
 type TeamDocument = Document<TeamBaseDocument>;
 type TeamAttributes = Pick<TeamDocument, keyof typeof teamSchemaDefinition>;
 type TeamStaticMethods = {
-	findByFullName: typeof TeamBaseDocument['getAllCountries']
+	findByFullName: typeof TeamBaseDocument['getAllCountries'];
 };
 
-const Team = createModel<TeamBaseDocument, TeamAttributes, TeamStaticMethods>('Team', TeamBaseDocument, teamSchemaDefinition);
+const Team = createModel<TeamBaseDocument, TeamAttributes, TeamStaticMethods>(
+	'Team',
+	TeamBaseDocument,
+	teamSchemaDefinition
+);
 
 export { Team, TeamAttributes, TeamDocument };
 export default Team;
@@ -93,28 +95,28 @@ This module contains some methods, middleware and constants to be used in your A
 
 - Constants can be used to keep same response codes or errors between different APIs. Available constants:
 
-  ```SERVER_ERROR```, ```OPENAPI_VALIDATION_ERROR``` and  ```NOT_FOUND_ERROR```.
+  `SERVER_ERROR`, `OPENAPI_VALIDATION_ERROR` and `NOT_FOUND_ERROR`.
 
 - Methods exported by the API module:
 
   `successResponse(req, res, data, status = 200)`:
 
-    Sends a success response through the passed response (res). It returns a JSON with the following keys:
+  Sends a success response through the passed response (res). It returns a JSON with the following keys:
 
-    **request**: An object containing some request data as the body, method, path, parameters, body, etc.
+  **request**: An object containing some request data as the body, method, path, parameters, body, etc.
 
-    **response**: The data to send. It can be any JSON serializable data.
+  **response**: The data to send. It can be any JSON serializable data.
 
-    **status**: The response status. By default is 200.
+  **status**: The response status. By default is 200.
 
-    **time**: The execution time. Only appears if the request has a Date *startTime* property added using a middleware as *@sergiogc9/nodejs-server* does.
+  **time**: The execution time. Only appears if the request has a Date _startTime_ property added using a middleware as _@sergiogc9/nodejs-server_ does.
 
-    `errorResponse(req, res, data, status)`:
+  `errorResponse(req, res, data, status)`:
 
-    Sends an error response through the passed response (res). It behaves the same as the method successResponse with these differences:
+  Sends an error response through the passed response (res). It behaves the same as the method successResponse with these differences:
 
-    - There is not a default status, hence it is required.
-    - The data returned is done through an *error* key instead of *response*.
+  - There is not a default status, hence it is required.
+  - The data returned is done through an _error_ key instead of _response_.
 
 - The middlewares available are:
 
@@ -132,12 +134,12 @@ import User from 'models/User';
 
 class UserController {
 	public static list: RequestHandler = async (req, res) => {
-        try {
-            const users = await User.find();
-            successResponse(req, res, users);
-        } catch(e) {
-            errorResponse(req, res, SERVER_ERROR, 500);
-        }
+		try {
+			const users = await User.find();
+			successResponse(req, res, users);
+		} catch (e) {
+			errorResponse(req, res, SERVER_ERROR, 500);
+		}
 	};
 }
 
@@ -154,16 +156,19 @@ It generate logs using the following format:
 ```
 [DD/MM/YYYY HH:MM] [PROCESS_ID] [PREFIX] [TYPE] Text
 ```
+
 Example:
+
 ```
 [03/02/2021 17:33] [MASTER] [API] [INFO] Booting the 'Time' middleware..
 ```
 
 From left to right:
+
 - Date: The date and time when the log was added.
 - Process id: If using cluster, it shows the pid of the process. If not using the cluster api or the log comes from the master process, `MASTER` is shown.
 - Prefix: You can create a custom Log instance with a prefix (see example below). If a prefix is set, the prefix name is shown.
-- Type: The log type. It can be *info*, *warn*, *error* or a custom one.
+- Type: The log type. It can be _info_, _warn_, _error_ or a custom one.
 - Text: The message to log.
 
 The Log module exports by default a singleton instance ready to be used. If you want a **custom Log** with a custom prefix you can use the instance method `initNewLog(prefix)` or create a new `Log` instance passing the prefix in the constructor to Log class, which is named exported.
@@ -179,17 +184,18 @@ log.warn('Some warning message');
 ```
 
 Example using a custom prefix:
+
 ```ts
 import { Log } from '@sergiogc9/nodejs-utils/Log';
 
 const log = new Log('api');
 log.info("Booting the 'Time' middleware..");
-log.custom("GENERAL", "Some general message");
+log.custom('GENERAL', 'Some general message');
 ```
 
 #### Cache
 
-A cache middleware for *express* routes. It caches the response of a request by its `originalUrl` or `url`. It is based on `memory-cache` package.
+A cache middleware for _express_ routes. It caches the response of a request by its `originalUrl` or `url`. It is based on `memory-cache` package.
 
 Example of use:
 

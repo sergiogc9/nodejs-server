@@ -8,7 +8,6 @@ const userSchemaDefinition = {
 };
 
 class UserBaseDocument extends BaseDocument {
-
 	public email: string;
 	public firstName: string;
 	public lastName: string;
@@ -36,10 +35,14 @@ class UserBaseDocument extends BaseDocument {
 type UserDocument = Document<UserBaseDocument>;
 type UserAttributes = Pick<UserBaseDocument, keyof typeof userSchemaDefinition>;
 type UserStaticMethods = {
-	findByFullName: typeof UserBaseDocument['findByFullName']
+	findByFullName: typeof UserBaseDocument['findByFullName'];
 };
 
-const User = createModel<UserBaseDocument, UserAttributes, UserStaticMethods>('User', UserBaseDocument, userSchemaDefinition);
+const User = createModel<UserBaseDocument, UserAttributes, UserStaticMethods>(
+	'User',
+	UserBaseDocument,
+	userSchemaDefinition
+);
 
 export { User, UserAttributes, UserDocument };
 export default User;

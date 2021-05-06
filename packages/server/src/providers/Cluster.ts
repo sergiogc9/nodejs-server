@@ -32,14 +32,20 @@ class Cluster {
 		cluster.on('listening', worker => Log.info(`Server :: Cluster with ProcessID '${worker.process.pid}' Connected!`));
 
 		// Catch cluster once it is back online event...
-		cluster.on('online', worker => Log.info(`Server :: Cluster with ProcessID '${worker.process.pid}' has responded after it was forked! `));
+		cluster.on('online', worker =>
+			Log.info(`Server :: Cluster with ProcessID '${worker.process.pid}' has responded after it was forked! `)
+		);
 
 		// Catch cluster disconnect event...
-		cluster.on('disconnect', worker => Log.info(`Server :: Cluster with ProcessID '${worker.process.pid}' Disconnected!`));
+		cluster.on('disconnect', worker =>
+			Log.info(`Server :: Cluster with ProcessID '${worker.process.pid}' Disconnected!`)
+		);
 
 		// Catch cluster exit event...
 		cluster.on('exit', (worker, code, signal) => {
-			Log.info(`Server :: Cluster with ProcessID '${worker.process.pid}' is Dead with Code '${code}, and signal: '${signal}'`);
+			Log.info(
+				`Server :: Cluster with ProcessID '${worker.process.pid}' is Dead with Code '${code}, and signal: '${signal}'`
+			);
 			// Ensuring a new cluster will start if an old one dies
 			cluster.fork();
 		});

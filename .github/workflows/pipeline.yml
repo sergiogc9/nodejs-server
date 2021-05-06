@@ -64,7 +64,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           registry-url: 'https://registry.npmjs.org'
-          scope: "@sergiogc9"
+          scope: '@sergiogc9'
       - name: Publish to NPM
         if: contains(github.ref, 'master')
         run: yarn foxcli pkg-publish

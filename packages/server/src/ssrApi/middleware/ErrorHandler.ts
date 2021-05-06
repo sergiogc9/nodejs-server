@@ -5,7 +5,7 @@ import Log from 'src/ssrApi/middleware/Log';
 class ErrorHandler {
 	static mount = (_express: Application) => {
 		/**
-	 	* Show server error in case of errors
+		 * Show server error in case of errors
 		 */
 		const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 			Log.error(err.stack);
@@ -16,8 +16,8 @@ class ErrorHandler {
 		};
 
 		/**
-	 	* Handles all the not found routes
-	 	*/
+		 * Handles all the not found routes
+		 */
 		const notFoundErrorHandler: RequestHandler = (req, res) => {
 			const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 

@@ -14,7 +14,7 @@ export type ApiServerConfig = CommonConfig & {
 	apiPath?: string; // Server endpoint where api will be served. Default: '/api/'
 	apiCors?: string[]; // CORS urls to use in API. Each origin can be a String or a RegExp. If not provided, no CORS is enabled.
 	openApiPath?: string; // Path where the openapi root yaml file is located. Is not passed, swagger based docs will not appear and parameters validation won't work
-	apiRoutes: Array<{ path: string, router?: Router }>; // Routes to serve in api. Each path should have a valid Router instance.
+	apiRoutes: Array<{ path: string; router?: Router }>; // Routes to serve in api. Each path should have a valid Router instance.
 };
 
 export type SSRApiServerConfig = CommonConfig & {
@@ -22,19 +22,23 @@ export type SSRApiServerConfig = CommonConfig & {
 	ssrApiCors?: string[]; // CORS urls to use in SSR API. Each origin can be a String or a RegExp. If not provided, no CORS is enabled.
 	ssrPublicPath?: string; // The path where public content for SSR is located. The assets will be served behind the /public path after ssrApiPath. If not set not public assets will be served.
 	ssrViewsPath: string; // The path where views are located. If a page is not found, an error page located at `pages/error.ejs` will be shown. If page is not provided, a default one is shown.
-	ssrApiRoutes: Array<{ path: string, router?: Router }>; // Routes to serve in ssr api. Each path should have a valid Router instance.
+	ssrApiRoutes: Array<{ path: string; router?: Router }>; // Routes to serve in ssr api. Each path should have a valid Router instance.
 };
 
 export type ProxyServerConfig = CommonConfig & {
-	reverseProxyPaths: Array<{ from: string, to: string }>;
+	reverseProxyPaths: Array<{ from: string; to: string }>;
 };
 
-export type FullServerConfig = CommonConfig & StaticServerConfig & ApiServerConfig & SSRApiServerConfig & ProxyServerConfig & {
-	enableStaticWeb: boolean; // Enable or disable static web server. Default: false
-	enableApi: boolean; // Enable or disable API. Default: false
-	enableSSRApi: boolean; // Enable or disable ssr based API. Default: false
-	enableReverseProxy: boolean; // Enable or disable reverse proxy server. Default: false
-};
+export type FullServerConfig = CommonConfig &
+	StaticServerConfig &
+	ApiServerConfig &
+	SSRApiServerConfig &
+	ProxyServerConfig & {
+		enableStaticWeb: boolean; // Enable or disable static web server. Default: false
+		enableApi: boolean; // Enable or disable API. Default: false
+		enableSSRApi: boolean; // Enable or disable ssr based API. Default: false
+		enableReverseProxy: boolean; // Enable or disable reverse proxy server. Default: false
+	};
 
 export type PrivateConfig = {
 	maxUploadLimit: string;
@@ -44,7 +48,6 @@ export type PrivateConfig = {
 export type ServerConfig = FullServerConfig & PrivateConfig;
 
 class Config {
-
 	private __config: Partial<ServerConfig> = {
 		// Static server
 		enableStaticWeb: false,

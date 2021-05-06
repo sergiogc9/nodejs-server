@@ -6,7 +6,7 @@ import Log from 'src/ssrApi/middleware/Log';
 
 class Views {
 	public static mount(_express: Application): Application {
-		Log.info('Booting the \'Views\' middleware...');
+		Log.info("Booting the 'Views' middleware...");
 
 		const { ssrViewsPath } = Config.get();
 

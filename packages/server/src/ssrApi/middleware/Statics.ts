@@ -5,7 +5,7 @@ import Log from 'src/ssrApi/middleware/Log';
 
 class Statics {
 	public static mount(_express: express.Application): express.Application {
-		Log.info('Booting the \'Statics\' middleware...');
+		Log.info("Booting the 'Statics' middleware...");
 
 		const { ssrPublicPath } = Config.get();
 

@@ -6,9 +6,7 @@ import router from './routes/Router';
 export const runApiServer = () => {
 	const server = new ApiServer({
 		openApiPath: path.join(__dirname, './openapi/openapi.yaml'),
-		apiRoutes: [
-			{ path: '/', router }
-		]
+		apiRoutes: [{ path: '/', router }]
 	});
 	server.start();
 };

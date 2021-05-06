@@ -4,7 +4,7 @@ import Log from 'src/api/middleware/Log';
 
 class Time {
 	static mount(_express: Application): Application {
-		Log.info('Booting the \'Time\' middleware...');
+		Log.info("Booting the 'Time' middleware...");
 
 		_express.use((req, res, next) => {
 			(req as any).startTime = new Date();

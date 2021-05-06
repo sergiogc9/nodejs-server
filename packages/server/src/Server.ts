@@ -1,6 +1,12 @@
 import App from 'src/providers/App';
 import Cluster from 'src/providers/Cluster';
-import Config, { ApiServerConfig, ProxyServerConfig, ServerConfig, StaticServerConfig, SSRApiServerConfig } from 'src/providers/Config';
+import Config, {
+	ApiServerConfig,
+	ProxyServerConfig,
+	ServerConfig,
+	StaticServerConfig,
+	SSRApiServerConfig
+} from 'src/providers/Config';
 
 class Server {
 	constructor(config: Partial<ServerConfig>) {

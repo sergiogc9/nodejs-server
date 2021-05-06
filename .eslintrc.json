@@ -1,8 +1,6 @@
 {
 	"root": true,
-	"extends": [
-		"@sergiogc9/eslint-config"
-	],
+	"extends": ["@sergiogc9/eslint-config"],
 	"parserOptions": {
 		"project": "./tsconfig.json"
 	}

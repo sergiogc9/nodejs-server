@@ -30,14 +30,8 @@ const config = [
 	{
 		input,
 		output,
-		external: [
-			...Object.keys(pkg.dependencies || {}),
-			...Object.keys(globalPkg.peerDependencies || {})
-		],
-		plugins: [
-			typescript(),
-			terser()
-		]
+		external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(globalPkg.peerDependencies || {})],
+		plugins: [typescript(), terser()]
 	},
 	{
 		input,
@@ -45,10 +39,9 @@ const config = [
 		plugins: [
 			dts(),
 			alias({
-				entries: [
-					{ find: /^src\/(.+)/, replacement: path.resolve(__dirname, './src/$1') }
-				]
-			})]
+				entries: [{ find: /^src\/(.+)/, replacement: path.resolve(__dirname, './src/$1') }]
+			})
+		]
 	}
 ];
 

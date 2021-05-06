@@ -9,20 +9,24 @@ import Log from 'src/ssrApi/middleware/Log';
 
 class Http {
 	public static mount(_express: Application): Application {
-		Log.info('Booting the \'HTTP\' middleware...');
+		Log.info("Booting the 'HTTP' middleware...");
 
 		const { maxParameterLimit, maxUploadLimit } = Config.get();
 
 		// Enables the request body parser
-		_express.use(bodyParser.json({
-			limit: maxUploadLimit
-		}));
+		_express.use(
+			bodyParser.json({
+				limit: maxUploadLimit
+			})
+		);
 
-		_express.use(bodyParser.urlencoded({
-			limit: maxUploadLimit,
-			parameterLimit: maxParameterLimit,
-			extended: false
-		}));
+		_express.use(
+			bodyParser.urlencoded({
+				limit: maxUploadLimit,
+				parameterLimit: maxParameterLimit,
+				extended: false
+			})
+		);
 
 		// Use helmet to improve security
 		_express.use(helmet());

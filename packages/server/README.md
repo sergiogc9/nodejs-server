@@ -14,22 +14,23 @@ It is an easy to setup nodejs based server which allows to start different kind 
 - Executing extra nodeJs code in cluster by using the NodeJS cluster API.
 
 ### Table of Contents
+
 - [NodeJS Server](#nodejs-server)
-    - [Table of Contents](#table-of-contents)
-    - [Getting started](#getting-started)
-    - [Usage](#usage)
-      - [Full server](#full-server)
-      - [Static web server](#static-web-server)
-      - [API Server](#api-server)
-      - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
-      - [Reverse proxy server](#reverse-proxy-server)
-    - [Configuration options](#configuration-options)
-        - [Common options](#common-options)
-        - [Static server options](#static-server-options)
-        - [API server options](#api-server-options)
-        - [Server side server options](#server-side-server-options)
-        - [Reverse proxy server options](#reverse-proxy-server-options)
-        - [Full server options](#full-server-options)
+  - [Table of Contents](#table-of-contents)
+  - [Getting started](#getting-started)
+  - [Usage](#usage)
+    - [Full server](#full-server)
+    - [Static web server](#static-web-server)
+    - [API Server](#api-server)
+    - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
+    - [Reverse proxy server](#reverse-proxy-server)
+  - [Configuration options](#configuration-options)
+    - [Common options](#common-options)
+    - [Static server options](#static-server-options)
+    - [API server options](#api-server-options)
+    - [Server side server options](#server-side-server-options)
+    - [Reverse proxy server options](#reverse-proxy-server-options)
+    - [Full server options](#full-server-options)
 
 ### Getting started
 
@@ -55,6 +56,7 @@ Depending on the requirements, you can import a different Server class from the 
 - `start(startFn)`: Runs the server in a single process (as default in NodeJS). It runs the function `startFn` if passed.
 
 - `startCluster(masterFn, workerFn)`: Runs the server using multiple processes using the `cluster` API. If passed, the master process will execute `masterFn` and all worker processes will run the `workerFn`. By default, there is 1 master process and `N` worker processes determined by the result length of executing `os.cpus()` using the `OS` API. Using a cluster is useful, for example, to load balance the requests to the API using all available CPUs.
+
 #### Full server
 
 The full server has all features enabled. Useful if you need more than one type of server together. It is the default exported element of the package. A sample example if static, API and reverse proxy features are wanted:
@@ -65,26 +67,22 @@ import Server from '@sergiogc9/nodejs-server';
 
 import router from './api/routes/Router';
 
-const proxyPaths = [
-    { from: '/netdata', to: 'http://localhost:19999' }
-];
+const proxyPaths = [{ from: '/netdata', to: 'http://localhost:19999' }];
 
 const server = new Server({
-    // Static
-    enableStaticWeb: true,
-    staticWebFolder: path.join(__dirname, './static/public'),
+	// Static
+	enableStaticWeb: true,
+	staticWebFolder: path.join(__dirname, './static/public'),
 
-    // Api
+	// Api
 	enableApi: true,
 	apiPath: '/api/',
 	openApiPath: path.join(__dirname, './api/openapi/openapi.yaml'),
-	apiRoutes: [
-		{ path: '/', router }
-	],
+	apiRoutes: [{ path: '/', router }],
 
-    // Reverse proxy
-    enableReverseProxy: true,
-    reverseProxyPaths: proxyPaths
+	// Reverse proxy
+	enableReverseProxy: true,
+	reverseProxyPaths: proxyPaths
 });
 
 server.start();
@@ -103,8 +101,8 @@ import path from 'path';
 import { StaticServer } from '@sergiogc9/nodejs-server';
 
 const server = new StaticServer({
-    // The directory where the build to serve is located
-    staticWebFolder: path.join(__dirname, './static/public')
+	// The directory where the build to serve is located
+	staticWebFolder: path.join(__dirname, './static/public')
 });
 
 server.start();
@@ -128,11 +126,9 @@ import { ApiServer } from '@sergiogc9/nodejs-server';
 import router from './api/routes/Router';
 
 const server = new ApiServer({
-    apiPath: '/api/',
+	apiPath: '/api/',
 	openApiPath: path.join(__dirname, './api/openapi/openapi.yaml'),
-	apiRoutes: [
-		{ path: '/', router }
-	],
+	apiRoutes: [{ path: '/', router }]
 });
 
 server.start();
@@ -146,10 +142,9 @@ The `SSRApiServer` allows to serve a server side rendering based website using e
 - Change API base path (by default is `/web/`).
 - Set a "public" directory where to locate static assets only related to the SSR content.
 
-    ⚠️  The content in this directory will be served under the SSR path. You can use the static server option instead.
+  ⚠️ The content in this directory will be served under the SSR path. You can use the static server option instead.
 
 ℹ️ By default, a predefined error page is used if some error happen (404, 500, etc). To overwrite the error page, a template inside the views directory has to be set in path `pages/error.ejs`.
-
 
 Example:
 
@@ -161,12 +156,10 @@ import { SSRApiServer } from '@sergiogc9/nodejs-server';
 import router from './api/routes/Router';
 
 const server = new SSRApiServer({
-    ssrApiPath: '/web',
+	ssrApiPath: '/web',
 	ssrViewsPath: path.join(__dirname, './views'),
 	ssrPublicPath: path.join(__dirname, './public'),
-	ssrApiRoutes: [
-		{ path: '/', router }
-	]
+	ssrApiRoutes: [{ path: '/', router }]
 });
 
 server.start();
@@ -182,13 +175,13 @@ Example:
 import { ReverseProxyServer } from '@sergiogc9/nodejs-server';
 
 const proxyPaths = [
-    { from: '/netdata', to: 'http://localhost:19999' },
-    { from: '/private', to: 'http://10.0.1.10:3000' }
+	{ from: '/netdata', to: 'http://localhost:19999' },
+	{ from: '/private', to: 'http://10.0.1.10:3000' }
 ];
 
 const server = new ReverseProxyServer({
-    // Reverse proxy
-    reverseProxyPaths: proxyPaths
+	// Reverse proxy
+	reverseProxyPaths: proxyPaths
 });
 
 server.start();
@@ -198,52 +191,49 @@ server.start();
 
 ##### Common options
 
-| Option        | Description                       | Type | Default   |
-| - | - | - | - |
-| `port`        | The port to used by the server.    | number | 4000      |
-| `mongoUri`    | The mongo uri used to connect to the database. <br> If not provied, no connection is done. | string | |
-
+| Option     | Description                                                                                | Type   | Default |
+| ---------- | ------------------------------------------------------------------------------------------ | ------ | ------- |
+| `port`     | The port to used by the server.                                                            | number | 4000    |
+| `mongoUri` | The mongo uri used to connect to the database. <br> If not provied, no connection is done. | string |         |
 
 ##### Static server options
 
-| Option        | Description                       | Type | Default   |       |
-| - | - | - | - | - |
-| `staticWebFolder`     | Directory where static web files are located.   | string |       | `required` |
-| `staticWebPath`       | The base endpoint path where the static content is served.    | string  |  `/` |
+| Option            | Description                                                | Type   | Default |            |
+| ----------------- | ---------------------------------------------------------- | ------ | ------- | ---------- |
+| `staticWebFolder` | Directory where static web files are located.              | string |         | `required` |
+| `staticWebPath`   | The base endpoint path where the static content is served. | string | `/`     |
 
 ##### API server options
 
-| Option        | Description                      | Type  | Default   |       |
-| - | - | - | - | - |
-| `apiPath`     | The base endpoint path where the API is served.   | string |  `/api/`    | |
-| `apiCors`       | Valid CORS used in the API. Each origin can be a string or a RegExp. <br> If not provided, CORS is not enabled.     | string[] | | |
-| `openApiPath`  | Directory where the openapi files are located. <br> If not provided, swagger based docs is not served and the openapi automatic validation is not enabled. | string | | |
-| `apiRoutes` | The routes to be served in the API. Each path should have a valid express `Router` instance. | { path: string, router: Router }[] | | `required` |
-
+| Option        | Description                                                                                                                                                | Type                               | Default |            |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------- | ---------- |
+| `apiPath`     | The base endpoint path where the API is served.                                                                                                            | string                             | `/api/` |            |
+| `apiCors`     | Valid CORS used in the API. Each origin can be a string or a RegExp. <br> If not provided, CORS is not enabled.                                            | string[]                           |         |            |
+| `openApiPath` | Directory where the openapi files are located. <br> If not provided, swagger based docs is not served and the openapi automatic validation is not enabled. | string                             |         |            |
+| `apiRoutes`   | The routes to be served in the API. Each path should have a valid express `Router` instance.                                                               | { path: string, router: Router }[] |         | `required` |
 
 ##### Server side server options
 
-| Option        | Description                      | Type  | Default   |       |
-| - | - | - | - | - |
-| `ssrApiPath`     | The base endpoint path where the API is served.   | string |  `/ssr/`    | |
-| `ssrApiCors`       | Valid CORS used in the API. Each origin can be a string or a RegExp. <br> If not provided, CORS is not enabled.     | string[] | | |
-| `ssrPublicPath`  |  The path where public content for SSR is located. The assets will be served behind the /public path after `ssrApiPath`. If not set not public assets will be served. | string | | |
-| `ssrApiRoutes` | The routes to be served in the API. Each path should have a valid express `Router` instance. | { path: string, router: Router }[] | | `required` |
-
+| Option          | Description                                                                                                                                                          | Type                               | Default |            |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------- | ---------- |
+| `ssrApiPath`    | The base endpoint path where the API is served.                                                                                                                      | string                             | `/ssr/` |            |
+| `ssrApiCors`    | Valid CORS used in the API. Each origin can be a string or a RegExp. <br> If not provided, CORS is not enabled.                                                      | string[]                           |         |            |
+| `ssrPublicPath` | The path where public content for SSR is located. The assets will be served behind the /public path after `ssrApiPath`. If not set not public assets will be served. | string                             |         |            |
+| `ssrApiRoutes`  | The routes to be served in the API. Each path should have a valid express `Router` instance.                                                                         | { path: string, router: Router }[] |         | `required` |
 
 ##### Reverse proxy server options
 
-| Option        | Description                      | Type  | Default   |       |
-| - | - | - | - | - |
-| `reverseProxyPaths`     | An array with all the reverse proxies data.   | { from: string, to: string }[] | | `required` |
+| Option              | Description                                 | Type                           | Default |            |
+| ------------------- | ------------------------------------------- | ------------------------------ | ------- | ---------- |
+| `reverseProxyPaths` | An array with all the reverse proxies data. | { from: string, to: string }[] |         | `required` |
 
 ##### Full server options
 
 This options tells the full Server which specific server features should be enabled.
 
-| Option        | Description                      | Type  | Default  |
-| - | - | - | - |
-| `enableStaticWeb`     | Enable or disable static web server.   | boolean | `false` |
-| `enableApi`     | Enable or disable the API.   | boolean | `false` |
-| `enableSSRApi`     | Enable or disable the SSR based API.   | boolean | `false` |
-| `enableReverseProxy`     | Enable or disable the reverse proxy server.   | boolean | `false` |
+| Option               | Description                                 | Type    | Default |
+| -------------------- | ------------------------------------------- | ------- | ------- |
+| `enableStaticWeb`    | Enable or disable static web server.        | boolean | `false` |
+| `enableApi`          | Enable or disable the API.                  | boolean | `false` |
+| `enableSSRApi`       | Enable or disable the SSR based API.        | boolean | `false` |
+| `enableReverseProxy` | Enable or disable the reverse proxy server. | boolean | `false` |

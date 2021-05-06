@@ -11,7 +11,6 @@ const teamSchemaDefinition = {
 };
 
 class TeamBaseDocument extends BaseDocument {
-
 	public name: string;
 	public country: string;
 	public users: UserDocument[] | string[];

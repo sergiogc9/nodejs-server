@@ -14,12 +14,11 @@ function yamlContentProcessor(res: any, callback: any) {
 
 class OpenApi {
 	static async mount(_express: Application): Promise<Application> {
-		Log.info('Booting the \'OpenApi\' middleware...');
+		Log.info("Booting the 'OpenApi' middleware...");
 
 		const { openApiPath } = Config.get();
 
 		if (openApiPath) {
-
 			const rootOpenApiJSON = YAML.load(fs.readFileSync(openApiPath).toString());
 			const swaggerDoc = await JsonRefs.resolveRefs(rootOpenApiJSON, {
 				location: openApiPath,

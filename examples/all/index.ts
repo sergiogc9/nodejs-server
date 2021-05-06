@@ -19,18 +19,14 @@ export const runServer = () => {
 		enableApi: true,
 		apiPath: '/api/',
 		openApiPath: path.join(__dirname, '../api/openapi/openapi.yaml'),
-		apiRoutes: [
-			{ path: '/', router }
-		],
+		apiRoutes: [{ path: '/', router }],
 
 		// SSR api
 		enableSSRApi: true,
 		ssrApiPath: '/web',
 		ssrViewsPath: path.join(__dirname, '../ssrApi/views'),
 		ssrPublicPath: path.join(__dirname, '../ssrApi/public'),
-		ssrApiRoutes: [
-			{ path: '/', router: ssrRouter }
-		],
+		ssrApiRoutes: [{ path: '/', router: ssrRouter }],
 
 		// Reverse proxy
 		enableReverseProxy: true,
