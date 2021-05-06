@@ -19,11 +19,12 @@
 		"version:change": "lerna version",
 		"publish": "lerna publish from-package",
 		"prettier": "prettier --write . --ignore-path .gitignore",
-		"prettier:check": "prettier --check . --ignore-path .gitignore"
+		"prettier:check": "prettier --check . --ignore-path .gitignore",
+		"typescript:check": "tsc --noEmit -p ./packages/server/ && tsc --noEmit -p ./packages/utils/"
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "yarn prettier:check && yarn lint"
+			"pre-commit": "yarn prettier:check && yarn lint && yarn typescript:check"
 		}
 	},
 	"dependencies": {},
