@@ -114,3 +114,6 @@ dist
 
 # Mac OS specific
 .DS_Store
+
+# This is really not ignored. This line has been added to avoid issues with prettier when publishing and pushing a version.
+lerna.json
