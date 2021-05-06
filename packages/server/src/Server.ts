@@ -13,12 +13,12 @@ class Server {
 		Config.init(config);
 	}
 
-	public start = async (startFn?: () => Promise<any>) => {
+	public start = async (startFn?: () => Promise<unknown>) => {
 		await this.__start();
 		if (startFn) await startFn();
 	};
 
-	public startCluster = async (masterFn?: () => Promise<any>, workerFn?: () => Promise<any>) => {
+	public startCluster = async (masterFn?: () => Promise<unknown>, workerFn?: () => Promise<unknown>) => {
 		const finalMasterFn = async () => {
 			await this.__masterFn();
 			if (masterFn) await masterFn();

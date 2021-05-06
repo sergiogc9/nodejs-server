@@ -31,15 +31,15 @@ abstract class BaseDocument {
 }
 
 const enableModelHooks = (schema: mongoose.Schema) => {
-	schema.pre('save', function (next) {
+	schema.pre('save', next => {
 		(this as any)._preSave();
 		next();
 	});
-	schema.post('save', function (doc, next) {
+	schema.post('save', (doc, next) => {
 		(this as any)._postSave();
 		next();
 	});
-	schema.post('save', function (error: any, doc: mongoose.Document, next: mongoose.HookNextFunction) {
+	schema.post('save', (error: any, doc: mongoose.Document, next: mongoose.HookNextFunction) => {
 		(this as any)._postSave(error);
 		next();
 	});

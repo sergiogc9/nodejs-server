@@ -7,7 +7,7 @@ class ErrorHandler {
 		/**
 		 * Show server error in case of errors
 		 */
-		const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+		const serverErrorHandler: ErrorRequestHandler = (err, req, res) => {
 			Log.error(err.stack);
 			res.status(500);
 			return res.render('pages/error', {

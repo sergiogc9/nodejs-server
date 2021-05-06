@@ -3,7 +3,7 @@ import cluster from 'cluster';
 import Log from '@sergiogc9/nodejs-utils/Log';
 
 class Cluster {
-	public start = async (onMasterFn: () => Promise<any>, onWorkerFn: () => Promise<any>) => {
+	public start = async (onMasterFn: () => Promise<unknown>, onWorkerFn: () => Promise<unknown>) => {
 		if (cluster.isMaster) {
 			this.__listenProcessEvents();
 
