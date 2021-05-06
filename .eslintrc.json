@@ -1,68 +1,9 @@
 {
 	"root": true,
-	"parser": "@typescript-eslint/parser",
-	"plugins": [
-		"@typescript-eslint",
-		"eslint-comments"
-	],
 	"extends": [
-		"airbnb-typescript/base",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:eslint-comments/recommended"
+		"@sergiogc9/eslint-config"
 	],
 	"parserOptions": {
 		"project": "./tsconfig.json"
-	},
-	"rules": {
-		"indent": [
-			2,
-			"tab",
-			{
-				"SwitchCase": 1
-			}
-		],
-		"@typescript-eslint/indent": 0,
-		"@typescript-eslint/comma-dangle": "off",
-		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"@typescript-eslint/lines-between-class-members": [
-			"error",
-			{
-				"exceptAfterSingleLine": true
-			}
-		],
-		"max-classes-per-file": "off",
-		"no-tabs": 0,
-		"import/no-extraneous-dependencies": "off",
-		"import/prefer-default-export": "off",
-		"class-methods-use-this": "off",
-		"no-underscore-dangle": "off",
-		"@typescript-eslint/explicit-function-return-type": "off",
-		"comma-dangle": [
-			"error",
-			"never"
-		],
-		"max-len": [
-			"error",
-			{
-				"code": 200
-			}
-		],
-		"arrow-parens": [
-			"error",
-			"as-needed"
-		],
-		"no-param-reassign": "off",
-		"padded-blocks": "off",
-		"object-curly-newline": "off",
-		"func-names": "off",
-		"@typescript-eslint/no-explicit-any": "off",
-		"lines-between-class-members": [
-			"error",
-			"always",
-			{
-				"exceptAfterSingleLine": true
-			}
-		],
-		"eslint-comments/disable-enable-pair": "off"
 	}
 }
