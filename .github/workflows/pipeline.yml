@@ -57,7 +57,7 @@ jobs:
         run: yarn bootstrap
       - name: Publish to Github
         if: contains(github.ref, 'master')
-        run: yarn run publish --yes --no-verify-access
+        run: yarn foxcli pkg-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up node for NPM
@@ -67,6 +67,6 @@ jobs:
           scope: "@sergiogc9"
       - name: Publish to NPM
         if: contains(github.ref, 'master')
-        run: yarn run publish --yes --no-verify-access --ignore-scripts
+        run: yarn foxcli pkg-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
