@@ -15,6 +15,7 @@ This package provides a several set of tools, libraries or utilities that I use 
       - [API](#api)
       - [Log](#log)
       - [Cache](#cache)
+      - [Pushover](#pushover)
 
 ### Getting started
 
@@ -201,4 +202,19 @@ const router = Router();
 
 // Cache response during 10 seconds
 router.get('/', cache(10), HomeController.index);
+```
+
+#### Pushover
+
+Static utility class that helps sending notifications using [Pushover](https://pushover.net/).
+
+You only need to introduce the user config data once and then use the `send` static method. Example of use:
+
+```ts
+// Set user config data
+Pushover.setUserConfig({
+	user: 'user-id',
+	token: 'app-token'
+});
+Pushover.send({ title: 'Wow!', message: 'Awesome message' });
 ```

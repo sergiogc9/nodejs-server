@@ -12,7 +12,8 @@
     "./Api": "./dist/cjs/Api.js",
     "./Cache": "./dist/cjs/Cache.js",
     "./Log": "./dist/cjs/Log.js",
-    "./Model": "./dist/cjs/Model.js"
+    "./Model": "./dist/cjs/Model.js",
+    "./Pushover": "./dist/cjs/Pushover.js"
   },
   "typesVersions": {
     "*": {
@@ -27,6 +28,9 @@
       ],
       "Model": [
         "dist/types/Model"
+      ],
+      "Pushover": [
+        "dist/types/Pushover"
       ]
     }
   },
@@ -45,7 +49,8 @@
     "lodash": "4.17.20",
     "luxon": "1.25.0",
     "memory-cache": "0.2.0",
-    "mongoose": "5.11.13"
+    "mongoose": "5.11.13",
+    "pushover-notifications": "1.2.2"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "3.1.1",
