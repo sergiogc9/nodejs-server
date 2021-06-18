@@ -9,7 +9,7 @@ import path from 'path';
 import pkg from './package.json';
 import globalPkg from '../../package.json';
 
-const dynamicInputs = ['Api', 'Cache', 'Log', 'Model'].reduce((previous, current) => {
+const dynamicInputs = ['Api', 'Cache', 'Log', 'Model', 'Pushover'].reduce((previous, current) => {
 	previous[current] = `src/${current}/index.ts`;
 	return previous;
 }, {});
