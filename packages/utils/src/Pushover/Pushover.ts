@@ -3,7 +3,7 @@ import PushoverNotifications from 'pushover-notifications';
 type PushoverMessage = {
 	message: string;
 	title: string;
-	html?: 1;
+	html?: number;
 };
 
 let __userConfig = {
