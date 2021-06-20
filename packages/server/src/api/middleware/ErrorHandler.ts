@@ -8,7 +8,8 @@ class ErrorHandler {
 		/**
 		 * Show server error in case of errors
 		 */
-		const serverErrorHandler: ErrorRequestHandler = (err, req, res) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 			Log.error(err.stack);
 			// OpenApi error
 			if (err.errors && err.status === 500)
