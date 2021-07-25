@@ -51,10 +51,10 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: yarn install --ignore-scripts --frozen-lockfile
-      - name: Quality code check
-        run: yarn prettier:check && yarn lint && yarn typescript:check
       - name: Build
         run: yarn bootstrap
+      - name: Quality code check
+        run: yarn prettier:check && yarn lint && yarn typescript:check
       - name: Publish to Github
         if: contains(github.ref, 'master')
         run: yarn run publish --yes --no-verify-access
