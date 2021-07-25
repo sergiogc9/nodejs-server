@@ -20,7 +20,7 @@
 		"publish": "lerna publish from-package",
 		"prettier": "prettier --write . --ignore-path .gitignore",
 		"prettier:check": "prettier --check . --ignore-path .gitignore",
-		"typescript:check": "tsc --noEmit -p ./packages/server/ && tsc --noEmit -p ./packages/utils/"
+		"typescript:check": "lerna exec --parallel \"tsc --noEmit -p .\""
 	},
 	"husky": {
 		"hooks": {
