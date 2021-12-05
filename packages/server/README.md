@@ -10,27 +10,12 @@ It is an easy to setup nodejs based server which allows to start different kind 
 - Serving static files located in a directory. Useful to serve a SPA (Single Page Application) in React, Angular, etc.
 - Serving an API using cluster, express, mongoose, openapi, swagger and others.
 - Serving an API based website using SSR (Server Side Rendering) with express and EJS.
-- Working as a single entry point in a server using Reverse Proxy.
+- Working as a single entry point in a server using Proxy and / or reverse proxy.
 - Executing extra nodeJs code in cluster by using the NodeJS cluster API.
 
 ### Table of Contents
 
-- [NodeJS Server](#nodejs-server)
-  - [Table of Contents](#table-of-contents)
-  - [Getting started](#getting-started)
-  - [Usage](#usage)
-    - [Full server](#full-server)
-    - [Static web server](#static-web-server)
-    - [API Server](#api-server)
-    - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
-    - [Reverse proxy server](#reverse-proxy-server)
-  - [Configuration options](#configuration-options)
-    - [Common options](#common-options)
-    - [Static server options](#static-server-options)
-    - [API server options](#api-server-options)
-    - [Server side server options](#server-side-server-options)
-    - [Reverse proxy server options](#reverse-proxy-server-options)
-    - [Full server options](#full-server-options)
+- [NodeJS Server](#nodejs-server) - [Table of Contents](#table-of-contents) - [Getting started](#getting-started) - [Usage](#usage) - [Full server](#full-server) - [Static web server](#static-web-server) - [API Server](#api-server) - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server) - [Proxy server](#proxy-server) - [Configuration options](#configuration-options) - [Common options](#common-options) - [Static server options](#static-server-options) - [API server options](#api-server-options) - [Server side server options](#server-side-server-options) - [Proxy server options](#proxy-server-options) - [Full server options](#full-server-options)
 
 ### Getting started
 
@@ -59,7 +44,7 @@ Depending on the requirements, you can import a different Server class from the 
 
 #### Full server
 
-The full server has all features enabled. Useful if you need more than one type of server together. It is the default exported element of the package. A sample example if static, API and reverse proxy features are wanted:
+The full server has all features enabled. Useful if you need more than one type of server together. It is the default exported element of the package. A sample example if static, API and proxy features are wanted:
 
 ```typescript
 import path from 'path';
@@ -80,9 +65,9 @@ const server = new Server({
 	openApiPath: path.join(__dirname, './api/openapi/openapi.yaml'),
 	apiRoutes: [{ path: '/', router }],
 
-	// Reverse proxy
-	enableReverseProxy: true,
-	reverseProxyPaths: proxyPaths
+	// Proxy
+	enableProxy: true,
+	proxyPaths: proxyPaths
 });
 
 server.start();
@@ -165,23 +150,24 @@ const server = new SSRApiServer({
 server.start();
 ```
 
-#### Reverse proxy server
+#### Proxy server
 
-The `ReverseProxyServer` only allows to define some HTTP redirects. It can be used as a single entry point to redirect requests to other server instances inside the same machine, network, etc.
+The `ProxyServer` allows to define some proxy rules using reverse proxies. It can be used as a single entry point to redirect requests to other server instances inside the same machine, network, etc.
+
+Use the `hostname` option inside each path to make a specific proxy rule to work only with an specific hostname (DNS domain).
 
 Example:
 
 ```typescript
-import { ReverseProxyServer } from '@sergiogc9/nodejs-server';
+import { ProxyServer } from '@sergiogc9/nodejs-server';
 
 const proxyPaths = [
 	{ from: '/netdata', to: 'http://localhost:19999' },
 	{ from: '/private', to: 'http://10.0.1.10:3000' }
 ];
 
-const server = new ReverseProxyServer({
-	// Reverse proxy
-	reverseProxyPaths: proxyPaths
+const server = new ProxyServer({
+	proxyPaths: proxyPaths
 });
 
 server.start();
@@ -221,19 +207,19 @@ server.start();
 | `ssrPublicPath` | The path where public content for SSR is located. The assets will be served behind the /public path after `ssrApiPath`. If not set not public assets will be served. | string                             |         |            |
 | `ssrApiRoutes`  | The routes to be served in the API. Each path should have a valid express `Router` instance.                                                                         | { path: string, router: Router }[] |         | `required` |
 
-##### Reverse proxy server options
+##### Proxy server options
 
-| Option              | Description                                 | Type                           | Default |            |
-| ------------------- | ------------------------------------------- | ------------------------------ | ------- | ---------- |
-| `reverseProxyPaths` | An array with all the reverse proxies data. | { from: string, to: string }[] |         | `required` |
+| Option       | Description                                                                                                                    | Type                                              | Default |            |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | ------- | ---------- |
+| `proxyPaths` | An array with all the proxies data. If hostname is provided, the proxy only will work if the request comes from this hostname. | { from: string, hostname?: string, to: string }[] |         | `required` |
 
 ##### Full server options
 
 This options tells the full Server which specific server features should be enabled.
 
-| Option               | Description                                 | Type    | Default |
-| -------------------- | ------------------------------------------- | ------- | ------- |
-| `enableStaticWeb`    | Enable or disable static web server.        | boolean | `false` |
-| `enableApi`          | Enable or disable the API.                  | boolean | `false` |
-| `enableSSRApi`       | Enable or disable the SSR based API.        | boolean | `false` |
-| `enableReverseProxy` | Enable or disable the reverse proxy server. | boolean | `false` |
+| Option            | Description                          | Type    | Default |
+| ----------------- | ------------------------------------ | ------- | ------- |
+| `enableStaticWeb` | Enable or disable static web server. | boolean | `false` |
+| `enableApi`       | Enable or disable the API.           | boolean | `false` |
+| `enableSSRApi`    | Enable or disable the SSR based API. | boolean | `false` |
+| `enableProxy`     | Enable or disable the proxy server.  | boolean | `false` |

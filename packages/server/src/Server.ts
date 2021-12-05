@@ -73,10 +73,11 @@ export class SSRApiServer extends Server {
 	}
 }
 
-export class ReverseProxyServer extends Server {
+export class ProxyServer extends Server {
 	constructor(config: ProxyServerConfig) {
-		super({ enableReverseProxy: true, ...config });
+		super({ enableProxy: true, ...config });
 	}
 }
 
+export type { ApiServerConfig, ProxyServerConfig, ServerConfig, StaticServerConfig, SSRApiServerConfig };
 export default Server;

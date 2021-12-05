@@ -26,7 +26,8 @@ export type SSRApiServerConfig = CommonConfig & {
 };
 
 export type ProxyServerConfig = CommonConfig & {
-	reverseProxyPaths: Array<{ from: string; to: string }>;
+	// Using a hostname makes the server to only proxy the requests if it matches with the hostname passed
+	proxyPaths: Array<{ from: string; hostname?: string; to: string }>;
 };
 
 export type FullServerConfig = CommonConfig &
@@ -37,7 +38,7 @@ export type FullServerConfig = CommonConfig &
 		enableStaticWeb: boolean; // Enable or disable static web server. Default: false
 		enableApi: boolean; // Enable or disable API. Default: false
 		enableSSRApi: boolean; // Enable or disable ssr based API. Default: false
-		enableReverseProxy: boolean; // Enable or disable reverse proxy server. Default: false
+		enableProxy: boolean; // Enable or disable proxy server. Default: false
 	};
 
 export type PrivateConfig = {
@@ -65,8 +66,8 @@ class Config {
 		ssrApiRoutes: [],
 
 		// Reverse proxy
-		enableReverseProxy: false,
-		reverseProxyPaths: [],
+		enableProxy: false,
+		proxyPaths: [],
 
 		// Public config
 		port: 4000,

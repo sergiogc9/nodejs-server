@@ -12,7 +12,7 @@ An easy to setup nodejs based server which allows to start different kind of ser
 - Serving static files located in a directory. Useful to serve a SPA (Single Page Application) in React, Angular, etc.
 - Serving an API using cluster, express, mongoose, openapi, swagger and others.
 - Serving an API based website using SSR (Server Side Rendering) with express and EJS.
-- Working as a single entry point in a server using Reverse Proxy.
+- Working as a single entry point in a server using Proxy and / or Reverse proxy.
 - Executing extra nodeJs code in cluster by using the NodeJS cluster API.
 
 A very simple example of use can be:
@@ -36,9 +36,9 @@ const server = new Server({
 	openApiPath: path.join(__dirname, './api/openapi/openapi.yaml'),
 	apiRoutes: [{ path: '/', router }],
 
-	// Reverse proxy
-	enableReverseProxy: true,
-	reverseProxyPaths: proxyPaths
+	// Proxy
+	enableProxy: true,
+	proxyPaths: proxyPaths
 });
 
 server.start();

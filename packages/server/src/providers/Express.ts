@@ -31,12 +31,24 @@ class Express {
 	 */
 	private mountServices = async () => {
 		const config = Config.get();
-		if (!isEmpty(config.reverseProxyPaths)) {
-			Log.info('Express :: Mounting Reverse Proxy');
-			const proxyPaths = config.reverseProxyPaths;
+		if (!isEmpty(config.proxyPaths)) {
+			Log.info('Express :: Mounting Proxy');
+			const { proxyPaths } = config;
 			proxyPaths.forEach(proxyPath => {
-				Log.info(`Express :: Routing path ${proxyPath.from} to ${proxyPath.to}`);
-				this.express.use(proxyPath.from, proxy(proxyPath.to));
+				if (proxyPath.hostname)
+					Log.info(`Express :: Routing path ${proxyPath.from} to ${proxyPath.to} for hostname: ${proxyPath.hostname}`);
+				else Log.info(`Express :: Routing path ${proxyPath.from} to ${proxyPath.to}`);
+				this.express.use(
+					proxyPath.from,
+					proxy(proxyPath.to, {
+						filter: proxyPath.hostname
+							? req => {
+									if (req.hostname === proxyPath.hostname) return true;
+									return false;
+							  }
+							: undefined
+					})
+				);
 			});
 		}
 		if (config.enableApi) {
