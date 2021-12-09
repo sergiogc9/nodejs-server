@@ -57,7 +57,7 @@ const proxyPaths = [{ from: '/netdata', to: 'http://localhost:19999' }];
 const server = new Server({
 	// Static
 	enableStaticWeb: true,
-	staticWebFolder: path.join(__dirname, './static/public'),
+	staticSources: [{ folder: path.join(__dirname, './static/public'), path: '/public' }],
 
 	// Api
 	enableApi: true,
@@ -87,7 +87,7 @@ import { StaticServer } from '@sergiogc9/nodejs-server';
 
 const server = new StaticServer({
 	// The directory where the build to serve is located
-	staticWebFolder: path.join(__dirname, './static/public')
+	staticSources: [{ folder: path.join(__dirname, './static/public'), path: '/public' }]
 });
 
 server.start();
@@ -184,10 +184,9 @@ server.start();
 
 ##### Static server options
 
-| Option            | Description                                                | Type   | Default |            |
-| ----------------- | ---------------------------------------------------------- | ------ | ------- | ---------- |
-| `staticWebFolder` | Directory where static web files are located.              | string |         | `required` |
-| `staticWebPath`   | The base endpoint path where the static content is served. | string | `/`     |
+| Option          | Description                                                                                                                                                                               | Type                               | Default |            |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------- | ---------- |
+| `staticSources` | Array of sources containing static content. The `folder` is the directory where static web files are located and the `path` is the base endpoint path where the static content is served. | { folder: string, path: Router }[] |         | `required` |
 
 ##### API server options
 

@@ -6,8 +6,12 @@ export type CommonConfig = {
 };
 
 export type StaticServerConfig = CommonConfig & {
-	staticWebFolder: string; // Directory where static web files are in the server
-	staticWebPath?: string; // Server endpoint path where static web will be served. Default: '/'
+	/**
+	 * Array containing all sources. Useful if wanted to use different applications in a unique server.
+	 * folder is the directory where static web files are in the server
+	 * path is the server endpoint path where static web will be served
+	 */
+	staticSources: Array<{ folder: string; path: string }>; // Array containing all sources. Useful if wanted to use different applications in a unique server.
 };
 
 export type ApiServerConfig = CommonConfig & {
@@ -52,7 +56,7 @@ class Config {
 	private __config: Partial<ServerConfig> = {
 		// Static server
 		enableStaticWeb: false,
-		staticWebPath: '/',
+		staticSources: [],
 
 		// Api
 		enableApi: false,

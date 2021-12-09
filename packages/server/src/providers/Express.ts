@@ -65,13 +65,14 @@ class Express {
 		}
 		if (config.enableStaticWeb) {
 			Log.info('Express :: Mounting Static Web...');
-			const publicFolder = config.staticWebFolder;
-			if (!publicFolder) throw new Error('Static web folder path not provided!');
-			this.express.use(express.static(publicFolder));
 
-			// handle every other route with index.html, which handles all routes dynamically
-			// Comment following code if content is not a Single Web Application
-			this.express.get('*', (req, res) => res.sendFile(path.resolve(publicFolder, 'index.html')));
+			config.staticSources.forEach(source => {
+				this.express.use(source.path, express.static(source.folder));
+
+				// handle every other route with index.html, which handles all routes dynamically
+				// Comment following code if content is not a Single Web Application
+				this.express.get(`${source.path}*`, (req, res) => res.sendFile(path.resolve(source.folder, 'index.html')));
+			});
 		}
 	};
 

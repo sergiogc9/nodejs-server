@@ -7,7 +7,7 @@ import ssrRouter from '../ssrApi/routes/Router';
 export const runServer = () => {
 	const proxyPaths: ProxyServerConfig['proxyPaths'] = [
 		// Example without specifying domain
-		{ from: '/', hostname: 'localhost', to: 'https://github.com' },
+		{ from: '/github', hostname: 'localhost', to: 'https://github.com' },
 		{ from: '/gironafc', to: 'https://www.gironafc.cat' }
 		// Example with domain-based proxy
 		// { from: '/', hostname: 'localhost', to: 'https://github.com' },
@@ -17,7 +17,7 @@ export const runServer = () => {
 	const server = new Server({
 		// Static
 		enableStaticWeb: true,
-		staticWebFolder: path.join(__dirname, '../static/public'),
+		staticSources: [{ folder: path.join(__dirname, '../static/public'), path: '/public' }],
 
 		// Api
 		enableApi: true,
