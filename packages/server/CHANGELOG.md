@@ -2,6 +2,12 @@
 
 All notable changes to this package will be documented in this file.
 
+## [v0.2.0] - December, 2021
+
+#### Updated
+
+Changed `StaticServer` to accept now an array of sources to be able to run multiple static applications.
+
 ## [v0.1.2] - December, 2021
 
 #### Added
