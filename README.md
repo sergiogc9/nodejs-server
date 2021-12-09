@@ -28,7 +28,7 @@ const proxyPaths = [{ from: '/netdata', to: 'http://localhost:19999' }];
 const server = new Server({
 	// Static
 	enableStaticWeb: true,
-	staticWebFolder: path.join(__dirname, './static/public'),
+	staticSources: [{ folder: path.join(__dirname, './static/public'), path: '/public' }],
 
 	// Api
 	enableApi: true,
