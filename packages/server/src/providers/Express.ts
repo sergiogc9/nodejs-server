@@ -49,6 +49,8 @@ class Express {
 							  }
 							: undefined,
 						proxyReqPathResolver: req => {
+							if (req.originalUrl.replace(/\//g, '') === proxyPath.from.replace(/\//g, ''))
+								return url.parse(proxyPath.to).pathname;
 							const resolvedPath = `${url.parse(proxyPath.to).pathname}/${req.originalUrl.replace(
 								new RegExp(`^${proxyPath.from.replace(/\/$/, '')}`),
 								''
