@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import url from 'url';
 import proxy from 'express-http-proxy';
 import isEmpty from 'lodash/isEmpty';
 import Log from '@sergiogc9/nodejs-utils/Log';
@@ -46,7 +47,14 @@ class Express {
 									if (req.hostname === proxyPath.hostname) return true;
 									return false;
 							  }
-							: undefined
+							: undefined,
+						proxyReqPathResolver: req => {
+							const resolvedPath = `${url.parse(proxyPath.to).pathname}/${req.originalUrl.replace(
+								new RegExp(`^${proxyPath.from.replace(/\/$/, '')}`),
+								''
+							)}`;
+							return resolvedPath.replace(/(:\/\/)|(\/)+/g, '$1/');
+						}
 					})
 				);
 			});
