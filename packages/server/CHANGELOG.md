@@ -2,6 +2,12 @@
 
 All notable changes to this package will be documented in this file.
 
+## [v0.2.1] - December, 2021
+
+#### Fixed
+
+Improved the Reverse Proxy server behavior when using non root paths as destination.
+
 ## [v0.2.0] - December, 2021
 
 #### Updated
