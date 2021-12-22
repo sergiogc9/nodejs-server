@@ -2,6 +2,12 @@
 
 All notable changes to this package will be documented in this file.
 
+## [v0.2.2] - December, 2021
+
+#### Added
+
+Added notifications to Pushover when server errors happen. The notifications are only sent if Pushover is enabled.
+
 ## [v0.2.1] - December, 2021
 
 #### Fixed
