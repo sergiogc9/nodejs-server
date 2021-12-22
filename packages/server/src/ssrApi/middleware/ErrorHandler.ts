@@ -9,7 +9,7 @@ class ErrorHandler {
 		 */
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-			Log.error(err.stack);
+			Log.error(err.stack, { sendAlert: true });
 			res.status(500);
 			return res.render('pages/error', {
 				error: 'Server error'

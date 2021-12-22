@@ -20,10 +20,10 @@ class Cluster {
 	//  Catches the process events
 	private __listenProcessEvents = () => {
 		// Catch the Process's uncaught-exception
-		process.on('uncaughtException', exception => Log.error(exception.stack));
+		process.on('uncaughtException', exception => Log.error(exception.stack, { sendAlert: true }));
 
 		// Catch the Process's warning event
-		process.on('warning', warning => Log.warn(warning.stack));
+		process.on('warning', warning => Log.warn(warning.stack, { sendAlert: true }));
 	};
 
 	// Catches the cluster events

@@ -3,6 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import cluster from 'cluster';
 import { DateTime } from 'luxon';
+import os from 'os';
+
+import Pushover from '../Pushover';
+import { LogLevel, LogOptions } from './types';
 
 export class Log {
 	private __baseDir: string;
@@ -20,33 +24,33 @@ export class Log {
 	}
 
 	// Adds INFO prefix string to the log string
-	public info(_string: string) {
-		this.__addLog('INFO', _string);
+	public info(_string: string, options?: LogOptions) {
+		this.__addLog('INFO', _string, options);
 	}
 
 	// Adds WARN prefix string to the log string
-	public warn(_string: string) {
-		this.__addLog('WARN', _string);
+	public warn(_string: string, options?: LogOptions) {
+		this.__addLog('WARN', _string, options);
 	}
 
 	// Adds ERROR prefix string to the log string
-	public error(_string: string) {
+	public error(_string: string, options?: LogOptions) {
 		// Line break and show the first line
 		console.log('\x1b[31m%s\x1b[0m', `[ERROR] :: ${_string.split(/r?\n/)[0]}`);
 
-		this.__addLog('ERROR', _string);
+		this.__addLog('ERROR', _string, options);
 	}
 
 	// Adds the custom type string to the log string
-	public custom(type: string, text: string) {
-		this.__addLog(type, text);
+	public custom(type: LogLevel, text: string, options?: LogOptions) {
+		this.__addLog(type, text, options);
 	}
 
 	/**
 	 * Creates the file if does not exist, and
 	 * append the log kind & string into the file.
 	 */
-	private __addLog(_kind: string, _string: string) {
+	private __addLog(_kind: LogLevel, _string: string, options: LogOptions = {}) {
 		const fileDateString = DateTime.local().toFormat('yyyy-MM-dd');
 		const timeString = DateTime.local().toFormat('dd/MM/yyyy HH:mm');
 
@@ -54,12 +58,29 @@ export class Log {
 		const workerIdPrefix = cluster.isMaster ? '[MASTER]' : `[${cluster.worker.process.pid}]`;
 		const linePrefix = `[${timeString}] ${workerIdPrefix} [${this.__prefix ? this.__prefix.toUpperCase() : 'SERVER'}]`;
 
-		const text = `${linePrefix} [${_kind.toUpperCase()}] ${_string}\n`;
+		const textPrefix = `${linePrefix} [${_kind.toUpperCase()}]`;
+		const text = `${textPrefix} ${_string}\n`;
 
 		// Write in global log file
 		this.__writeLog(`${this.__baseDir}${fileName}`, text);
 		// Write in specific service file
 		if (this.__prefix) this.__writeLog(`${this.__baseDir}/${this.__prefix}/${fileName}`, text);
+
+		if (options.sendAlert && Pushover.isConfigured()) {
+			/* eslint-disable @typescript-eslint/naming-convention */
+			const emojis: Record<LogLevel, string> = {
+				INFO: 'ℹ️',
+				WARN: '⚠️',
+				ERROR: '⚠️'
+			};
+			/* eslint-enable @typescript-eslint/naming-convention */
+			const serviceName = this.__getPackageName();
+			const pushoverTitle = `${emojis[_kind]} ${_kind.toUpperCase()} → ${serviceName}`;
+			let pushoverMessage = `<b>Server:</b> ${os.hostname()}\n`;
+			pushoverMessage += `${textPrefix}\n`;
+			pushoverMessage += _string;
+			Pushover.send({ html: 1, message: pushoverMessage, priority: _kind === 'ERROR' ? 1 : 0, title: pushoverTitle });
+		}
 	}
 
 	private __writeLog = (filePath: string, text: string) => {
@@ -82,6 +103,21 @@ export class Log {
 			}
 		});
 		/* eslint-enable consistent-return */
+	};
+
+	private __getPackageName = () => {
+		let pkgPath = path.resolve(process.cwd(), '');
+
+		if (!pkgPath.endsWith('package.json')) {
+			pkgPath = path.join(pkgPath, 'package.json');
+		}
+
+		if (fs.existsSync(pkgPath)) {
+			const pkg = JSON.parse(fs.readFileSync(pkgPath).toString());
+			return pkg.name;
+		}
+
+		return '-';
 	};
 
 	/**
