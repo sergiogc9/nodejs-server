@@ -19,7 +19,6 @@ class Server {
 		try {
 			process.on('uncaughtException', err => {
 				Log.error(err.stack, { sendAlert: true });
-				process.exit(1);
 			});
 
 			await this.__start();
