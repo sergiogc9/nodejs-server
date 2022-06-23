@@ -22,7 +22,12 @@
 		"publish": "lerna publish from-package",
 		"prettier": "prettier --write . --ignore-path .gitignore",
 		"prettier:check": "prettier --check . --ignore-path .gitignore",
-		"typescript:check": "lerna exec --parallel \"tsc --noEmit -p .\""
+		"typescript:check": "lerna exec --parallel \"tsc --noEmit -p .\"",
+		"bump:auto": "lerna version --conventional-commits",
+		"bump:version:prerelease": "lerna version prerelease",
+		"bump:version:patch": "lerna version patch",
+		"bump:version:minor": "lerna version minor",
+		"bump:version:major": "lerna version major"
 	},
 	"dependencies": {},
 	"devDependencies": {
