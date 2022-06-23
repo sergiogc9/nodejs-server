@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --ignore-scripts --frozen-lockfile
       - name: Build
-        run: yarn bootstrap
+        run: yarn build
       - name: Quality code check
         run: yarn prettier:check && yarn lint && yarn typescript:check
       - name: Publish to Github
