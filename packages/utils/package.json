@@ -4,16 +4,50 @@
 	"description": "NodeJS TypeScript utils",
 	"author": "Sergio Gómez Cosgaya (sergiogcosgaya@gmail.com)",
 	"repository": "git://github.com/sergiogc9/nodejs-server.git",
+	"keywords": [
+		"nodejs",
+		"server",
+		"utils",
+		"lib",
+		"log",
+		"cache",
+		"mongodb",
+		"pushover"
+	],
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"types": "dist/types/index.d.ts",
 	"exports": {
-		".": "./dist/cjs/index.js",
-		"./Api": "./dist/cjs/Api.js",
-		"./Cache": "./dist/cjs/Cache.js",
-		"./Log": "./dist/cjs/Log.js",
-		"./Model": "./dist/cjs/Model.js",
-		"./Pushover": "./dist/cjs/Pushover.js"
+		".": {
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"types": "./dist/types/index.d.ts"
+		},
+		"./Api": {
+			"import": "./dist/esm/Api/index.js",
+			"require": "./dist/cjs/Api/index.js",
+			"types": "./dist/types/Api/index.d.ts"
+		},
+		"./Cache": {
+			"import": "./dist/esm/Cache/index.js",
+			"require": "./dist/cjs/Cache/index.js",
+			"types": "./dist/types/Cache/index.d.ts"
+		},
+		"./Log": {
+			"import": "./dist/esm/Log/index.js",
+			"require": "./dist/cjs/Log/index.js",
+			"types": "./dist/types/Log/index.d.ts"
+		},
+		"./Model": {
+			"import": "./dist/esm/Model/index.js",
+			"require": "./dist/cjs/Model/index.js",
+			"types": "./dist/types/Model/index.d.ts"
+		},
+		"./Pushover": {
+			"import": "./dist/esm/Pushover/index.js",
+			"require": "./dist/cjs/Pushover/index.js",
+			"types": "./dist/types/Pushover/index.d.ts"
+		}
 	},
 	"typesVersions": {
 		"*": {
@@ -41,30 +75,24 @@
 		"access": "public"
 	},
 	"scripts": {
-		"prepare": "rollup -c ./rollup.config.js",
-		"watch": "rollup -w -c ./rollup.config.js"
+		"build": "node ./build.js",
+		"watch": "yarn build --watch"
 	},
 	"dependencies": {
-		"express": "4.17.1",
-		"lodash": "4.17.21",
-		"luxon": "1.25.0",
+		"express": "^4.18.1",
+		"lodash": "^4.17.21",
+		"luxon": "^1.28.0",
 		"memory-cache": "0.2.0",
 		"mongoose": "5.11.13",
-		"pushover-notifications": "1.2.2"
+		"pushover-notifications": "^1.2.2"
 	},
 	"devDependencies": {
-		"@rollup/plugin-alias": "3.1.1",
-		"@rollup/plugin-typescript": "8.1.0",
-		"@types/lodash": "4.14.166",
-		"@types/luxon": "1.25.0",
-		"@types/memory-cache": "0.2.1",
-		"rollup": "2.35.1",
-		"rollup-plugin-copy": "^3.3.0",
-		"rollup-plugin-dts": "2.0.1",
-		"rollup-plugin-terser": "7.0.2"
+		"@types/lodash": "^4.14.182",
+		"@types/luxon": "^1.27.1",
+		"@types/memory-cache": "^0.2.2"
 	},
 	"engines": {
-		"node": ">=14.x.x",
-		"npm": ">=6.14.0"
+		"node": ">=16.x.x",
+		"npm": ">=8.0.0"
 	}
 }

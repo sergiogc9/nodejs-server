@@ -34,7 +34,10 @@ export const runServer = () => {
 
 		// Proxy
 		enableProxy: true,
-		proxyPaths
+		proxyPaths,
+
+		// Database
+		mongoUri: 'mongodb+srv://<username>:<password>@cluster0.sllnf.mongodb.net/nodejs_base'
 	});
 	server.start();
 };

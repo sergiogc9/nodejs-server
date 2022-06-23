@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import OpenApiValidator from 'express-openapi-validator';
+import * as OpenApiValidator from 'express-openapi-validator';
 import fs from 'fs';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'js-yaml';
