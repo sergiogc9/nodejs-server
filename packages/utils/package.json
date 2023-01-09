@@ -81,7 +81,7 @@
 	"dependencies": {
 		"express": "^4.18.1",
 		"lodash": "^4.17.21",
-		"luxon": "^1.28.0",
+		"luxon": "^2.5.2",
 		"memory-cache": "0.2.0",
 		"mongoose": "5.11.13",
 		"pushover-notifications": "^1.2.2"
