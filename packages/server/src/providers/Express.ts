@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import Log from '@sergiogc9/nodejs-utils/Log';
 
 import Api from 'src/api/Api';
+import HTTPAuth from 'src/middleware/HTTPAuth';
 import SSRApi from 'src/ssrApi/SSRApi';
 import Config from 'src/providers/Config';
 
@@ -23,15 +24,18 @@ class Express {
 	}
 
 	/**
-	 * Mounts all the defined middlewares
+	 * Mounts the defined middlewares
 	 */
-	private mountMiddlewares = () => {};
+	private mountMiddlewares = () => {
+		HTTPAuth.mount(this.express);
+	};
 
 	/**
 	 * Mounts all services
 	 */
 	private mountServices = async () => {
 		const config = Config.get();
+
 		if (!isEmpty(config.proxyPaths)) {
 			Log.info('Express :: Mounting Proxy');
 			const { proxyPaths } = config;

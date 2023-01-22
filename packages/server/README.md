@@ -15,7 +15,21 @@ It is an easy to setup nodejs based server which allows to start different kind 
 
 ### Table of Contents
 
-- [NodeJS Server](#nodejs-server) - [Table of Contents](#table-of-contents) - [Getting started](#getting-started) - [Usage](#usage) - [Full server](#full-server) - [Static web server](#static-web-server) - [API Server](#api-server) - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server) - [Proxy server](#proxy-server) - [Configuration options](#configuration-options) - [Common options](#common-options) - [Static server options](#static-server-options) - [API server options](#api-server-options) - [Server side server options](#server-side-server-options) - [Proxy server options](#proxy-server-options) - [Full server options](#full-server-options)
+<!-- prettier-ignore -->
+- [Getting started](#getting-started)
+- [Usage](#usage)
+	- [Full server](#full-server)
+	- [Static web server](#static-web-server)
+	- [API Server](#api-server)
+	- [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
+	- [Proxy server](#proxy-server)
+- [Configuration options](#configuration-options)
+	- [Common options](#common-options)
+		- [Static server options](#static-server-options)
+		- [API server options](#api-server-options)
+		- [Server side server options](#server-side-server-options)
+		- [Proxy server options](#proxy-server-options)
+		- [Full server options](#full-server-options)
 
 ### Getting started
 
@@ -177,10 +191,11 @@ server.start();
 
 ##### Common options
 
-| Option     | Description                                                                                | Type   | Default |
-| ---------- | ------------------------------------------------------------------------------------------ | ------ | ------- |
-| `port`     | The port to used by the server.                                                            | number | 4000    |
-| `mongoUri` | The mongo uri used to connect to the database. <br> If not provied, no connection is done. | string |         |
+| Option     | Description                                                                                                                                                                  | Type                                                              | Default |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------- |
+| `port`     | The port to used by the server.                                                                                                                                              | number                                                            | 4000    |
+| `mongoUri` | The mongo uri used to connect to the database. <br> If not provied, no connection is done.                                                                                   | string                                                            |         |
+| `auth`     | Object containing the HTTP authentication config if wanted. <br/>`users` is an object with all users and passwords. <br/>`realm` must be a unique identifier for the server. | {<br/>users: { [user: string]: string },<br/>realm: string<br/> } |         |
 
 ##### Static server options
 

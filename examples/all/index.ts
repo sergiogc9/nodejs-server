@@ -36,6 +36,12 @@ export const runServer = () => {
 		enableProxy: true,
 		proxyPaths,
 
+		// HTTP Authentication
+		// auth: {
+		// 	realm: '@sergiogc9/nodejs-server',
+		// 	users: { user: 'pwd' }
+		// },
+
 		// Database
 		mongoUri: 'mongodb+srv://<username>:<password>@cluster0.sllnf.mongodb.net/nodejs_base'
 	});
