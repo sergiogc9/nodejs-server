@@ -75,7 +75,6 @@
 		"lodash": "^4.17.21",
 		"luxon": "^1.28.0",
 		"memory-cache": "0.2.0",
-		"mongoose": "7.1.0",
 		"pushover-notifications": "^1.2.2"
 	},
 	"devDependencies": {
