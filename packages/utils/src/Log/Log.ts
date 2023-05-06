@@ -10,7 +10,7 @@ import { LogLevel, LogOptions } from './types';
 
 export class Log {
 	private __baseDir: string;
-	private __prefix: string;
+	private __prefix: string | undefined;
 
 	constructor(prefix?: string) {
 		if (prefix) this.__prefix = prefix;

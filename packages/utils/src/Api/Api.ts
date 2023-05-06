@@ -18,11 +18,24 @@ const getRequestData = (req: express.Request) => ({
 	body: req.body,
 	content_type: req.headers['content-type']
 });
+const transformModelDataObject = (data: any) => {
+	if (data.toObject && data.__v !== undefined) {
+		return data.toObject({
+			transform: (doc: any, ret: any) => {
+				delete ret.__v;
+				ret._id = ret._id.toString();
+				return ret;
+			}
+		});
+	}
+
+	return data;
+};
 // This helper function gets all fields from models
 const convertModelData = (data: any) => {
 	if (!data) return data;
-	if (isArray(data)) return data.map(item => (item.getValues ? item.getValues() : item));
-	return data.getValues ? data.getValues() : data;
+	if (isArray(data)) return data.map(transformModelDataObject);
+	return transformModelDataObject(data);
 };
 
 // Export API error constants

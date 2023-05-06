@@ -59,7 +59,7 @@ class Express {
 								new RegExp(`^${proxyPath.from.replace(/\/$/, '')}`),
 								''
 							)}`;
-							return resolvedPath.replace(/(:\/\/)|(\/)+/g, '$1/');
+							return resolvedPath.replace(/(:\/\/)|(\/)+/g, '$1/') as any;
 						}
 					})
 				);
@@ -69,13 +69,13 @@ class Express {
 			Log.info('Express :: Mounting API Routes...');
 			const api = new Api();
 			await api.init();
-			this.express.use(config.apiPath, api.getExpress());
+			this.express.use(config.apiPath!, api.getExpress());
 		}
 		if (config.enableSSRApi) {
 			Log.info('Express :: Mounting SSR Web...');
 			const ssrApi = new SSRApi();
 			await ssrApi.init();
-			this.express.use(config.ssrApiPath, ssrApi.getExpress());
+			this.express.use(config.ssrApiPath!, ssrApi.getExpress());
 		}
 		if (config.enableStaticWeb) {
 			Log.info('Express :: Mounting Static Web...');

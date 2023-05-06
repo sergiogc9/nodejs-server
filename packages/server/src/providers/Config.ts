@@ -54,7 +54,7 @@ export type PrivateConfig = {
 export type ServerConfig = FullServerConfig & PrivateConfig;
 
 class Config {
-	private __config: Partial<ServerConfig> = {
+	private __config: ServerConfig = {
 		// Static server
 		enableStaticWeb: false,
 		staticSources: [],
@@ -69,6 +69,7 @@ class Config {
 		ssrApiPath: '/ssr/',
 		ssrApiCors: [],
 		ssrApiRoutes: [],
+		ssrViewsPath: '',
 
 		// Reverse proxy
 		enableProxy: false,

@@ -33,7 +33,7 @@ class SSRApi {
 	private mountRoutes = () => {
 		const { ssrApiRoutes } = Config.get();
 		ssrApiRoutes.forEach(({ path, router }) => {
-			this._express.use(path, router);
+			if (router) this._express.use(path, router);
 		});
 	};
 

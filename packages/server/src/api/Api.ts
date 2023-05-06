@@ -32,7 +32,7 @@ class Api {
 	private mountRoutes = () => {
 		const { apiRoutes } = Config.get();
 		apiRoutes.forEach(({ path, router }) => {
-			this._express.use(path, router);
+			if (router) this._express.use(path, router);
 		});
 	};
 

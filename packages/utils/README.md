@@ -7,15 +7,7 @@ This package provides a several set of tools, libraries or utilities that I use 
 
 ### Table of Contents
 
-- [NodeJS Utils](#nodejs-utils)
-  - [Table of Contents](#table-of-contents)
-  - [Getting started](#getting-started)
-  - [Available modules](#available-modules)
-    - [Model](#model)
-    - [API](#api)
-    - [Log](#log)
-    - [Cache](#cache)
-    - [Pushover](#pushover)
+- [NodeJS Utils](#nodejs-utils) - [Table of Contents](#table-of-contents) - [Getting started](#getting-started) - [Available modules](#available-modules) - [API](#api) - [Log](#log) - [Cache](#cache) - [Pushover](#pushover)
 
 ### Getting started
 
@@ -24,70 +16,6 @@ You can get everything importing the whole package or import only some available
 `yarn add -S @sergiogc9/nodejs-server` or `npm install --save @sergiogc9/nodejs-server`
 
 ### Available modules
-
-#### Model
-
-This module provides a typed base class to work with _mongoose_ models and documents. You can define models and then their documents as class instances, with all the types working fine and methods, including static methods.
-
-With the Model module you can import:
-
-- `createModel(name, ModelClass, modelSchema)`:
-
-  Helper function to create a mongoose model using a name, a class extending _BaseDocument_ defining the document and the model schema. It returns an instance of a Model.
-
-- `BaseDocument`;
-
-  An abstract class to extend from when creating model document classes. It has a `getValues()` method which returns the database object properties.
-
-  A pre-save and a post-save hook can be added implementing the protected methods `_preSave()` and `_postSave()`.
-
-- `Document<T extends BaseDocument>`:
-
-  A generic type to add _mongoose Document_ methods into _BaseDocument_ class.
-
-Example usage defining a Team model with a relation with another model User:
-
-```ts
-import { Schema } from 'mongoose';
-import { BaseDocument, createModel, Document } from '@sergiogc9/nodejs-utils/Model';
-
-import { UserDocument } from 'models/User';
-
-const teamSchemaDefinition = {
-	name: { type: String, required: true },
-	country: { type: String, required: true },
-	users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
-};
-
-class TeamBaseDocument extends BaseDocument {
-	public name: string;
-	public country: string;
-	public users: UserDocument[] | string[];
-
-	getNumberOfUsers() {
-		return this.users.length;
-	}
-
-	static getAllCountries() {
-		return ['cat', 'es', 'us'];
-	}
-}
-
-type TeamDocument = Document<TeamBaseDocument>;
-type TeamAttributes = Pick<TeamDocument, keyof typeof teamSchemaDefinition>;
-type TeamStaticMethods = {
-	findByFullName: typeof TeamBaseDocument['getAllCountries'];
-};
-
-const Team = createModel<TeamBaseDocument, TeamAttributes, TeamStaticMethods>(
-	'Team',
-	TeamBaseDocument,
-	teamSchemaDefinition
-);
-
-export { Team, TeamAttributes, TeamDocument };
-export default Team;
-```
 
 #### API
 

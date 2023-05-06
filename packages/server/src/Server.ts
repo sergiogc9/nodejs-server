@@ -18,14 +18,14 @@ class Server {
 	public start = async (startFn?: () => Promise<unknown>) => {
 		try {
 			process.on('uncaughtException', err => {
-				Log.error(err.stack, { sendAlert: true });
+				Log.error(err.stack!, { sendAlert: true });
 			});
 
 			await this.__start();
 			if (startFn) await startFn();
 
 			Log.info('Server started!', { sendAlert: true });
-		} catch (e) {
+		} catch (e: any) {
 			Log.error(e.stack ?? e, { sendAlert: true });
 		}
 	};
@@ -44,7 +44,7 @@ class Server {
 			};
 			const cluster = new Cluster();
 			await cluster.start(finalMasterFn, finalWorkerFn);
-		} catch (e) {
+		} catch (e: any) {
 			Log.error(e.stack ?? e, { sendAlert: true });
 		}
 	};

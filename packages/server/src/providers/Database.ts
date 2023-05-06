@@ -9,16 +9,12 @@ export class Database {
 		const { mongoUri } = Config.get();
 
 		if (mongoUri) {
-			const options = { useNewUrlParser: true, useUnifiedTopology: true };
-
-			mongoose.set('useCreateIndex', true);
-
 			try {
-				await mongoose.connect(mongoUri, options);
+				await mongoose.connect(mongoUri);
 				Log.info(`Connected to mongo server at: ${mongoUri}`);
-			} catch (error) {
-				Log.error('Failed to connect to the Mongo server!!');
-				Log.error(error.stack);
+			} catch (error: any) {
+				Log.error('Failed to connect to the Mongo server!!', { sendAlert: true });
+				Log.error(error.stack, { sendAlert: true });
 			}
 		} else Log.info('Not connected to Mongo server because no config was provided.');
 	};

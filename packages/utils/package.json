@@ -38,11 +38,6 @@
 			"require": "./dist/cjs/Log/index.js",
 			"types": "./dist/types/Log/index.d.ts"
 		},
-		"./Model": {
-			"import": "./dist/esm/Model/index.js",
-			"require": "./dist/cjs/Model/index.js",
-			"types": "./dist/types/Model/index.d.ts"
-		},
 		"./Pushover": {
 			"import": "./dist/esm/Pushover/index.js",
 			"require": "./dist/cjs/Pushover/index.js",
@@ -59,9 +54,6 @@
 			],
 			"Log": [
 				"dist/types/Log"
-			],
-			"Model": [
-				"dist/types/Model"
 			],
 			"Pushover": [
 				"dist/types/Pushover"
@@ -83,7 +75,7 @@
 		"lodash": "^4.17.21",
 		"luxon": "^1.28.0",
 		"memory-cache": "0.2.0",
-		"mongoose": "5.11.13",
+		"mongoose": "7.1.0",
 		"pushover-notifications": "^1.2.2"
 	},
 	"devDependencies": {
