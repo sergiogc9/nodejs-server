@@ -1,5 +1,5 @@
 import cors from 'cors';
-import { Application } from 'express';
+import { Application, RequestHandler } from 'express';
 
 import Config from 'src/providers/Config';
 import Log from 'src/api/middleware/Log';
@@ -15,8 +15,12 @@ class CORS {
 				origin: ssrApiCors,
 				optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 			};
+			_express.options('*', cors(options) as RequestHandler);
 			_express.use(cors(options));
-		} else _express.use(cors());
+		} else {
+			_express.options('*', cors() as RequestHandler);
+			_express.use(cors());
+		}
 
 		return _express;
 	}
