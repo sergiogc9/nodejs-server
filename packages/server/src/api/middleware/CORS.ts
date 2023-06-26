@@ -1,5 +1,5 @@
-import cors from 'cors';
-import { Application, RequestHandler } from 'express';
+import cors, { CorsOptions } from 'cors';
+import { Application } from 'express';
 
 import Config from 'src/providers/Config';
 import Log from 'src/api/middleware/Log';
@@ -10,17 +10,11 @@ class CORS {
 
 		const { apiCors } = Config.get();
 
-		if (apiCors) {
-			const options = {
-				origin: apiCors,
-				optionsSuccessStatus: 200 // Some legacy browsers choke on 204
-			};
-			_express.options('*', cors(options) as RequestHandler);
-			_express.use(cors(options));
-		} else {
-			_express.options('*', cors() as RequestHandler);
-			_express.use(cors());
-		}
+		const options: CorsOptions = {
+			origin: apiCors ?? '*'
+		};
+
+		_express.use(cors(options));
 
 		return _express;
 	}

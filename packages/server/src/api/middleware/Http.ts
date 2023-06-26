@@ -1,5 +1,4 @@
 import helmet from 'helmet';
-import cors from 'cors';
 import { Application } from 'express';
 import compress from 'compression';
 import bodyParser from 'body-parser';
@@ -30,9 +29,6 @@ class Http {
 
 		// Use helmet to improve security
 		_express.use(helmet());
-
-		// Enables the CORS
-		_express.use(cors());
 
 		// Enables the "gzip" / "deflate" compression for response
 		_express.use(compress());
