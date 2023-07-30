@@ -121,6 +121,37 @@ log.info("Booting the 'Time' middleware..");
 log.custom('GENERAL', 'Some general message');
 ```
 
+#### Auth
+
+The Auth module contains some middleware and utils to easily add authentication into the server.
+
+Available middlewares:
+
+- `httpAuthMiddleware`:
+
+  This middleware enables HTTP authentication. It needs a `realm` and an object containing the users and their password. The `realm` must be unique for each server:
+
+  ```ts
+  type HTTPAuthConfig = { realm: string; users: Record<string, string> };
+  ```
+
+  Enable HTTP authentication in all the server:
+
+  ```ts
+  import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
+
+  app.use(httpAuthMiddleware({ realm: '@sergiogc9/nodejs-utils', users: { user: 'pwd' } }));
+  ```
+
+  Enable HTTP authentication only for a specific route:
+
+  ```ts
+  import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
+
+  const authCredentials: HTTPAuthConfig = { realm: '@sergiogc9/nodejs-utils', users: { user: 'pwd' } };
+  app.get('/auth', httpAuthMiddleware(authCredentials), expressAsyncHandler());
+  ```
+
 #### Cache
 
 A cache middleware for _express_ routes. It caches the response of a request by its `originalUrl` or `url`. It is based on `memory-cache` package.

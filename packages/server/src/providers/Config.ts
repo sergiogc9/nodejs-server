@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
+import { HTTPAuthConfig } from '@sergiogc9/nodejs-utils';
+
 export type CommonConfig = {
 	port?: number; // The port to use. Default: 4000
 	mongoUri?: string; // The MongoDB database string where to connect. If not passed, none database connection is established.
-	auth?: { realm: string; users: Record<string, string> }; // Config for enabling HTTP Authentication. The realm is a unique identifier for the server.
+	auth?: HTTPAuthConfig; // Config for enabling HTTP Authentication. The realm is a unique identifier for the server.
 };
 
 export type StaticServerConfig = CommonConfig & {

@@ -42,6 +42,7 @@ const convertModelData = (data: any) => {
 export const SERVER_ERROR = 'SERVER_ERROR';
 export const OPENAPI_VALIDATION_ERROR = 'WRONG_PARAMETERS';
 export const NOT_FOUND_ERROR = 'NOT_FOUND';
+export const UNAUTHORIZED = 'UNAUTHORIZED';
 
 // Responds request with a success response
 export const successResponse = (req: express.Request, res: express.Response, data: any, status = 200) => {

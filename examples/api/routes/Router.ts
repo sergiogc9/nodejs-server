@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Cache, expressAsyncHandler } from '@sergiogc9/nodejs-utils';
+import { Cache, expressAsyncHandler, httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
 
 import HomeController from '../controllers/Home';
 import TeamController from '../controllers/Team';
@@ -24,5 +24,12 @@ router.get('/user/find', expressAsyncHandler(UserController.findByFullName));
 router.get('/user/:id', expressAsyncHandler(UserController.get));
 router.patch('/user/:id', expressAsyncHandler(UserController.patch));
 router.delete('/user/:id', expressAsyncHandler(UserController.delete));
+
+// HTTP Authenticated route
+router.get(
+	'/auth',
+	httpAuthMiddleware({ realm: '@sergiogc9/nodejs-server', users: { user: 'pwd' } }),
+	expressAsyncHandler(UserController.list)
+);
 
 export default router;

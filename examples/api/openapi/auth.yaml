@@ -1,0 +1,17 @@
+auth:
+  get:
+    description: Auth endpoint
+    operationId: Auth
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+      default:
+        description: General error
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions.yaml#/ApiError'

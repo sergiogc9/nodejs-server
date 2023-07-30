@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import basicAuth from 'express-basic-auth';
+import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
 
 import Config from 'src/providers/Config';
 import Log from 'src/api/middleware/Log';
@@ -11,14 +11,7 @@ class HTTPAuth {
 		const { auth } = Config.get();
 
 		if (auth) {
-			_express.use(
-				basicAuth({
-					challenge: true,
-					realm: auth.realm,
-					users: auth.users,
-					unauthorizedResponse: '401 - Authorization required'
-				})
-			);
+			_express.use(httpAuthMiddleware(auth));
 		}
 
 		return _express;
