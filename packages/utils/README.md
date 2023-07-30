@@ -129,7 +129,7 @@ Available middlewares:
 
 - `httpAuthMiddleware`:
 
-  This middleware enables HTTP authentication. It needs a `realm` and an object containing the users and their password. The `realm` must be unique for each server:
+  This middleware enables HTTP authentication. It needs a `realm` and an object containing the users and their password. The `realm` must be unique for each server and passwords **must be hashed using SHA512**:
 
   ```ts
   type HTTPAuthConfig = { realm: string; users: Record<string, string> };
@@ -140,7 +140,7 @@ Available middlewares:
   ```ts
   import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
 
-  app.use(httpAuthMiddleware({ realm: '@sergiogc9/nodejs-utils', users: { user: 'pwd' } }));
+  app.use(httpAuthMiddleware({ realm: '@sergiogc9/nodejs-utils', users: { user: 'SHA512 hash' } }));
   ```
 
   Enable HTTP authentication only for a specific route:
@@ -148,7 +148,7 @@ Available middlewares:
   ```ts
   import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
 
-  const authCredentials: HTTPAuthConfig = { realm: '@sergiogc9/nodejs-utils', users: { user: 'pwd' } };
+  const authCredentials: HTTPAuthConfig = { realm: '@sergiogc9/nodejs-utils', users: { user: 'SHA512 hash' } };
   app.get('/auth', httpAuthMiddleware(authCredentials), expressAsyncHandler());
   ```
 

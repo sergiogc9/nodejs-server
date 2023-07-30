@@ -39,7 +39,10 @@ export const runServer = () => {
 		// HTTP Authentication
 		// auth: {
 		// 	realm: '@sergiogc9/nodejs-server',
-		// 	users: { user: 'pwd' }
+		// 	users: {
+		// 		// "pwd" in SHA512
+		// 		user: 'ee1067d2c54d8b095bb7b3937aa40968cc3475e4360433a8bf816217e823271fcc9e7222dd9e57afb5675d999b88f49574ed8e6a3833b1437910e9aba7b6575f'
+		// 	}
 		// },
 
 		// Database

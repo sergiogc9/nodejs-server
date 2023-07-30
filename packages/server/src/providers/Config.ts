@@ -5,7 +5,7 @@ import { HTTPAuthConfig } from '@sergiogc9/nodejs-utils';
 export type CommonConfig = {
 	port?: number; // The port to use. Default: 4000
 	mongoUri?: string; // The MongoDB database string where to connect. If not passed, none database connection is established.
-	auth?: HTTPAuthConfig; // Config for enabling HTTP Authentication. The realm is a unique identifier for the server.
+	auth?: HTTPAuthConfig; // Config for enabling HTTP Authentication. The realm is a unique identifier for the server. The passwords must be hashed using SHA512.
 };
 
 export type StaticServerConfig = CommonConfig & {
