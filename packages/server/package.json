@@ -38,7 +38,7 @@
 		"js-yaml": "^3.14.1",
 		"json-refs": "^3.0.15",
 		"lodash": "^4.17.21",
-		"mongoose": "7.1.0",
+		"mongoose": "7.3.3",
 		"swagger-ui-express": "^4.4.0"
 	},
 	"devDependencies": {
