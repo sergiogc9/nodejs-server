@@ -138,7 +138,7 @@ Available middlewares:
   Enable HTTP authentication in all the server:
 
   ```ts
-  import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
+  import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils/Auth';
 
   app.use(httpAuthMiddleware({ realm: '@sergiogc9/nodejs-utils', users: { user: 'SHA512 hash' } }));
   ```
@@ -146,7 +146,7 @@ Available middlewares:
   Enable HTTP authentication only for a specific route:
 
   ```ts
-  import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
+  import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils/Auth';
 
   const authCredentials: HTTPAuthConfig = { realm: '@sergiogc9/nodejs-utils', users: { user: 'SHA512 hash' } };
   app.get('/auth', httpAuthMiddleware(authCredentials), expressAsyncHandler());

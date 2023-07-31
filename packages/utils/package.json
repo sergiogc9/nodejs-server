@@ -28,6 +28,11 @@
 			"require": "./dist/cjs/Api/index.js",
 			"types": "./dist/types/Api/index.d.ts"
 		},
+		"./Auth": {
+			"import": "./dist/esm/Auth/index.js",
+			"require": "./dist/cjs/Auth/index.js",
+			"types": "./dist/types/Auth/index.d.ts"
+		},
 		"./Cache": {
 			"import": "./dist/esm/Cache/index.js",
 			"require": "./dist/cjs/Cache/index.js",
@@ -48,6 +53,9 @@
 		"*": {
 			"Api": [
 				"dist/types/Api"
+			],
+			"Auth": [
+				"dist/types/Auth"
 			],
 			"Cache": [
 				"dist/types/Cache"

@@ -4,6 +4,7 @@ import url from 'url';
 import proxy from 'express-http-proxy';
 import isEmpty from 'lodash/isEmpty';
 import Log from '@sergiogc9/nodejs-utils/Log';
+import { httpAuthMiddleware } from '@sergiogc9/nodejs-utils/Auth';
 
 import Api from 'src/api/Api';
 import HTTPAuth from 'src/middleware/HTTPAuth';
@@ -81,7 +82,8 @@ class Express {
 			Log.info('Express :: Mounting Static Web...');
 
 			config.staticSources.forEach(source => {
-				this.express.use(source.path, express.static(source.folder));
+				if (source.auth) this.express.use(source.path, httpAuthMiddleware(source.auth), express.static(source.folder));
+				else this.express.use(source.path, express.static(source.folder));
 
 				// handle every other route with index.html, which handles all routes dynamically
 				// Comment following code if content is not a Single Web Application

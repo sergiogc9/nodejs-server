@@ -14,7 +14,7 @@ export type StaticServerConfig = CommonConfig & {
 	 * folder is the directory where static web files are in the server
 	 * path is the server endpoint path where static web will be served
 	 */
-	staticSources: Array<{ folder: string; path: string }>; // Array containing all sources. Useful if wanted to use different applications in a unique server.
+	staticSources: Array<{ folder: string; path: string; auth?: HTTPAuthConfig }>; // Array containing all sources. Useful if wanted to use different applications in a unique server.
 };
 
 export type ApiServerConfig = CommonConfig & {

@@ -17,7 +17,20 @@ export const runServer = () => {
 	const server = new Server({
 		// Static
 		enableStaticWeb: true,
-		staticSources: [{ folder: path.join(__dirname, '../static/public'), path: '/public' }],
+		staticSources: [
+			{ folder: path.join(__dirname, '../static/public'), path: '/public' },
+			{
+				folder: path.join(__dirname, '../static/public'),
+				path: '/auth_public',
+				auth: {
+					realm: '@sergiogc9/nodejs-server',
+					users: {
+						// "pwd" in SHA512
+						user: 'ee1067d2c54d8b095bb7b3937aa40968cc3475e4360433a8bf816217e823271fcc9e7222dd9e57afb5675d999b88f49574ed8e6a3833b1437910e9aba7b6575f'
+					}
+				}
+			}
+		],
 
 		// Api
 		enableApi: true,

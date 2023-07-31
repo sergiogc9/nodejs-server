@@ -199,9 +199,9 @@ server.start();
 
 ##### Static server options
 
-| Option          | Description                                                                                                                                                                               | Type                               | Default |            |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------- | ---------- |
-| `staticSources` | Array of sources containing static content. The `folder` is the directory where static web files are located and the `path` is the base endpoint path where the static content is served. | { folder: string, path: Router }[] |         | `required` |
+| Option          | Description                                                                                                                                                                               | Type                                                       | Default |            |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------- | ---------- |
+| `staticSources` | Array of sources containing static content. The `folder` is the directory where static web files are located and the `path` is the base endpoint path where the static content is served. | { folder: string, path: Router , auth?: HTTPAuthConfig }[] |         | `required` |
 
 ##### API server options
 
