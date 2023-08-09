@@ -6,6 +6,11 @@ export type CommonConfig = {
 	port?: number; // The port to use. Default: 4000
 	mongoUri?: string; // The MongoDB database string where to connect. If not passed, none database connection is established.
 	auth?: HTTPAuthConfig; // Config for enabling HTTP Authentication. The realm is a unique identifier for the server. The passwords must be hashed using SHA512.
+
+	// HTTPS Config
+	enableHTTPS?: boolean;
+	redirectToHTTPS?: boolean; // If true, http (from port 80) are redirected to https
+	sslCertificatesDirectory?: string; // The directory must contain a folder for each domain with fullchain.pem and privkey.pem files in each. by default uses /etc/letsencrypt/live/.
 };
 
 export type StaticServerConfig = CommonConfig & {
@@ -79,6 +84,10 @@ class Config {
 
 		// Public config
 		port: 4000,
+
+		// SSL config
+		enableHTTPS: false,
+		redirectToHTTPS: true,
 
 		// Private config
 		maxUploadLimit: '50mb',

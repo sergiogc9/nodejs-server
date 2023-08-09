@@ -191,11 +191,14 @@ server.start();
 
 ##### Common options
 
-| Option     | Description                                                                                                                                                                  | Type                                                              | Default |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------- |
-| `port`     | The port to used by the server.                                                                                                                                              | number                                                            | 4000    |
-| `mongoUri` | The mongo uri used to connect to the database. <br> If not provied, no connection is done.                                                                                   | string                                                            |         |
-| `auth`     | Object containing the HTTP authentication config if wanted. <br/>`users` is an object with all users and passwords. <br/>`realm` must be a unique identifier for the server. | {<br/>users: { [user: string]: string },<br/>realm: string<br/> } |         |
+| Option                     | Description                                                                                                                                                                  | Type                                                              | Default                  |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------ |
+| `port`                     | The port to used by the server.                                                                                                                                              | number                                                            | 4000                     |
+| `mongoUri`                 | The mongo uri used to connect to the database. <br> If not provied, no connection is done.                                                                                   | string                                                            |                          |
+| `auth`                     | Object containing the HTTP authentication config if wanted. <br/>`users` is an object with all users and passwords. <br/>`realm` must be a unique identifier for the server. | {<br/>users: { [user: string]: string },<br/>realm: string<br/> } |                          |
+| `enableSSL`                | Use HTTP server. Requires using LetsEncrypt or providing custom SSL certificates.                                                                                            | boolean                                                           | false                    |
+| `redirectToHTTPS`          | Redirect from HTTP to HTTPS automatically when HTTPS is enabled. If enabled, the server will always listen on port 80 for HTTP requests.                                     | boolean                                                           | true                     |
+| `sslCertificatesDirectory` | The directory which contains the SSL certificates for the domains. It must contain a folder for each domain with `fullchain.pem` and `privkey.pem` files in each.            | string                                                            | `/etc/letsencrypt/live/` |
 
 ##### Static server options
 
