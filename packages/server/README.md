@@ -15,21 +15,25 @@ It is an easy to setup nodejs based server which allows to start different kind 
 
 ### Table of Contents
 
-<!-- prettier-ignore -->
+- [NodeJS Server](#nodejs-server)
+- [Table of Contents](#table-of-contents)
 - [Getting started](#getting-started)
 - [Usage](#usage)
-	- [Full server](#full-server)
-	- [Static web server](#static-web-server)
-	- [API Server](#api-server)
-	- [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
-	- [Proxy server](#proxy-server)
+  - [Full server](#full-server)
+  - [Static web server](#static-web-server)
+  - [API Server](#api-server)
+  - [Server Side Rendering (SSR) server](#server-side-rendering-ssr-server)
+  - [Proxy server](#proxy-server)
+  - [HTTPS and SSL certificates](#https-and-ssl-certificates)
+    - [Using LetsEncrypt](#using-letsencrypt)
+    - [Using custom SSL certificates](#using-custom-ssl-certificates)
 - [Configuration options](#configuration-options)
-	- [Common options](#common-options)
-		- [Static server options](#static-server-options)
-		- [API server options](#api-server-options)
-		- [Server side server options](#server-side-server-options)
-		- [Proxy server options](#proxy-server-options)
-		- [Full server options](#full-server-options)
+  - [Common options](#common-options)
+  - [Static server options](#static-server-options)
+  - [API server options](#api-server-options)
+  - [Server side server options](#server-side-server-options)
+  - [Proxy server options](#proxy-server-options)
+  - [Full server options](#full-server-options)
 
 ### Getting started
 
@@ -186,6 +190,37 @@ const server = new ProxyServer({
 
 server.start();
 ```
+
+#### HTTPS and SSL certificates
+
+The server supports HTTPS enabling the option `enableHTTPS` with **multiple domains**. It is fully compatible with [LetsEncrypt](https://letsencrypt.org/) and [certbot](https://certbot.eff.org/) but also with custom SSL certificates.
+
+Once HTTPS is enabled, the server detects the domain in each request and tries to find a SSL certificate. If the certificate does not exist, it uses an untrusted temporary SSL certificate valid for 1 day.
+
+Valid SSL certificates must be provided, using LetsEncrypt or another provider.
+
+##### Using LetsEncrypt
+
+Install the `certbot` following the instructions [here](https://certbot.eff.org/instructions). Then run the server with the `enableHTTPS` option as `true` and with the `port` set to `443`.
+
+When the server is running, just add the certificate into the server:
+
+```bash
+sudo certbot certonly --webroot --keep-until-expiring --agree-tos -w $ABSOLUTE_PATH/letsencrypt -d DOMAIN
+```
+
+> ℹ️ `$ABSOLUTE_PATH` is the path where the server is located. It will create a `letsencrypt` directory.
+
+The server automatically adds the necessary routes needed for letsencrypt to validate the server. Once the certificate is generated, restart the server.
+
+##### Using custom SSL certificates
+
+If using LetsEncrypt is not an option, you can provide your custom certificates using the `sslCertificatesDirectory` option. The option must have the path for a directory where the certificates are placed following this structure:
+
+- Certificates directory folder:
+  - [folder named as each domain]
+    - `privkey.pem`
+    - `fullchain.pem`
 
 ### Configuration options
 
