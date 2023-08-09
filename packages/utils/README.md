@@ -7,7 +7,14 @@ This package provides a several set of tools, libraries or utilities that I use 
 
 ### Table of Contents
 
-- [NodeJS Utils](#nodejs-utils) - [Table of Contents](#table-of-contents) - [Getting started](#getting-started) - [Available modules](#available-modules) - [API](#api) - [Log](#log) - [Cache](#cache) - [Pushover](#pushover)
+- [Table of Contents](#table-of-contents)
+- [Getting started](#getting-started)
+  - [Available modules](#available-modules)
+    - [API](#api)
+    - [Log](#log)
+    - [Auth](#auth)
+    - [Cache](#cache)
+    - [Pushover](#pushover)
 
 ### Getting started
 
