@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/sergiogc9/nodejs-server/compare/v1.2.0...v1.2.1) (2023-08-10)
+
+### Bug Fixes
+
+- Stop sending alert in log when a SSL is not found ([bbe7013](https://github.com/sergiogc9/nodejs-server/commit/bbe7013d359ca46435e7dcf89cdb4eea6404dfae))
+
 # [1.2.0](https://github.com/sergiogc9/nodejs-server/compare/v1.1.0...v1.2.0) (2023-08-10)
 
 ### Bug Fixes

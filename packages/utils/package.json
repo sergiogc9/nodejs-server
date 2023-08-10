@@ -1,6 +1,6 @@
 {
 	"name": "@sergiogc9/nodejs-utils",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "NodeJS TypeScript utils",
 	"author": "Sergio Gómez Cosgaya (sergiogcosgaya@gmail.com)",
 	"repository": "git://github.com/sergiogc9/nodejs-server.git",
