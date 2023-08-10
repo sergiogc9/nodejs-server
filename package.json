@@ -10,7 +10,7 @@
 	],
 	"scripts": {
 		"start": "ts-node --files --transpile-only examples/index.ts",
-		"dev": "ts-node-dev --poll --transpile-only examples/index.ts",
+		"dev": "IS_DEV=true ts-node-dev --poll --transpile-only examples/index.ts",
 		"build": "FORCE_COLOR=true lerna run build --stream",
 		"watch": "FORCE_COLOR=true lerna exec --parallel yarn watch",
 		"lint": "eslint packages/",

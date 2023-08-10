@@ -185,30 +185,34 @@ class Express {
 				console.log('\x1b[33m%s\x1b[0m', `Server :: Running @ 'https://localhost:${port}'`)
 			);
 
-			const httpShutdownManager = new GracefulShutdownManager(httpServer);
-			const httpsShutdownManager = new GracefulShutdownManager(httpsServer);
+			if (!(process.env.IS_DEV === 'true')) {
+				const httpShutdownManager = new GracefulShutdownManager(httpServer);
+				const httpsShutdownManager = new GracefulShutdownManager(httpsServer);
 
-			process.on('SIGTERM', () => {
-				httpsShutdownManager.terminate(() => {
-					httpShutdownManager.terminate(() => {
-						// eslint-disable-next-line no-console
-						console.log('\x1b[33m%s\x1b[0m', 'Server :: Gracefully terminated');
+				process.on('SIGTERM', () => {
+					httpsShutdownManager.terminate(() => {
+						httpShutdownManager.terminate(() => {
+							// eslint-disable-next-line no-console
+							console.log('\x1b[33m%s\x1b[0m', 'Server :: Gracefully terminated');
+						});
 					});
 				});
-			});
+			}
 		} else {
 			const httpServer = http.createServer(this.express).listen(port, () =>
 				// eslint-disable-next-line no-console
 				console.log('\x1b[33m%s\x1b[0m', `Server :: Running @ 'http://localhost:${port}'`)
 			);
 
-			const httpShutdownManager = new GracefulShutdownManager(httpServer);
-			process.on('SIGTERM', () => {
-				httpShutdownManager.terminate(() => {
-					// eslint-disable-next-line no-console
-					console.log('\x1b[33m%s\x1b[0m', 'Server :: Gracefully terminated');
+			if (!(process.env.IS_DEV === 'true')) {
+				const httpShutdownManager = new GracefulShutdownManager(httpServer);
+				process.on('SIGTERM', () => {
+					httpShutdownManager.terminate(() => {
+						// eslint-disable-next-line no-console
+						console.log('\x1b[33m%s\x1b[0m', 'Server :: Gracefully terminated');
+					});
 				});
-			});
+			}
 		}
 	};
 }
