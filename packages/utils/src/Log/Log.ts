@@ -5,6 +5,8 @@ import cluster from 'cluster';
 import { DateTime } from 'luxon';
 import os from 'os';
 
+import { getGlobalSingleton } from 'src/utils';
+
 import Pushover from '../Pushover';
 import { LogLevel, LogOptions } from './types';
 
@@ -130,4 +132,4 @@ export class Log {
 	}
 }
 
-export default new Log();
+export default getGlobalSingleton('Log', new Log());

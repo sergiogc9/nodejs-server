@@ -4,6 +4,7 @@ import path from 'path';
 import PushoverNotifications from 'pushover-notifications';
 import isEmpty from 'lodash/isEmpty';
 
+import { getGlobalSingleton } from 'src/utils';
 import { PushoverMessage } from './types';
 
 let __userConfig = {
@@ -68,4 +69,4 @@ export class Pushover {
 	};
 }
 
-export default Pushover;
+export default getGlobalSingleton('Pushover', Pushover);

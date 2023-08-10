@@ -1,6 +1,8 @@
 import { Request, NextFunction } from 'express';
 import mcache from 'memory-cache';
 
+import { getGlobalSingleton } from 'src/utils';
+
 class Cache {
 	/**
 	 * Checks for the available cached data
@@ -23,4 +25,4 @@ class Cache {
 	};
 }
 
-export default new Cache();
+export default getGlobalSingleton('Cache', new Cache());

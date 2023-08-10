@@ -127,8 +127,11 @@ class Express {
 							key: fs.readFileSync(`${finalSSLDirectory}/${domain}/privkey.pem`),
 							cert: fs.readFileSync(`${finalSSLDirectory}/${domain}/fullchain.pem`)
 						});
-					} catch (e) {
-						Log.error(`No SSL certificate found for domain ${domain}`, { sendAlert: true });
+						Log.info(`Loaded certificate for domain ${domain}`);
+					} catch (e: any) {
+						Log.error(`No SSL certificate found for domain ${domain}: ${e instanceof Error ? e.message : e}`, {
+							sendAlert: true
+						});
 						certificate = tls.createSecureContext(tempCertificate);
 					}
 
