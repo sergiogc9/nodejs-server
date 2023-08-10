@@ -22,3 +22,5 @@ paths:
     $ref: 'team.yaml#/team-id'
   /auth:
     $ref: 'auth.yaml#/auth'
+  /bearer:
+    $ref: 'auth.yaml#/bearer'

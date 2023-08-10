@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { Cache, expressAsyncHandler, httpAuthMiddleware } from '@sergiogc9/nodejs-utils';
+import {
+	AuthBearerChecker,
+	authBearerMiddleware,
+	Cache,
+	expressAsyncHandler,
+	httpAuthMiddleware
+} from '@sergiogc9/nodejs-utils';
 
 import HomeController from '../controllers/Home';
 import TeamController from '../controllers/Team';
@@ -37,5 +43,12 @@ router.get(
 	}),
 	expressAsyncHandler(UserController.list)
 );
+
+// Bearer token authenticated
+const authBearerChecker: AuthBearerChecker = token => {
+	return token === 'FAKE_VALID_TOKEN';
+};
+const withAuth = authBearerMiddleware(authBearerChecker);
+router.get('/bearer', withAuth, expressAsyncHandler(UserController.list));
 
 export default router;

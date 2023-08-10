@@ -159,6 +159,42 @@ Available middlewares:
   app.get('/auth', httpAuthMiddleware(authCredentials), expressAsyncHandler());
   ```
 
+- `authMiddleware`:
+
+  Middleware to easily validate the authentication using custom logic. Pass a function that receives the request and returns a boolean. The function can be async:
+
+  ```ts
+  import { AuthChecker, authMiddleware } from '@sergiogc9/nodejs-utils';
+
+  const authChecker: AuthChecker = async req => {
+  	const importantHeader = req.headers['important'];
+
+  	const isValid = await validate(importantHeader);
+  	return isValid;
+  };
+
+  const withAuth = authMiddleware(authChecker);
+
+  app.get('/auth', withAuth, expressAsyncHandler());
+  ```
+
+- `authBearerMiddleware`:
+
+  Same as `authMiddleware` middleware but in this case the function passed received the Bearer token.
+
+  ```ts
+  import { AuthBearerChecker, authBearerMiddleware } from '@sergiogc9/nodejs-utils';
+
+  const authBearerChecker: AuthBearerChecker = async token => {
+  	const isValid = await validate(token);
+  	return isValid;
+  };
+
+  const withAuth = authBearerMiddleware(authBearerChecker);
+
+  app.get('/auth', withAuth, expressAsyncHandler());
+  ```
+
 #### Cache
 
 A cache middleware for _express_ routes. It caches the response of a request by its `originalUrl` or `url`. It is based on `memory-cache` package.

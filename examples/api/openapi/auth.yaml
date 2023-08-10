@@ -15,3 +15,21 @@ auth:
           application/json:
             schema:
               $ref: 'definitions.yaml#/ApiError'
+
+bearer:
+  get:
+    description: Bearer auth endpoint
+    operationId: Bearer
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+      default:
+        description: General error
+        content:
+          application/json:
+            schema:
+              $ref: 'definitions.yaml#/ApiError'
