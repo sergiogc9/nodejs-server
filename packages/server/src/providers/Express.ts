@@ -129,9 +129,7 @@ class Express {
 						});
 						Log.info(`Loaded certificate for domain ${domain}`);
 					} catch (e: any) {
-						Log.error(`No SSL certificate found for domain ${domain}: ${e instanceof Error ? e.message : e}`, {
-							sendAlert: true
-						});
+						Log.error(`No SSL certificate found for domain ${domain}: ${e instanceof Error ? e.message : e}`);
 						certificate = tls.createSecureContext(tempCertificate);
 					}
 
