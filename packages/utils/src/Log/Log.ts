@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import cluster from 'cluster';
+import chalk from 'chalk';
 import { DateTime } from 'luxon';
 import os from 'os';
 
@@ -63,6 +64,9 @@ export class Log {
 		const textPrefix = `${linePrefix} [${_kind.toUpperCase()}]`;
 		const text = `${textPrefix} ${_string}\n`;
 
+		// Write in console
+		console.log(this.__logColors[_kind](text.replace(/\n$/, '')));
+
 		// Write in global log file
 		this.__writeLog(`${this.__baseDir}${fileName}`, text);
 		// Write in specific service file
@@ -120,6 +124,12 @@ export class Log {
 		}
 
 		return '-';
+	};
+
+	private __logColors: Record<LogLevel, chalk.Chalk> = {
+		INFO: chalk.gray,
+		WARN: chalk.yellow,
+		ERROR: chalk.red
 	};
 
 	/**
