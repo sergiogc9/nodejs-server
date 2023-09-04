@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/sergiogc9/nodejs-server/compare/v1.2.1...v1.3.0) (2023-09-04)
+
+### Bug Fixes
+
+- Log into console only once when an error log ([2c41fab](https://github.com/sergiogc9/nodejs-server/commit/2c41fabde17a0b510148a08063cb934e29d0dc97))
+
 ## [1.2.1](https://github.com/sergiogc9/nodejs-server/compare/v1.2.0...v1.2.1) (2023-08-10)
 
 ### Bug Fixes

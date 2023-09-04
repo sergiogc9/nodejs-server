@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/sergiogc9/nodejs-server/compare/v1.2.1...v1.3.0) (2023-09-04)
+
+### Bug Fixes
+
+- Add www prefix when serving proxy paths with custom domains ([022c3ec](https://github.com/sergiogc9/nodejs-server/commit/022c3ecbfc162d6f999d2ca8a731cc7937afcf24))
+- Log into console only once when an error log ([2c41fab](https://github.com/sergiogc9/nodejs-server/commit/2c41fabde17a0b510148a08063cb934e29d0dc97))
+
+### Features
+
+- Show directory tree if no index file is found when serving static ([2b934af](https://github.com/sergiogc9/nodejs-server/commit/2b934afb63bd1420fb4f4d305aae6784486d9da7))
+
 ## [1.2.1](https://github.com/sergiogc9/nodejs-server/compare/v1.2.0...v1.2.1) (2023-08-10)
 
 ### Bug Fixes
