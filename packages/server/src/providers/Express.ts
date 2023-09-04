@@ -56,7 +56,7 @@ class Express {
 					proxy(proxyPath.to, {
 						filter: proxyPath.hostname
 							? req => {
-									if (req.hostname === proxyPath.hostname) return true;
+									if (req.hostname === proxyPath.hostname || req.hostname === `www.${proxyPath.hostname}`) return true;
 									return false;
 							  }
 							: undefined,
