@@ -234,6 +234,7 @@ If using LetsEncrypt is not an option, you can provide your custom certificates 
 | `enableSSL`                | Use HTTP server. Requires using LetsEncrypt or providing custom SSL certificates.                                                                                            | boolean                                                           | false                    |
 | `redirectToHTTPS`          | Redirect from HTTP to HTTPS automatically when HTTPS is enabled. If enabled, the server will always listen on port 80 for HTTP requests.                                     | boolean                                                           | true                     |
 | `sslCertificatesDirectory` | The directory which contains the SSL certificates for the domains. It must contain a folder for each domain with `fullchain.pem` and `privkey.pem` files in each.            | string                                                            | `/etc/letsencrypt/live/` |
+| `enableRateLimiter`        | Enables rate limiter to avoid DDoS and brute force attacks                                                                                                                   | boolean                                                           | false                    |
 
 ##### Static server options
 

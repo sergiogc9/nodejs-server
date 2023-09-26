@@ -11,6 +11,9 @@ export type CommonConfig = {
 	enableHTTPS?: boolean;
 	redirectToHTTPS?: boolean; // If true, http (from port 80) are redirected to https
 	sslCertificatesDirectory?: string; // The directory must contain a folder for each domain with fullchain.pem and privkey.pem files in each. by default uses /etc/letsencrypt/live/.
+
+	// RateLimiter config
+	enableRateLimiter?: boolean;
 };
 
 export type StaticServerConfig = CommonConfig & {
@@ -91,7 +94,10 @@ class Config {
 
 		// Private config
 		maxUploadLimit: '50mb',
-		maxParameterLimit: 1000
+		maxParameterLimit: 1000,
+
+		// RateLimiter
+		enableRateLimiter: false
 	};
 
 	public get = () => this.__config;

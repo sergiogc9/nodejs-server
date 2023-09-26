@@ -41,6 +41,7 @@
 		"lodash": "^4.17.21",
 		"mongoose": "7.3.3",
 		"pem": "^1.14.8",
+		"rate-limiter-flexible": "^3.0.0",
 		"serve-index": "^1.9.1",
 		"swagger-ui-express": "^4.4.0"
 	},

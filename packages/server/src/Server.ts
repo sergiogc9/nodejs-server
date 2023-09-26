@@ -9,6 +9,7 @@ import Config, {
 	StaticServerConfig,
 	SSRApiServerConfig
 } from 'src/providers/Config';
+import RateLimiter from './providers/RateLimiter';
 
 class Server {
 	constructor(config: Partial<ServerConfig>) {
@@ -54,6 +55,7 @@ class Server {
 		App.clearConsole();
 
 		await App.loadDatabase();
+		if (Config.get().enableRateLimiter) RateLimiter.startLimiter();
 		await App.loadServer();
 	};
 
@@ -62,6 +64,7 @@ class Server {
 		App.clearConsole();
 
 		await App.loadDatabase();
+		if (Config.get().enableRateLimiter) RateLimiter.startClusterMainLimiter();
 	};
 
 	private __workerFn = async () => {
@@ -69,6 +72,8 @@ class Server {
 		await App.loadDatabase();
 
 		//  Run the Server on Clusters
+
+		if (Config.get().enableRateLimiter) RateLimiter.startClusterWorkerLimiter();
 		await App.loadServer();
 	};
 }

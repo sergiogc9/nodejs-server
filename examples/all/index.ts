@@ -58,6 +58,9 @@ export const runServer = () => {
 		// 	}
 		// },
 
+		// RateLimiter
+		enableRateLimiter: true,
+
 		// Database
 		mongoUri: 'mongodb+srv://<username>:<password>@cluster0.sllnf.mongodb.net/nodejs_base'
 	});
