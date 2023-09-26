@@ -62,7 +62,7 @@ export class Log {
 		const text = `${textPrefix} ${_string}\n`;
 
 		// Write in console
-		console.log(this.__logColors[_kind](text.replace(/\n$/, '')));
+		if (!options.onlyFile) console.log(this.__logColors[_kind](text.replace(/\n$/, '')));
 
 		// Write in global log file
 		this.__writeLog(`${this.__baseDir}${fileName}`, text);

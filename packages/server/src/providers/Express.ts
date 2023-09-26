@@ -17,6 +17,7 @@ import Api from 'src/api/Api';
 import HTTPAuth from 'src/middleware/HTTPAuth';
 import SSRApi from 'src/ssrApi/SSRApi';
 import Config from 'src/providers/Config';
+import Logger from 'src/middleware/Logger';
 
 class Express {
 	/**
@@ -35,6 +36,7 @@ class Express {
 	 * Mounts the defined middlewares
 	 */
 	private mountMiddlewares = () => {
+		Logger.mount(this.express);
 		HTTPAuth.mount(this.express);
 	};
 

@@ -1,4 +1,5 @@
 export type LogOptions = {
+	onlyFile?: boolean;
 	sendAlert?: boolean;
 };
 

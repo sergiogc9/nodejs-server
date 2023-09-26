@@ -10,12 +10,15 @@ class ErrorHandler {
 		 */
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-			Log.error(err.stack, { sendAlert: true });
 			// OpenApi error
-			if (err.errors && err.status === 500)
+			if (err.errors && err.status === 500) {
+				Log.error(err.stack, { sendAlert: true });
 				return errorResponse(req, res, err.status, { code: SERVER_ERROR, message: err.message });
+			}
 			if (err.errors)
 				return errorResponse(req, res, err.status, { code: OPENAPI_VALIDATION_ERROR, message: err.message });
+
+			Log.error(err.stack, { sendAlert: true });
 			return errorResponse(req, res, 500, { code: SERVER_ERROR, message: 'Some error ocurred' });
 		};
 
