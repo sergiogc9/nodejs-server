@@ -70,6 +70,14 @@ class Express {
 								''
 							)}`;
 							return resolvedPath.replace(/(:\/\/)|(\/)+/g, '$1/') as any;
+						},
+						preserveHostHdr: true,
+						proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+							proxyReqOpts.headers = proxyReqOpts.headers ?? {};
+							if (srcReq.headers.host) proxyReqOpts.headers['x-forwarded-host'] = srcReq.headers.host;
+							proxyReqOpts.headers['x-forwarded-proto'] = srcReq.protocol;
+							if (srcReq.ip) proxyReqOpts.headers['x-forwarded-for'] = srcReq.ip;
+							return proxyReqOpts;
 						}
 					})
 				);
