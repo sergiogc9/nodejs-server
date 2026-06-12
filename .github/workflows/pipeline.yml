@@ -21,9 +21,12 @@ jobs:
     runs-on: ubuntu-latest
 
     # id-token: write is required by npm Trusted Publishing (OIDC).
+    # packages: write is required by the "Publish to Github" step that
+    # pushes to GitHub Packages via GITHUB_TOKEN.
     # contents: read keeps the rest of the job at minimal scope.
     permissions:
       id-token: write
+      packages: write
       contents: read
 
     strategy:
