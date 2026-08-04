@@ -1,16 +1,11 @@
-import Server from 'src/Server';
-
-export {
-	default as Server,
-	ApiServer,
-	ApiServerConfig,
-	ProxyServer,
-	ProxyServerConfig,
+export * from './Server.js';
+export { default } from './Server.js';
+export type {
+	ApiConfig,
+	CommonConfig,
+	LoggerConfig,
+	PrivateConfig,
 	ServerConfig,
-	SSRApiServer,
-	SSRApiServerConfig,
-	StaticServer,
-	StaticServerConfig
-} from 'src/Server';
-
-export default Server;
+	SSRApiConfig,
+	StaticSource
+} from './providers/Config.js';

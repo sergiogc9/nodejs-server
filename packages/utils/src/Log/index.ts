@@ -1,3 +1,3 @@
-export type { LogOptions } from './types';
-export * from './Log';
-export { default } from './Log';
+export type { LogConfig, LogLevel, LogOptions } from './types.js';
+export * from './Log.js';
+export { default } from './Log.js';

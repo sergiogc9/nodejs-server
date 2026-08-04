@@ -1,72 +1,55 @@
-import os from 'os';
-import fs from 'fs';
-import path from 'path';
-import PushoverNotifications from 'pushover-notifications';
-import isEmpty from 'lodash/isEmpty';
+import type { PushoverConfig, PushoverMessage } from './types.js';
 
-import { getGlobalSingleton } from 'src/utils';
-import { PushoverMessage } from './types';
+const PUSHOVER_API_URL = 'https://api.pushover.net/1/messages.json';
 
-let __userConfig = {
-	user: '',
-	token: ''
-};
-
-let availableRequests = 50;
-
+/**
+ * Minimal Pushover client using the native fetch API (no dependencies).
+ *
+ * Instances are self-contained (no global singleton) so they are safe across
+ * multiple processes. A small per-process sliding window avoids flooding the
+ * Pushover API during error storms.
+ */
 export class Pushover {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private static __instance: any;
+	readonly #config: PushoverConfig;
+	readonly #limit: number;
+	readonly #windowMs: number;
+	#timestamps: number[] = [];
 
-	public static isConfigured = () => !isEmpty(__userConfig.user) && !isEmpty(__userConfig.token);
+	constructor(config: PushoverConfig, options: { limit?: number; windowMs?: number } = {}) {
+		this.#config = config;
+		this.#limit = options.limit ?? 30;
+		this.#windowMs = options.windowMs ?? 60_000;
+	}
 
-	public static send = (msg: PushoverMessage) => {
-		if (!Pushover.isConfigured()) throw new Error('Pushover is not configured!');
-		if (!Pushover.__instance) {
-			Pushover.__instance = new PushoverNotifications({ ...__userConfig, onerror: () => {} });
-			setInterval(() => {
-				availableRequests = Math.min(50, availableRequests + 10);
-			}, 60000);
-		}
+	public isConfigured(): boolean {
+		return Boolean(this.#config.user) && Boolean(this.#config.token);
+	}
 
-		if (!availableRequests) return;
+	public async send(message: PushoverMessage): Promise<boolean> {
+		if (!this.isConfigured()) throw new Error('Pushover is not configured!');
 
-		Pushover.__instance.send(msg);
-		availableRequests -= 1;
-		if (availableRequests === 0)
-			setTimeout(() => {
-				const serviceName = Pushover.__getPackageName();
-				const pushoverTitle = `🛑 RATE LIMIT → ${serviceName}`;
-				let pushoverMessage = `<b>Service:</b> ${serviceName}\n`;
-				pushoverMessage += `<b>Server:</b> ${os.hostname()}\n`;
-				pushoverMessage += 'There might be some messages lost. See server logs instead.';
-				Pushover.__instance.send({
-					html: 1,
-					message: pushoverMessage,
-					priority: 1,
-					title: pushoverTitle
-				});
-			}, 5000);
-	};
+		const now = Date.now();
+		this.#timestamps = this.#timestamps.filter(timestamp => now - timestamp < this.#windowMs);
+		if (this.#timestamps.length >= this.#limit) return false;
+		this.#timestamps.push(now);
 
-	public static setUserConfig = (data: typeof __userConfig) => {
-		__userConfig = data;
-	};
+		const body = new URLSearchParams({
+			token: this.#config.token,
+			user: this.#config.user,
+			message: message.message
+		});
+		if (message.title) body.set('title', message.title);
+		if (message.priority !== undefined) body.set('priority', String(message.priority));
+		if (message.html) body.set('html', '1');
 
-	private static __getPackageName = () => {
-		let pkgPath = path.resolve(process.cwd(), '');
-
-		if (!pkgPath.endsWith('package.json')) {
-			pkgPath = path.join(pkgPath, 'package.json');
-		}
-
-		if (fs.existsSync(pkgPath)) {
-			const pkg = JSON.parse(fs.readFileSync(pkgPath).toString());
-			return pkg.name;
-		}
-
-		return '-';
-	};
+		const response = await fetch(PUSHOVER_API_URL, {
+			method: 'POST',
+			headers: { 'content-type': 'application/x-www-form-urlencoded' },
+			body: body.toString()
+		});
+		if (!response.ok) throw new Error(`Pushover request failed with status ${response.status}`);
+		return true;
+	}
 }
 
-export default getGlobalSingleton('Pushover', Pushover);
+export default Pushover;

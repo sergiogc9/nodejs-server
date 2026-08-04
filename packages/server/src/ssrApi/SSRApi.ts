@@ -1,50 +1,32 @@
-import express from 'express';
+import fastifyStatic from '@fastify/static';
+import view from '@fastify/view';
+import * as ejs from 'ejs';
+import type { FastifyError, FastifyPluginAsync } from 'fastify';
 
-import Config from 'src/providers/Config';
-import CORS from 'src/ssrApi/middleware/CORS';
-import Http from 'src/ssrApi/middleware/Http';
-import Views from 'src/ssrApi/middleware/Views';
-import Statics from 'src/ssrApi/middleware/Statics';
-import ErrorHandler from 'src/ssrApi/middleware/ErrorHandler';
+import type Log from '@sergiogc9/nodejs-utils/Log';
 
-class SSRApi {
-	private _express: express.Application;
+import type { ServerConfig } from '../providers/Config.js';
 
-	// Initializes the express server
-	constructor() {
-		this._express = express();
-	}
+/**
+ * Builds the SSR plugin: EJS views, optional public assets, error/not-found
+ * pages rendered from `pages/error` and the SSR routes.
+ */
+export const buildSSRPlugin =
+	(config: ServerConfig, log: Log): FastifyPluginAsync =>
+	async app => {
+		if (!config.ssrViewsPath) throw new Error('SSR views directory path is not provided!');
 
-	// Mounts all the defined middleware
-	private mountMiddlewares = () => {
-		CORS.mount(this._express);
-		Http.mount(this._express);
-		Views.mount(this._express);
-		Statics.mount(this._express);
-		// CRSF token middleware
-	};
+		await app.register(view, { engine: { ejs }, root: config.ssrViewsPath, viewExt: 'ejs' });
+		if (config.ssrPublicPath) await app.register(fastifyStatic, { root: config.ssrPublicPath, prefix: '/public/' });
 
-	// Mounts all the defined middleware
-	private finalSetup = () => {
-		ErrorHandler.mount(this._express);
-	};
-
-	// Mounts all the defined routes
-	private mountRoutes = () => {
-		const { ssrApiRoutes } = Config.get();
-		ssrApiRoutes.forEach(({ path, router }) => {
-			if (router) this._express.use(path, router);
+		app.setErrorHandler((error: FastifyError, _request, reply) => {
+			log.error(error.stack ?? error.message, { sendAlert: true });
+			return reply.status(500).view('pages/error', { error: 'Server error' });
 		});
+		app.setNotFoundHandler((request, reply) => {
+			log.error(`Path '${request.url}' not found [IP: '${request.ip}']!`);
+			return reply.status(404).view('pages/error', { error: 'Page not found' });
+		});
+
+		if (config.ssrApiRoutes) await app.register(config.ssrApiRoutes);
 	};
-
-	// Perform final setup
-	public init = () => {
-		this.mountMiddlewares();
-		this.mountRoutes();
-		this.finalSetup();
-	};
-
-	public getExpress = () => this._express;
-}
-
-export default SSRApi;

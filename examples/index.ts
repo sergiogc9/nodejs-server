@@ -1,11 +1,7 @@
-import { runServer } from './all';
-import { runApiServer } from './api';
-import { runSSRApiServer } from './ssrApi';
-import { runProxyServer } from './proxy';
-import { runStaticServer } from './static';
+import { runApiServer } from './api/index.js';
+// import { runSSRApiServer } from './ssr/index.js';
+// import { runStaticServer } from './static/index.js';
 
-runServer();
-// runApiServer();
-// runSSRApiServer();
-// runProxyServer();
-// runStaticServer();
+void runApiServer();
+// void runSSRApiServer();
+// void runStaticServer();

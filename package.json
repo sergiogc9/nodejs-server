@@ -1,59 +1,52 @@
 {
-	"name": "root",
+	"name": "nodejs-server-monorepo",
 	"version": "0.0.0",
 	"description": "NodeJS Server & Libs",
 	"private": true,
+	"type": "module",
 	"repository": "git://github.com/sergiogc9/nodejs-server.git",
 	"author": "Sergio Gómez Cosgaya (sergiogcosgaya@gmail.com)",
-	"workspaces": [
-		"packages/*"
-	],
-	"scripts": {
-		"start": "ts-node --files --transpile-only examples/index.ts",
-		"dev": "IS_DEV=true ts-node-dev --poll --transpile-only examples/index.ts",
-		"build": "FORCE_COLOR=true lerna run build --stream",
-		"watch": "FORCE_COLOR=true lerna exec --parallel yarn watch",
-		"lint": "eslint packages/",
-		"link:all": "lerna exec --parallel yarn link",
-		"unlink:all": "lerna exec --parallel --bail=false yarn unlink",
-		"prepare": "husky install",
-		"bootstrap": "lerna bootstrap",
-		"version:change": "lerna version",
-		"publish": "lerna publish from-package",
-		"prettier": "prettier --write . --ignore-path .gitignore",
-		"prettier:check": "prettier --check . --ignore-path .gitignore",
-		"typescript:check": "lerna exec --parallel \"tsc --noEmit -p .\"",
-		"bump:auto": "lerna version --conventional-commits",
-		"bump:version:prerelease": "lerna version prerelease",
-		"bump:version:patch": "lerna version patch",
-		"bump:version:minor": "lerna version minor",
-		"bump:version:major": "lerna version major"
+	"packageManager": "pnpm@11.20.0",
+	"engines": {
+		"node": ">=26"
 	},
-	"dependencies": {},
+	"scripts": {
+		"build": "pnpm -r build",
+		"start": "tsx examples/index.ts",
+		"dev": "tsx watch examples/index.ts",
+		"typecheck": "pnpm -r typecheck && tsc -p examples/tsconfig.json",
+		"lint": "eslint .",
+		"prettier": "prettier --write .",
+		"prettier:check": "prettier --check .",
+		"test": "vitest run --passWithNoTests",
+		"prepare": "husky",
+		"changeset": "changeset",
+		"version-packages": "changeset version",
+		"release": "pnpm build && changeset publish"
+	},
 	"devDependencies": {
-		"@sergiogc9/eslint-config": "^1.0.10",
-		"@sergiogc9/js-bundle": "^1.2.0",
-		"@typescript-eslint/eslint-plugin": "^4.33.0",
-		"eslint": "^7.32.0",
-		"eslint-config-prettier": "^7.2.0",
-		"eslint-plugin-eslint-comments": "^3.2.0",
-		"eslint-plugin-import": "^2.22.1",
-		"eslint-plugin-jest": "^24.7.0",
-		"eslint-plugin-jsx-a11y": "^6.4.1",
-		"eslint-plugin-prettier": "^3.4.1",
-		"fox-awesome-cli": "^1.1.2",
-		"husky": "^8.0.0",
-		"lerna": "^5.1.4",
-		"lint-staged": "^13.0.2",
-		"prettier": "^2.7.1",
-		"ts-node-dev": "^2.0.0",
-		"typescript": "4.1.6"
+		"@changesets/cli": "^2.31.1",
+		"@fastify/view": "^12.0.0",
+		"@sergiogc9/eslint-config": "^2.0.0",
+		"@sergiogc9/nodejs-server": "workspace:*",
+		"@sergiogc9/nodejs-utils": "workspace:*",
+		"@types/node": "^26.1.2",
+		"eslint": "^9.39.5",
+		"fastify": "^5.11.2",
+		"fastify-type-provider-zod": "^7.0.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.3.0",
+		"prettier": "^3.9.6",
+		"tsx": "^4.23.5",
+		"typescript": "^5.9.3",
+		"vitest": "^4.1.10",
+		"zod": "^4.4.3"
 	},
 	"lint-staged": {
-		"*.{js,ts,tsx,css,json,md}": "prettier --write"
-	},
-	"engines": {
-		"node": ">=16.x.x",
-		"npm": ">=8.0.0"
+		"*.{js,ts,tsx}": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.{json,md,yaml,yml}": "prettier --write"
 	}
 }

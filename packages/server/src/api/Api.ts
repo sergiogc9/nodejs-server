@@ -1,50 +1,42 @@
-import express from 'express';
+import cors from '@fastify/cors';
+import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
+import type { FastifyPluginAsync } from 'fastify';
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
-import Config from 'src/providers/Config';
-import Time from 'src/api/middleware/Time';
-import CORS from 'src/api/middleware/CORS';
-import Http from 'src/api/middleware/Http';
-import OpenApi from 'src/api/middleware/OpenApi';
-import ErrorHandler from 'src/api/middleware/ErrorHandler';
+import type Log from '@sergiogc9/nodejs-utils/Log';
 
-class Api {
-	private _express: express.Application;
+import type { ServerConfig } from '../providers/Config.js';
 
-	// Initializes the express server
-	constructor() {
-		this._express = express();
-	}
+import { setApiErrorHandlers } from './ErrorHandler.js';
 
-	// Mounts all the defined middleware
-	private mountMiddlewares = async () => {
-		Time.mount(this._express);
-		CORS.mount(this._express);
-		Http.mount(this._express);
-		await OpenApi.mount(this._express);
+/**
+ * Builds the API plugin: Zod validation/serialization, CORS, optional OpenAPI
+ * docs generated from the schemas, the standard error handlers and the routes.
+ */
+export const buildApiPlugin =
+	(config: ServerConfig, log: Log): FastifyPluginAsync =>
+	async app => {
+		app.setValidatorCompiler(validatorCompiler);
+		app.setSerializerCompiler(serializerCompiler);
+
+		await app.register(cors, { origin: config.apiCors ?? '*' });
+
+		if (config.openApi) {
+			await app.register(swagger, {
+				openapi: {
+					info: {
+						title: config.openApi.title,
+						version: config.openApi.version,
+						...(config.openApi.description ? { description: config.openApi.description } : {})
+					}
+				},
+				transform: jsonSchemaTransform
+			});
+			await app.register(swaggerUi, { routePrefix: '/docs' });
+		}
+
+		setApiErrorHandlers(app, log);
+
+		if (config.apiRoutes) await app.register(config.apiRoutes);
 	};
-
-	// Mounts all the defined middleware
-	private finalSetup = () => {
-		ErrorHandler.mount(this._express);
-	};
-
-	// Mounts all the defined routes
-	private mountRoutes = () => {
-		const { apiRoutes } = Config.get();
-		apiRoutes.forEach(({ path, router }) => {
-			if (router) this._express.use(path, router);
-		});
-	};
-
-	// Perform final setup
-	public init = async () => {
-		await this.mountMiddlewares();
-		this.mountRoutes();
-		this.finalSetup();
-	};
-
-	public getExpress = () => this._express;
-}
-
-// Export the Api module
-export default Api;
