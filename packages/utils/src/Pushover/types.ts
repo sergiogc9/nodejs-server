@@ -1,6 +1,11 @@
+export type PushoverConfig = {
+	user: string;
+	token: string;
+};
+
 export type PushoverMessage = {
-	html?: number;
 	message: string;
+	title?: string;
 	priority?: number;
-	title: string;
+	html?: boolean;
 };

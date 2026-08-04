@@ -1,53 +1,64 @@
 # NodeJS Server
 
-![](https://badgen.net/npm/v/@sergiogc9/nodejs-server?icon=npm&label)
-![](https://github.com/sergiogc9/nodejs-server/workflows/Github%20Pipeline/badge.svg?branch=master)
+A small, modern NodeJS + TypeScript server toolkit built on [Fastify](https://fastify.dev). Used across my own projects. It is a monorepo with two published packages:
 
-A NodeJS server and libs using Typescript. This project is used by myself in other personal projects. It is separated in two main packages:
+## [`@sergiogc9/nodejs-server`](./packages/server)
 
-### [Server](https://github.com/sergiogc9/nodejs-server/tree/master/packages/server)
+An easy-to-set-up server that enables different services on a single Fastify instance:
 
-An easy to setup nodejs based server which allows to start different kind of services that can be run isolated or together in a unique server instance:
-
-- Serving static files located in a directory. Useful to serve a SPA (Single Page Application) in React, Angular, etc.
-- Serving an API using cluster, express, mongoose, openapi, swagger and others.
-- Serving an API based website using SSR (Server Side Rendering) with express and EJS.
-- Working as a single entry point in a server using Proxy and / or Reverse proxy.
-- Executing extra nodeJs code in cluster by using the NodeJS cluster API.
-
-A very simple example of use can be:
+- **API** — REST API with Zod-first request/response validation, OpenAPI docs generated from the schemas, CORS, Helmet, compression, rate limiting and a standard response envelope.
+- **SSR** — server-side rendered site with EJS views and static public assets.
+- **Static** — serve static files / a SPA, with optional HTTP basic auth.
+- **MongoDB** (optional), **graceful shutdown** and structured **pino** logging out of the box.
 
 ```typescript
-import path from 'path';
-import Server from '@sergiogc9/nodejs-server';
+import { ApiServer } from '@sergiogc9/nodejs-server';
+import { successResponse } from '@sergiogc9/nodejs-utils/Api';
+import type { FastifyPluginAsync } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { z } from 'zod';
 
-import router from './api/routes/Router';
+const UserSchema = z.object({ id: z.number(), name: z.string() });
 
-const proxyPaths = [{ from: '/netdata', to: 'http://localhost:19999' }];
+const apiRoutes: FastifyPluginAsync = async fastify => {
+	const app = fastify.withTypeProvider<ZodTypeProvider>();
+	app.get('/user', { schema: { response: { 200: z.array(UserSchema) } } }, () => [{ id: 1, name: 'Sergio' }]);
+	app.post('/user', { schema: { body: UserSchema } }, (request, reply) =>
+		successResponse(request, reply, request.body)
+	);
+};
 
-const server = new Server({
-	// Static
-	enableStaticWeb: true,
-	staticSources: [{ folder: path.join(__dirname, './static/public'), path: '/public' }],
-
-	// Api
-	enableApi: true,
-	apiPath: '/api/',
-	openApiPath: path.join(__dirname, './api/openapi/openapi.yaml'),
-	apiRoutes: [{ path: '/', router }],
-
-	// Proxy
-	enableProxy: true,
-	proxyPaths: proxyPaths
+const server = new ApiServer({
+	openApi: { title: 'My API', version: '1.0.0' }, // docs at /api/docs
+	apiRoutes
 });
 
-server.start();
+await server.start();
 ```
 
-For further docs or examples, see the examples folder or the server package [Readme](https://github.com/sergiogc9/nodejs-server/tree/master/packages/server).
+> TLS/HTTPS, the reverse proxy and clustering are intentionally **not** part of this library — they are delegated to infrastructure (e.g. [Caddy](https://caddyserver.com) for automatic HTTPS and routing, and a process manager or replicas for using every CPU). See [docs/adr/0001-multi-process-share-nothing.md](./docs/adr/0001-multi-process-share-nothing.md).
 
-### [Utils](https://github.com/sergiogc9/nodejs-server/tree/master/packages/utils)
+## [`@sergiogc9/nodejs-utils`](./packages/utils)
 
-A set of libraries, tools, providers, middlewares, etc. This library is used by the Server but they can be imported and used in other projects.
+Framework utilities used by the server and importable on their own:
 
-More information and documentation about each library can be found on its corresponding [Readme](https://github.com/sergiogc9/nodejs-server/tree/master/packages/utils).
+- `Log` — pino logger with optional Pushover alerts.
+- `Api` — `successResponse` / `errorResponse` envelope helpers and error codes.
+- `Auth` — `httpAuthMiddleware`, `authMiddleware`, `authBearerMiddleware`.
+- `Cache` — in-memory LRU response cache.
+- `Pushover` — push notifications via the native fetch API.
+
+## Development
+
+Requires Node 26 and pnpm.
+
+```bash
+pnpm install
+pnpm build        # build every package
+pnpm test         # run the Vitest suite
+pnpm typecheck    # type-check packages and examples
+pnpm lint         # ESLint (flat config)
+pnpm start        # run the example server (examples/index.ts)
+```
+
+Releases are managed with [Changesets](https://github.com/changesets/changesets).

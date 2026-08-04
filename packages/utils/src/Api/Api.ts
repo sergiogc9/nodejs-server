@@ -1,67 +1,65 @@
-import express from 'express';
-import isArray from 'lodash/isArray';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
-type ApiError = {
-	code: string;
-	message?: string;
-};
+import type { ApiError, RequestInfo } from './types.js';
 
-const getRequestTime = (req: express.Request): number | undefined => {
-	const request = req as any;
-	if (!request.startTime || !request.startTime.getTime) return undefined;
-	return (new Date().getTime() - (req as any).startTime.getTime()) / 1000;
-};
-const getRequestData = (req: express.Request) => ({
-	method: req.method,
-	path: req.originalUrl.replace(/\?.*$/, ''),
-	parameters: req.query,
-	body: req.body,
-	content_type: req.headers['content-type']
+export const SERVER_ERROR = 'SERVER_ERROR';
+export const OPENAPI_VALIDATION_ERROR = 'WRONG_PARAMETERS';
+export const NOT_FOUND_ERROR = 'NOT_FOUND';
+export const UNAUTHORIZED = 'UNAUTHORIZED';
+export const TOO_MANY_REQUESTS = 'TOO_MANY_REQUESTS';
+
+const getRequestData = (request: FastifyRequest): RequestInfo => ({
+	method: request.method,
+	path: request.url.replace(/\?.*$/, ''),
+	parameters: request.query,
+	body: request.body,
+	content_type: request.headers['content-type']
 });
+
 const transformModelDataObject = (data: any) => {
 	if (data.toObject && data.__v !== undefined) {
 		return data.toObject({
-			transform: (doc: any, ret: any) => {
+			transform: (_doc: any, ret: any) => {
 				delete ret.__v;
 				ret._id = ret._id.toString();
 				return ret;
 			}
 		});
 	}
-
 	return data;
 };
-// This helper function gets all fields from models
-const convertModelData = (data: any) => {
+
+// Serializes mongoose documents (stripping `__v`, stringifying `_id`); passes other data through.
+const convertModelData = (data: any): any => {
 	if (!data) return data;
-	if (isArray(data)) return data.map(transformModelDataObject);
+	if (Array.isArray(data)) return data.map(transformModelDataObject);
 	return transformModelDataObject(data);
 };
 
-// Export API error constants
-export const SERVER_ERROR = 'SERVER_ERROR';
-export const OPENAPI_VALIDATION_ERROR = 'WRONG_PARAMETERS';
-export const NOT_FOUND_ERROR = 'NOT_FOUND';
-export const UNAUTHORIZED = 'UNAUTHORIZED';
-
-// Responds request with a success response
-export const successResponse = (req: express.Request, res: express.Response, data: any, status = 200) => {
-	res.status(status);
-	res.json({
-		request: getRequestData(req),
+/** Responds with the standard success envelope: `{ request, response, status, time }`. */
+export const successResponse = (
+	request: FastifyRequest,
+	reply: FastifyReply,
+	data: unknown,
+	status = 200
+): FastifyReply =>
+	reply.status(status).send({
+		request: getRequestData(request),
 		response: convertModelData(data),
 		status,
-		time: getRequestTime(req)
+		time: reply.elapsedTime / 1000
 	});
-};
 
-// Responds request with an error response
-export const errorResponse = (req: express.Request, res: express.Response, status: number, data: ApiError) => {
-	res.status(status);
-	res.json({
-		request: getRequestData(req),
-		error: data,
+/** Responds with the standard error envelope: `{ request, error, status, time }`. */
+export const errorResponse = (
+	request: FastifyRequest,
+	reply: FastifyReply,
+	status: number,
+	error: ApiError
+): FastifyReply =>
+	reply.status(status).send({
+		request: getRequestData(request),
+		error,
 		status,
-		time: getRequestTime(req)
+		time: reply.elapsedTime / 1000
 	});
-};

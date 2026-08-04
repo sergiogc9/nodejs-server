@@ -1,16 +1,14 @@
-import { Handler, NextFunction, Request, Response } from 'express';
+import type { preHandlerHookHandler } from 'fastify';
 
-import { UNAUTHORIZED, errorResponse, expressAsyncHandler } from 'src/Api';
+import { UNAUTHORIZED, errorResponse } from '../Api/index.js';
 
-type AuthBearerChecker = (bearerToken: string) => Promise<boolean> | boolean;
+export type AuthBearerChecker = (bearerToken: string) => Promise<boolean> | boolean;
 
-const authBearerMiddleware = (authBearerChecker: AuthBearerChecker): Handler =>
-	expressAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-		const bearerToken = req.headers.authorization?.trim().replace(/^Bearer /, '');
-		const isValid = !!bearerToken && (await authBearerChecker(bearerToken));
-
-		if (!isValid) return errorResponse(req, res, 401, { code: UNAUTHORIZED, message: '401 - Authorization required' });
-		next();
-	});
-
-export { AuthBearerChecker, authBearerMiddleware };
+/** Fastify preHandler that authorizes a request using a Bearer token checker. */
+export const authBearerMiddleware =
+	(authBearerChecker: AuthBearerChecker): preHandlerHookHandler =>
+	async (request, reply) => {
+		const bearerToken = request.headers.authorization?.trim().replace(/^Bearer /, '');
+		const isValid = Boolean(bearerToken) && (await authBearerChecker(bearerToken!));
+		if (!isValid) errorResponse(request, reply, 401, { code: UNAUTHORIZED, message: '401 - Authorization required' });
+	};

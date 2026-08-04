@@ -1,15 +1,13 @@
-import { Handler, NextFunction, Request, Response } from 'express';
+import type { FastifyRequest, preHandlerHookHandler } from 'fastify';
 
-import { UNAUTHORIZED, errorResponse, expressAsyncHandler } from 'src/Api';
+import { UNAUTHORIZED, errorResponse } from '../Api/index.js';
 
-type AuthChecker = (req: Request) => Promise<boolean> | boolean;
+export type AuthChecker = (request: FastifyRequest) => Promise<boolean> | boolean;
 
-const authMiddleware = (authChecker: AuthChecker): Handler =>
-	expressAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-		const isValid = await authChecker(req);
-
-		if (!isValid) return errorResponse(req, res, 401, { code: UNAUTHORIZED, message: '401 - Authorization required' });
-		next();
-	});
-
-export { AuthChecker, authMiddleware };
+/** Fastify preHandler that authorizes a request using a custom checker. */
+export const authMiddleware =
+	(authChecker: AuthChecker): preHandlerHookHandler =>
+	async (request, reply) => {
+		const isValid = await authChecker(request);
+		if (!isValid) errorResponse(request, reply, 401, { code: UNAUTHORIZED, message: '401 - Authorization required' });
+	};

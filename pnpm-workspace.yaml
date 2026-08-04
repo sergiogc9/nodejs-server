@@ -1,0 +1,6 @@
+packages:
+  - 'packages/*'
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - '@sergiogc9/eslint-config@2.0.0'

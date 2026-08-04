@@ -1,23 +1,20 @@
 import mongoose from 'mongoose';
-import Log from '@sergiogc9/nodejs-utils/Log';
 
-import Config from 'src/providers/Config';
+import type Log from '@sergiogc9/nodejs-utils/Log';
 
-export class Database {
-	// Initialize your database pool
-	public static init = async () => {
-		const { mongoUri } = Config.get();
+/**
+ * Connects to MongoDB. Each process opens its own connection pool, which is the
+ * correct behaviour under multiple processes. Migrations/seeds must NOT run here.
+ */
+export const initDatabase = async (mongoUri: string, log: Log): Promise<void> => {
+	try {
+		await mongoose.connect(mongoUri);
+		log.info(`Connected to mongo server at: ${mongoUri}`);
+	} catch (error) {
+		log.error(`Failed to connect to the Mongo server: ${error instanceof Error ? error.stack : String(error)}`, {
+			sendAlert: true
+		});
+	}
+};
 
-		if (mongoUri) {
-			try {
-				await mongoose.connect(mongoUri);
-				Log.info(`Connected to mongo server at: ${mongoUri}`);
-			} catch (error: any) {
-				Log.error('Failed to connect to the Mongo server!!', { sendAlert: true });
-				Log.error(error.stack, { sendAlert: true });
-			}
-		} else Log.info('Not connected to Mongo server because no config was provided.');
-	};
-}
-
-export default mongoose;
+export { mongoose };

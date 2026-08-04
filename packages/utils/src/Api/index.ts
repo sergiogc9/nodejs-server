@@ -1,2 +1,2 @@
-export * from './Api';
-export { default as expressAsyncHandler } from './expressAsyncHandler';
+export type { ApiError, RequestInfo } from './types.js';
+export * from './Api.js';
